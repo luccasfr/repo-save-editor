@@ -1,0 +1,257 @@
+"use client";
+import { File, Grab, PackageOpen, Pointer } from "lucide-react";
+import Image from "next/image";
+import {
+  DragEvent,
+  JSX,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { cn } from "@/lib/utils";
+import { toast } from "sonner";
+
+const statusIcons: Record<string, JSX.Element> = {
+  over: <PackageOpen />,
+  enter: <Grab />,
+  leave: <Grab />,
+  none: <Grab />,
+  mouseEnter: <Pointer />,
+};
+
+const statusText: Record<string, string> = {
+  over: "pode soltar o pdf agora.",
+  enter: "solte! solte! solte!",
+  leave: "coloque o(s) arquivo(s) aqui.",
+  none: "clique para selecionar, ou arraste o arquivo.",
+  mouseEnter: "clique para selecionar o arquivo.",
+};
+
+export type FileBase64 = {
+  name: string;
+  base64: string;
+};
+
+type UploadFileProps = {
+  multiple?: boolean;
+  title?: string;
+  onFilesChange?: (files: FileBase64[]) => void;
+  errorMessage?: string | undefined;
+  imagePreview?: boolean;
+  fileList?: FileList | null;
+} & React.HTMLProps<HTMLDivElement>;
+
+export default function UploadFile({
+  multiple,
+  title = "Enviar arquivo",
+  onFilesChange,
+  errorMessage,
+  imagePreview = true,
+  fileList,
+  className,
+  ...props
+}: UploadFileProps) {
+  const fileExtension = "es3";
+  const [dragStatus, setDragStatus] = useState<
+    "over" | "enter" | "leave" | "drop" | "mouseEnter" | "none"
+  >("none");
+  const [files, setFiles] = useState<FileList | null>(null);
+  const [filesBase64, setFilesBase64] = useState<FileBase64[] | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const filesBase64Ref = useRef<FileBase64[] | null>(null);
+  const onFilesChangeRef = useRef(onFilesChange);
+
+  useEffect(() => {
+    if (fileList) {
+      setFiles((prev) => {
+        if (prev) return prev;
+        return fileList;
+      });
+    }
+  }, [fileList]);
+
+  const onDragOver = useCallback((event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setDragStatus("over");
+    setFiles(null);
+  }, []);
+
+  const onDragEnter = useCallback((event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setDragStatus("enter");
+  }, []);
+
+  const onDragLeave = useCallback((event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setDragStatus("leave");
+  }, []);
+
+  const checkFileType = useCallback(
+    (file: File) => {
+      if (!fileExtension) return true;
+      const extension = file.name.split(".").pop();
+      if (extension !== fileExtension) {
+        toast.error("Tipo de arquivo inválido!");
+        return false;
+      }
+      return true;
+    },
+    [fileExtension]
+  );
+
+  const onDrop = useCallback(
+    (event: DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
+      setDragStatus("drop");
+      const files = event.dataTransfer.files;
+      if (!multiple && files.length > 1) {
+        toast.error("Selecione apenas um arquivo!");
+        return;
+      }
+      const invalidFiles = Array.from(files).filter(
+        (file) => !checkFileType(file)
+      );
+      if (invalidFiles.length > 0) {
+        toast.error("Tipo de arquivo inválido!");
+        return;
+      }
+      setFiles(files);
+    },
+    [multiple, checkFileType]
+  );
+
+  const onMouseEnter = useCallback(() => {
+    if (files) return;
+    setDragStatus("mouseEnter");
+  }, [files]);
+
+  const onMouseLeave = useCallback(() => {
+    if (files) return;
+    setDragStatus("none");
+  }, [files]);
+
+  const handleFileSelect = () => {
+    const input = fileInputRef.current;
+    if (!input) return;
+    input.click();
+    input.addEventListener("change", (event) => {
+      const files = (event.target as HTMLInputElement).files;
+      setFiles(files);
+    });
+  };
+
+  useEffect(() => {
+    onFilesChangeRef.current = onFilesChange;
+  }, [onFilesChange]);
+
+  useEffect(() => {
+    setFilesBase64(null);
+    if (files) {
+      const fileList = Array.from(files);
+      fileList.forEach((file) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const base64 = event.target?.result;
+          if (typeof base64 === "string") {
+            setFilesBase64((prev) => [
+              ...(prev || []),
+              {
+                name: file.name,
+                base64: base64 as string,
+              },
+            ]);
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+  }, [files]);
+
+  const getFileType = useCallback(() => {
+    return `.${fileExtension}`;
+  }, [fileExtension]);
+
+  useEffect(() => {
+    if (filesBase64) {
+      filesBase64Ref.current = filesBase64;
+      onFilesChangeRef.current?.(filesBase64);
+    }
+  }, [filesBase64]);
+
+  return (
+    <div className="space-y-2">
+      <input
+        type="file"
+        className="hidden"
+        ref={fileInputRef}
+        multiple={multiple}
+        accept={getFileType()}
+      />
+      <p
+        className={`text-sm font-semibold ${
+          errorMessage && "text-destructive"
+        }`}
+      >
+        {title}
+      </p>
+      <div>
+        <div
+          className={cn(
+            `cusor-default flex min-h-32 w-full items-center justify-center rounded border-[1px] py-2 
+                     lg:min-h-48 ${
+                       errorMessage ? "border-destructive" : "border-border"
+                     }`,
+            className
+          )}
+          onDragOver={onDragOver}
+          onDragEnter={onDragEnter}
+          onDragLeave={onDragLeave}
+          onDrop={onDrop}
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          onClick={handleFileSelect}
+          {...props}
+        >
+          {files ? (
+            <div
+              className={`${
+                files.length < 5 ? "flex justify-center" : "grid grid-cols-5"
+              } gap-4 text-sm`}
+            >
+              {Array.from(files).map((file, index) => (
+                <div
+                  className="flex items-center justify-center gap-1"
+                  key={index}
+                >
+                  {file.type.split("/")[0] === "image" && imagePreview ? (
+                    <Image
+                      src={URL.createObjectURL(file)}
+                      alt={file.name}
+                      width={300}
+                      height={300}
+                      className="aspect-square object-contain"
+                    />
+                  ) : (
+                    <File />
+                  )}
+                  <p className="text-xs">{file.name}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div
+              className={`pointer-events-none flex w-full items-center justify-center gap-2 px-4 text-sm text-primary/60`}
+            >
+              {statusIcons[dragStatus]}
+              <p>{statusText[dragStatus]}</p>
+            </div>
+          )}
+        </div>
+      </div>
+      {errorMessage && (
+        <p className="text-sm font-semibold text-destructive">{errorMessage}</p>
+      )}
+    </div>
+  );
+}
