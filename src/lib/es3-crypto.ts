@@ -1,11 +1,11 @@
-"use server";
+'use server'
 
-import crypto from "crypto";
-import { promisify } from "node:util";
-import zlib from "node:zlib";
+import crypto from 'crypto'
+import { promisify } from 'node:util'
+import zlib from 'node:zlib'
 
-const gzip = promisify(zlib.gzip);
-const gunzip = promisify(zlib.gunzip);
+const gzip = promisify(zlib.gzip)
+const gunzip = promisify(zlib.gunzip)
 
 /**
  * Encrypts a buffer using AES-128-CBC encryption with optional GZIP compression
@@ -21,32 +21,36 @@ export async function encryptEs3FromBuffer(
   shouldGzip: boolean = false
 ): Promise<Buffer> {
   if (shouldGzip) {
-    data = await gzip(data);
+    data = await gzip(data)
   }
-  const iv = crypto.randomBytes(16);
+  const iv = crypto.randomBytes(16)
 
-  const key = crypto.pbkdf2Sync(password, iv, 100, 16, "sha1");
-  const cipher = crypto.createCipheriv("aes-128-cbc", key, iv);
-  const encryptedData = Buffer.concat([cipher.update(data), cipher.final()]);
-  return Buffer.concat([iv, encryptedData]);
+  const key = crypto.pbkdf2Sync(password, iv, 100, 16, 'sha1')
+  const cipher = crypto.createCipheriv('aes-128-cbc', key, iv)
+  const encryptedData = Buffer.concat([cipher.update(data), cipher.final()])
+  return Buffer.concat([iv, encryptedData])
 }
 
 /**
  * Encrypts a string using AES-128-CBC encryption with optional GZIP compression
- * 
+ *
  * @param data - The string to be encrypted
  * @param password - The password used for encryption
  * @param shouldGzip - Whether to compress the data (default: false)
  * @returns Uint8Array suitable for creating a binary file
  */
 export async function encryptEs3(
-  data: string, 
+  data: string,
   password: string,
   shouldGzip: boolean = false
 ): Promise<Uint8Array> {
-  const bufferData = Buffer.from(data, "utf8");
-  const encryptedBuffer = await encryptEs3FromBuffer(bufferData, password, shouldGzip);
-  return encryptedBuffer;
+  const bufferData = Buffer.from(data, 'utf8')
+  const encryptedBuffer = await encryptEs3FromBuffer(
+    bufferData,
+    password,
+    shouldGzip
+  )
+  return encryptedBuffer
 }
 
 /**
@@ -60,30 +64,30 @@ export async function encryptEs3(
 export async function decryptEs3(
   base64Data: string,
   password: string,
-  encoding: BufferEncoding = "utf8"
+  encoding: BufferEncoding = 'utf8'
 ): Promise<string> {
   // Extract the base64 part from the data URI if it includes the prefix
-  const base64Content = base64Data.includes("base64,")
-    ? base64Data.split("base64,")[1]
-    : base64Data;
+  const base64Content = base64Data.includes('base64,')
+    ? base64Data.split('base64,')[1]
+    : base64Data
 
-  const encryptedData = Buffer.from(base64Content, "base64");
+  const encryptedData = Buffer.from(base64Content, 'base64')
 
-  const iv = encryptedData.subarray(0, 16);
-  const cipherText = encryptedData.subarray(16);
+  const iv = encryptedData.subarray(0, 16)
+  const cipherText = encryptedData.subarray(16)
 
-  const key = crypto.pbkdf2Sync(password, iv, 100, 16, "sha1");
-  const decipher = crypto.createDecipheriv("aes-128-cbc", key, iv);
+  const key = crypto.pbkdf2Sync(password, iv, 100, 16, 'sha1')
+  const decipher = crypto.createDecipheriv('aes-128-cbc', key, iv)
 
   const decryptedData = Buffer.concat([
     decipher.update(cipherText),
-    decipher.final(),
-  ]);
+    decipher.final()
+  ])
 
   if (decryptedData.subarray(0, 2).equals(Buffer.from([0x1f, 0x8b]))) {
-    const unzippedData = await gunzip(decryptedData);
-    return unzippedData.toString(encoding);
+    const unzippedData = await gunzip(decryptedData)
+    return unzippedData.toString(encoding)
   }
 
-  return decryptedData.toString(encoding);
+  return decryptedData.toString(encoding)
 }

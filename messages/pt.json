@@ -24,7 +24,9 @@
   "save_data": {
     "new_file": "Novo arquivo",
     "reset": "Redefinir Alterações",
-    "save": "Salvar"
+    "save": "Salvar",
+    "players": "Jogadores",
+    "run_data": "Dados da Run"
   },
   "player_list": {
     "title": "Lista de Jogadores",

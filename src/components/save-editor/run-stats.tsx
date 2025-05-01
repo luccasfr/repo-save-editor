@@ -1,14 +1,14 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { PURCHASED_ITEMS_ICON } from "@/consts/purchased-items-icon";
-import type { ItemsPurchased, SaveDataType } from "@/model/save-game";
+  CardTitle
+} from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
+import { PURCHASED_ITEMS_ICON } from '@/consts/purchased-items-icon'
+import type { ItemsPurchased, SaveDataType } from '@/model/save-game'
 import {
   Box,
   DollarSign,
@@ -16,24 +16,24 @@ import {
   LucideIcon,
   Minus,
   Plus,
-  Zap,
-} from "lucide-react";
-import { useTranslations } from "next-intl";
+  Zap
+} from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+  AccordionTrigger
+} from '@/components/ui/accordion'
 
-type RunStatKey = "level" | "currency" | "totalHaul" | "chargingStationCharge";
+type RunStatKey = 'level' | 'currency' | 'totalHaul' | 'chargingStationCharge'
 
 function formatPlayTime(seconds: number): string {
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const secs = Math.floor(seconds % 60);
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds % 3600) / 60)
+  const secs = Math.floor(seconds % 60)
 
-  return `${hours}h ${minutes}m ${secs}s`;
+  return `${hours}h ${minutes}m ${secs}s`
 }
 
 function RunStatsItem({
@@ -42,21 +42,21 @@ function RunStatsItem({
   icon: Icon,
   onIncrease,
   onDecrease,
-  disableDecrease = false,
+  disableDecrease = false
 }: {
-  titleKey: string;
-  value: string;
-  icon: LucideIcon;
-  onIncrease: () => void;
-  onDecrease: () => void;
-  disableDecrease?: boolean;
+  titleKey: string
+  value: string
+  icon: LucideIcon
+  onIncrease: () => void
+  onDecrease: () => void
+  disableDecrease?: boolean
 }) {
-  const t = useTranslations("run_stats");
+  const t = useTranslations('run_stats')
 
   return (
-    <div className="text-sm flex flex-col items-center ">
+    <div className="flex flex-col items-center text-sm">
       <p className="font-medium">
-        <Icon className="size-4 shrink-0 pr-0.5 inline-flex" />
+        <Icon className="inline-flex size-4 shrink-0 pr-0.5" />
         {t(`stats.${titleKey}`)}
       </p>
       <div className="flex items-center gap-2">
@@ -69,7 +69,7 @@ function RunStatsItem({
         >
           <Minus className="size-3" />
         </Button>
-        <p className="font-mono font-bold text-lg">{value}</p>
+        <p className="font-mono text-lg font-bold">{value}</p>
         <Button
           variant="outline"
           size="icon"
@@ -80,36 +80,35 @@ function RunStatsItem({
         </Button>
       </div>
     </div>
-  );
+  )
 }
 
 type RunStatsProps = {
-  saveData: SaveDataType;
-  onUpdateSaveData: (updatedSaveData: SaveDataType) => void;
-};
+  saveData: SaveDataType
+  onUpdateSaveData: (updatedSaveData: SaveDataType) => void
+}
 
 export default function RunStats({
   saveData,
-  onUpdateSaveData,
+  onUpdateSaveData
 }: RunStatsProps) {
-  const t = useTranslations("run_stats");
+  const t = useTranslations('run_stats')
 
   const updateRunStatValue = (statName: RunStatKey, newValue: number) => {
-    const updatedSaveData = { ...saveData };
-    updatedSaveData.dictionaryOfDictionaries.value.runStats[statName] =
-      newValue;
-    onUpdateSaveData(updatedSaveData);
-  };
+    const updatedSaveData = { ...saveData }
+    updatedSaveData.dictionaryOfDictionaries.value.runStats[statName] = newValue
+    onUpdateSaveData(updatedSaveData)
+  }
 
   const updatePurchasedItemValue = (
     itemName: keyof ItemsPurchased,
     newValue: number
   ) => {
-    const updatedSaveData = { ...saveData };
+    const updatedSaveData = { ...saveData }
     updatedSaveData.dictionaryOfDictionaries.value.itemsPurchased[itemName] =
-      newValue;
-    onUpdateSaveData(updatedSaveData);
-  };
+      newValue
+    onUpdateSaveData(updatedSaveData)
+  }
 
   const handleStatChange = (
     statName: RunStatKey,
@@ -117,10 +116,10 @@ export default function RunStats({
     minValue = 0
   ) => {
     const currentValue =
-      saveData.dictionaryOfDictionaries.value.runStats[statName];
-    const newValue = Math.max(minValue, currentValue + change);
-    updateRunStatValue(statName, newValue);
-  };
+      saveData.dictionaryOfDictionaries.value.runStats[statName]
+    const newValue = Math.max(minValue, currentValue + change)
+    updateRunStatValue(statName, newValue)
+  }
 
   const handleItemsPurchasedChange = (
     statName: keyof ItemsPurchased,
@@ -128,17 +127,17 @@ export default function RunStats({
     minValue = 0
   ) => {
     const currentValue =
-      saveData.dictionaryOfDictionaries.value.itemsPurchased[statName];
-    const newValue = Math.max(minValue, currentValue + change);
-    updatePurchasedItemValue(statName, newValue);
-  };
+      saveData.dictionaryOfDictionaries.value.itemsPurchased[statName]
+    const newValue = Math.max(minValue, currentValue + change)
+    updatePurchasedItemValue(statName, newValue)
+  }
 
   return (
     <Card className="min-w-96">
       <CardHeader>
-        <CardTitle>{t("title")}</CardTitle>
+        <CardTitle>{saveData.teamName.value}</CardTitle>
         <CardDescription>
-          {formatPlayTime(saveData.timePlayed.value)} {t("played_time")}
+          {formatPlayTime(saveData.timePlayed.value)} {t('played_time')}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -149,8 +148,8 @@ export default function RunStats({
             value={(
               saveData.dictionaryOfDictionaries.value.runStats.level + 1
             ).toString()}
-            onIncrease={() => handleStatChange("level", 1, 1)}
-            onDecrease={() => handleStatChange("level", -1, 1)}
+            onIncrease={() => handleStatChange('level', 1, 1)}
+            onDecrease={() => handleStatChange('level', -1, 1)}
             disableDecrease={
               saveData.dictionaryOfDictionaries.value.runStats.level <= 1
             }
@@ -159,8 +158,8 @@ export default function RunStats({
             icon={DollarSign}
             titleKey="currency"
             value={`${saveData.dictionaryOfDictionaries.value.runStats.currency}`}
-            onIncrease={() => handleStatChange("currency", 1)}
-            onDecrease={() => handleStatChange("currency", -1)}
+            onIncrease={() => handleStatChange('currency', 1)}
+            onDecrease={() => handleStatChange('currency', -1)}
             disableDecrease={
               saveData.dictionaryOfDictionaries.value.runStats.currency <= 0
             }
@@ -169,8 +168,8 @@ export default function RunStats({
             icon={DollarSign}
             titleKey="total_haul"
             value={`${saveData.dictionaryOfDictionaries.value.runStats.totalHaul}`}
-            onIncrease={() => handleStatChange("totalHaul", 1)}
-            onDecrease={() => handleStatChange("totalHaul", -1)}
+            onIncrease={() => handleStatChange('totalHaul', 1)}
+            onDecrease={() => handleStatChange('totalHaul', -1)}
             disableDecrease={
               saveData.dictionaryOfDictionaries.value.runStats.totalHaul <= 0
             }
@@ -179,8 +178,8 @@ export default function RunStats({
             icon={Zap}
             titleKey="charging_station"
             value={saveData.dictionaryOfDictionaries.value.runStats.chargingStationCharge.toString()}
-            onIncrease={() => handleStatChange("chargingStationCharge", 1)}
-            onDecrease={() => handleStatChange("chargingStationCharge", -1)}
+            onIncrease={() => handleStatChange('chargingStationCharge', 1)}
+            onDecrease={() => handleStatChange('chargingStationCharge', -1)}
             disableDecrease={
               saveData.dictionaryOfDictionaries.value.runStats
                 .chargingStationCharge <= 0
@@ -190,7 +189,7 @@ export default function RunStats({
         <Separator />
         <Accordion type="single" collapsible>
           <AccordionItem value="item-1" className="last:border-b">
-            <AccordionTrigger className="hover:bg-accent p-2 ">
+            <AccordionTrigger className="hover:bg-accent p-2">
               <div className="flex items-center gap-0.5">
                 <Box className="size-4" />
                 <p>{t(`items_title`)}</p>
@@ -201,7 +200,7 @@ export default function RunStats({
                 {Object.entries(
                   saveData.dictionaryOfDictionaries.value.itemsPurchased
                 ).map(([key, value]) => {
-                  const itemName = key.replace("Item ", "").replace(/_/g, " ");
+                  const itemName = key.replace('Item ', '').replace(/_/g, ' ')
                   return (
                     <RunStatsItem
                       key={key}
@@ -222,7 +221,7 @@ export default function RunStats({
                       }
                       disableDecrease={value <= 0}
                     />
-                  );
+                  )
                 })}
               </div>
             </AccordionContent>
@@ -230,5 +229,5 @@ export default function RunStats({
         </Accordion>
       </CardContent>
     </Card>
-  );
+  )
 }

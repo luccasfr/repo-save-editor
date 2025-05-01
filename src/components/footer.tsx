@@ -1,21 +1,21 @@
-import { getTranslations } from "next-intl/server";
-import Link from "next/link";
+import { getTranslations } from 'next-intl/server'
+import Link from 'next/link'
 
 export default async function Footer() {
-  const t = await getTranslations("footer");
+  const t = await getTranslations('footer')
 
   return (
-    <div className="px-12 text-sm py-4 text-foreground/70">
+    <div className="text-foreground/70 md:px-12 py-4 text-sm px-6">
       <p>
-        {t("description")}{" "}
+        {t('description')}{' '}
         <Link
           href="https://github.com/luccasfr"
           target="_blank"
-          className="text-foreground hover:underline underline-offset-3"
+          className="text-foreground underline-offset-3 hover:underline"
         >
           Lucas Ferreira
         </Link>
       </p>
     </div>
-  );
+  )
 }

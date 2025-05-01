@@ -1,12 +1,12 @@
-import { getCookie } from "@/lib/cookie";
-import { getRequestConfig } from "next-intl/server";
+import { getCookie } from '@/lib/cookie'
+import { getRequestConfig } from 'next-intl/server'
 
 export default getRequestConfig(async () => {
-  const localeCookie = await getCookie("locale")
-  const locale = localeCookie?.value || "en";
+  const localeCookie = await getCookie('locale')
+  const locale = localeCookie?.value || 'en'
 
   return {
     locale,
-    messages: (await import(`../../messages/${locale}.json`)).default,
-  };
-});
+    messages: (await import(`../../messages/${locale}.json`)).default
+  }
+})

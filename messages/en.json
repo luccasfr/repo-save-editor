@@ -24,7 +24,9 @@
   "save_data": {
     "new_file": "New file",
     "reset": "Reset changes",
-    "save": "Save"
+    "save": "Save",
+    "players": "Players",
+    "run_data": "Run data"
   },
   "player_list": {
     "title": "Player List",

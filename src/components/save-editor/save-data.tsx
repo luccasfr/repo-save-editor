@@ -1,21 +1,60 @@
-"use client";
+'use client'
 
-import { type SaveDataType } from "@/model/save-game";
-import PlayerList from "./player-list";
-import RunStats from "./run-stats";
-import { Button } from "../ui/button";
-import { Plus, RotateCcw, Save } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { type SaveDataType } from '@/model/save-game'
+import PlayerList from './player-list'
+import RunStats from './run-stats'
+import { Button } from '../ui/button'
+import { LucideIcon, Plus, RotateCcw, Save } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '@/components/ui/tooltip'
+
+type SaveDataActionButtonProps = {
+  icon: LucideIcon
+  label: string
+  onClick: () => void
+  disabled?: boolean
+}
+
+function SaveDataActionButton({
+  icon: Icon,
+  label,
+  onClick,
+  disabled
+}: SaveDataActionButtonProps & React.ComponentPropsWithoutRef<'button'>) {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="outline"
+            onClick={onClick}
+            className="flex items-center gap-2"
+            disabled={disabled}
+          >
+            <Icon className="h-4 w-4" />
+            <p className="hidden md:block">{label}</p>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent className="block md:hidden">{label}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
+}
 
 type SaveDataProps = {
-  saveData: SaveDataType;
-  onUpdateSaveData: (updatedSaveData: SaveDataType) => void;
-  onReset: () => void;
-  hasChanges: boolean;
-  onSave: () => void;
-  onNewFile: () => void;
-  fileName?: string | null;
-};
+  saveData: SaveDataType
+  onUpdateSaveData: (updatedSaveData: SaveDataType) => void
+  onReset: () => void
+  hasChanges: boolean
+  onSave: () => void
+  onNewFile: () => void
+  fileName?: string | null
+}
 
 export default function SaveData({
   saveData,
@@ -26,49 +65,40 @@ export default function SaveData({
   onNewFile,
   fileName
 }: SaveDataProps) {
-  const t = useTranslations("save_data");
+  const t = useTranslations('save_data')
 
   return (
     <div className="space-y-4">
-      {fileName && (  
-        <div className="font-mono text-muted-foreground">
-          {fileName}
-        </div>
+      {fileName && (
+        <div className="text-muted-foreground font-mono">{fileName}</div>
       )}
-      <div className="flex justify-between items-center gap-2">
-        <Button
-          variant="outline"
+      <div className="flex items-center justify-between gap-2">
+        <SaveDataActionButton
+          icon={Plus}
+          label={t('new_file')}
           onClick={onNewFile}
-          className="flex items-center gap-2"
-        >
-          <Plus className="h-4 w-4" />
-          {t("new_file")}
-        </Button>
-        <div className="flex">
-          <Button
-            variant="outline"
+        />
+        <div className="flex items-center gap-2">
+          <SaveDataActionButton
+            icon={RotateCcw}
+            label={t('reset')}
             onClick={onReset}
-            className="flex items-center gap-2"
             disabled={!hasChanges}
-          >
-            <RotateCcw className="h-4 w-4" />
-            {t("reset")}
-          </Button>
-          <Button
-            variant="default"
+          />
+          <SaveDataActionButton
+            icon={Save}
+            label={t('save')}
             onClick={onSave}
-            className="flex items-center gap-2"
             disabled={!hasChanges}
-          >
-            <Save className="h-4 w-4" />
-            {t("save")}
-          </Button>
+          />
         </div>
       </div>
-      <RunStats saveData={saveData} onUpdateSaveData={onUpdateSaveData} />
-      <div className="mt-6">
+      <div className="space-y-4">
+        <p className="font-bold">{t('run_data')}</p>
+        <RunStats saveData={saveData} onUpdateSaveData={onUpdateSaveData} />
+        <p className="font-bold">{t('players')}</p>
         <PlayerList saveData={saveData} onUpdateSaveData={onUpdateSaveData} />
       </div>
     </div>
-  );
+  )
 }
