@@ -36,7 +36,7 @@ export default async function RootLayout({
       >
         <NextIntlClientProvider>
           <Navbar />
-          <div className="pt-18 px-12 space-y-4 flex-1">{children}</div>
+          <div className="pt-18 px-4 md:px-12 space-y-4 flex-1">{children}</div>
           <Footer />
           <Toaster />
         </NextIntlClientProvider>
