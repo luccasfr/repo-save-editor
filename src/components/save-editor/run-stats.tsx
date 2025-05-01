@@ -30,7 +30,7 @@ export default function RunStats({
   )
 
   return (
-    <Card className="min-w-96">
+    <Card className="">
       <CardHeader>
         <CardTitle>{saveData.teamName.value}</CardTitle>
         <CardDescription>

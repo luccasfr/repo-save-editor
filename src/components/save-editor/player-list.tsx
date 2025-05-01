@@ -39,7 +39,7 @@ export default function PlayerList({
   return (
     saveData?.playerNames &&
     Object.entries(saveData?.playerNames.value).map(([key, value]) => (
-      <Card key={key} className="min-w-96">
+      <Card key={key}>
         <CardHeader>
           <CardTitle className="relative w-fit">
             {saveData.dictionaryOfDictionaries.value.playerHasCrown[key] ? (

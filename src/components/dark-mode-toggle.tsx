@@ -1,9 +1,5 @@
 'use client'
 
-import { Check, Moon, Sun, SunMoon } from 'lucide-react'
-import { useTheme } from 'next-themes'
-import { useTranslations } from 'next-intl'
-
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -11,6 +7,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
+import { Check, Moon, Sun, SunMoon } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { useTheme } from 'next-themes'
 
 export function DarkModeToggle() {
   const { setTheme, theme } = useTheme()

@@ -1,7 +1,6 @@
-import React from 'react'
-import { LocaleSelector } from './locale-selector'
 import { Save } from 'lucide-react'
 import { DarkModeToggle } from './dark-mode-toggle'
+import { LocaleSelector } from './locale-selector'
 
 export default function Navbar() {
   return (

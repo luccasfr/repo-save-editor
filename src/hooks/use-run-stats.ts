@@ -45,6 +45,9 @@ export function useRunStats(
     const updatedSaveData = { ...saveData }
     updatedSaveData.dictionaryOfDictionaries.value.itemsPurchased[itemName] =
       newValue
+    updatedSaveData.dictionaryOfDictionaries.value.itemsPurchasedTotal[
+      itemName
+    ] = newValue
     onUpdateSaveData(updatedSaveData)
   }
 

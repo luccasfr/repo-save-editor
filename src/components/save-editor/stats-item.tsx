@@ -25,7 +25,7 @@ export function StatsItem({
 
   return (
     <div className="flex flex-col items-center text-sm">
-      <p className="font-medium">
+      <p className="text-center font-medium">
         <Icon className="inline-flex size-4 shrink-0 pr-0.5" />
         {t(`${translationNamespace}.${titleKey}`)}
       </p>
