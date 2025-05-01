@@ -1,0 +1,45 @@
+{
+  "upload_file": {
+    "title": "Send file",
+    "status": {
+      "over": "you can drop the file now.",
+      "enter": "drop! drop! drop!",
+      "leave": "place your file(s) here.",
+      "none": "click to select, or drag and drop the file.",
+      "mouseEnter": "click to select the file."
+    },
+    "error": {
+      "invalid_file_type": "Invalid file type!",
+      "select_one_file": "Select only one file!"
+    }
+  },
+  "save_data": {
+    "reset": "Reset changes",
+    "save": "Save"
+  },
+  "player_list": {
+    "title": "Player List",
+    "status": "Status",
+    "upgrades": "Upgrades",
+    "attributes": {
+      "health": "Health",
+      "stamina": "Stamina",
+      "speed": "Speed",
+      "strength": "Strength",
+      "range": "Range",
+      "launch": "Launch",
+      "extra_jump": "Extra Jump",
+      "player_count": "Player Count"
+    }
+  },
+  "run_stats": {
+    "title": "Run Data",
+    "played_time": "played",
+    "stats": {
+      "level": "Level",
+      "currency": "Money (K)",
+      "total_haul": "Total Haul (K)",
+      "charging_station": "Base Charges"
+    }
+  }
+}

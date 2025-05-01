@@ -11,6 +11,7 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 const statusIcons: Record<string, JSX.Element> = {
   over: <PackageOpen />,
@@ -20,14 +21,6 @@ const statusIcons: Record<string, JSX.Element> = {
   mouseEnter: <Pointer />,
 };
 
-const statusText: Record<string, string> = {
-  over: "pode soltar o pdf agora.",
-  enter: "solte! solte! solte!",
-  leave: "coloque o(s) arquivo(s) aqui.",
-  none: "clique para selecionar, ou arraste o arquivo.",
-  mouseEnter: "clique para selecionar o arquivo.",
-};
-
 export type FileBase64 = {
   name: string;
   base64: string;
@@ -35,7 +28,6 @@ export type FileBase64 = {
 
 type UploadFileProps = {
   multiple?: boolean;
-  title?: string;
   onFilesChange?: (files: FileBase64[]) => void;
   errorMessage?: string | undefined;
   imagePreview?: boolean;
@@ -44,7 +36,6 @@ type UploadFileProps = {
 
 export default function UploadFile({
   multiple,
-  title = "Enviar arquivo",
   onFilesChange,
   errorMessage,
   imagePreview = true,
@@ -52,6 +43,7 @@ export default function UploadFile({
   className,
   ...props
 }: UploadFileProps) {
+  const t = useTranslations("upload_file");
   const fileExtension = "es3";
   const [dragStatus, setDragStatus] = useState<
     "over" | "enter" | "leave" | "drop" | "mouseEnter" | "none"
@@ -92,12 +84,12 @@ export default function UploadFile({
       if (!fileExtension) return true;
       const extension = file.name.split(".").pop();
       if (extension !== fileExtension) {
-        toast.error("Tipo de arquivo inválido!");
+        toast.error(t("error.invalid_file_type"));
         return false;
       }
       return true;
     },
-    [fileExtension]
+    [fileExtension, t]
   );
 
   const onDrop = useCallback(
@@ -106,19 +98,19 @@ export default function UploadFile({
       setDragStatus("drop");
       const files = event.dataTransfer.files;
       if (!multiple && files.length > 1) {
-        toast.error("Selecione apenas um arquivo!");
+        toast.error(t("error.select_one_file"));
         return;
       }
       const invalidFiles = Array.from(files).filter(
         (file) => !checkFileType(file)
       );
       if (invalidFiles.length > 0) {
-        toast.error("Tipo de arquivo inválido!");
+        toast.error(t("error.invalid_file_type"));
         return;
       }
       setFiles(files);
     },
-    [multiple, checkFileType]
+    [multiple, checkFileType, t]
   );
 
   const onMouseEnter = useCallback(() => {
@@ -179,6 +171,23 @@ export default function UploadFile({
     }
   }, [filesBase64]);
 
+  const getStatusText = useCallback((status: string) => {
+    switch (status) {
+      case "over":
+        return t("status.over");
+      case "enter":
+        return t("status.enter");
+      case "leave":
+        return t("status.leave");
+      case "none":
+        return t("status.none");
+      case "mouseEnter":
+        return t("status.mouseEnter");
+      default:
+        return t("status.none");
+    }
+  }, [t]);
+
   return (
     <div className="space-y-2">
       <input
@@ -193,7 +202,7 @@ export default function UploadFile({
           errorMessage && "text-destructive"
         }`}
       >
-        {title}
+        {t("title")}
       </p>
       <div>
         <div
@@ -244,7 +253,7 @@ export default function UploadFile({
               className={`pointer-events-none flex w-full items-center justify-center gap-2 px-4 text-sm text-primary/60`}
             >
               {statusIcons[dragStatus]}
-              <p>{statusText[dragStatus]}</p>
+              <p>{getStatusText(dragStatus)}</p>
             </div>
           )}
         </div>

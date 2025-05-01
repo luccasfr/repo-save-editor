@@ -1,10 +1,11 @@
 "use client";
 
+import { LocaleSelector } from "@/components/locale-select";
 import SaveData from "@/components/save-data";
 import UploadFile from "@/components/upload-file";
 import { decryptEs3 } from "@/lib/es3-crypto";
 import { type SaveDataType } from "@/model/save-game";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 
 export default function Home() {
   const [saveData, setSaveData] = useState<SaveDataType | null>(null);
@@ -39,13 +40,15 @@ export default function Home() {
     a.download = "savegame.es3";
     a.click();
     URL.revokeObjectURL(url);
-    setOriginalSaveData(
-      JSON.parse(JSON.stringify(saveData))
-    ); 
-  }
+    setOriginalSaveData(JSON.parse(JSON.stringify(saveData)));
+  };
 
   return (
     <div>
+      <div className="flex px-12 justify-between py-2 border-b items-center font-mono">
+        <h1 className="text-xl font-bold tracking-tight">repo.save.editor</h1>
+        <LocaleSelector />
+      </div>
       {saveData ? (
         <SaveData
           saveData={saveData}

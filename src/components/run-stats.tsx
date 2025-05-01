@@ -8,6 +8,7 @@ import {
 import type { SaveDataType } from "@/model/save-game";
 import { DollarSign, Gauge, LucideIcon, Zap, Plus, Minus } from "lucide-react";
 import { Button } from "./ui/button";
+import { useTranslations } from "next-intl";
 
 type RunStatKey = "level" | "currency" | "totalHaul" | "chargingStationCharge";
 
@@ -20,25 +21,27 @@ function formatPlayTime(seconds: number): string {
 }
 
 function RunStatsItem({
-  title,
+  titleKey,
   value,
   icon: Icon,
   onIncrease,
   onDecrease,
   disableDecrease = false,
 }: {
-  title: string;
+  titleKey: string;
   value: string;
   icon: LucideIcon;
   onIncrease: () => void;
   onDecrease: () => void;
   disableDecrease?: boolean;
 }) {
+  const t = useTranslations("run_stats");
+
   return (
     <div className="text-sm flex flex-col items-center">
       <p className="font-medium">
         <Icon className="size-4 shrink-0 pr-0.5 inline-flex" />
-        {title}
+        {t(`stats.${titleKey}`)}
       </p>
       <div className="flex items-center gap-2">
         <Button
@@ -73,6 +76,8 @@ export default function RunStats({
   saveData,
   onUpdateSaveData,
 }: RunStatsProps) {
+  const t = useTranslations("run_stats");
+
   const updateRunStatValue = (statName: RunStatKey, newValue: number) => {
     const updatedSaveData = { ...saveData };
     updatedSaveData.dictionaryOfDictionaries.value.runStats[statName] =
@@ -94,16 +99,16 @@ export default function RunStats({
   return (
     <Card className="min-w-96">
       <CardHeader>
-        <CardTitle>Dados da Run</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
         <CardDescription>
-          {formatPlayTime(saveData.timePlayed.value)} jogados
+          {formatPlayTime(saveData.timePlayed.value)} {t("played_time")}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <RunStatsItem
             icon={Gauge}
-            title="Nível"
+            titleKey="level"
             value={saveData.dictionaryOfDictionaries.value.runStats.level.toString()}
             onIncrease={() => handleStatChange("level", 1, 1)}
             onDecrease={() => handleStatChange("level", -1, 1)}
@@ -113,7 +118,7 @@ export default function RunStats({
           />
           <RunStatsItem
             icon={DollarSign}
-            title="Dinheiro (K)"
+            titleKey="currency"
             value={`${saveData.dictionaryOfDictionaries.value.runStats.currency}`}
             onIncrease={() => handleStatChange("currency", 1)}
             onDecrease={() => handleStatChange("currency", -1)}
@@ -123,7 +128,7 @@ export default function RunStats({
           />
           <RunStatsItem
             icon={DollarSign}
-            title="Total extraído (K)"
+            titleKey="total_haul"
             value={`${saveData.dictionaryOfDictionaries.value.runStats.totalHaul}`}
             onIncrease={() => handleStatChange("totalHaul", 1)}
             onDecrease={() => handleStatChange("totalHaul", -1)}
@@ -133,7 +138,7 @@ export default function RunStats({
           />
           <RunStatsItem
             icon={Zap}
-            title="Cargas na base"
+            titleKey="charging_station"
             value={saveData.dictionaryOfDictionaries.value.runStats.chargingStationCharge.toString()}
             onIncrease={() => handleStatChange("chargingStationCharge", 1)}
             onDecrease={() => handleStatChange("chargingStationCharge", -1)}

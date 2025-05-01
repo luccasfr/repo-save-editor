@@ -9,6 +9,7 @@ import { SaveDataType } from "@/model/save-game";
 import { ArrowBigUp, BicepsFlexed, CircleChevronUp, Cross, LucideIcon, MoveUp, Users, Zap, Plus, Minus } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
+import { useTranslations } from "next-intl";
 
 type PlayersProps = {
   saveData: SaveDataType;
@@ -45,22 +46,24 @@ function StaminaBar({ stamina }: { stamina: number }) {
 
 function UpgradeCount({
   count,
-  title,
+  titleKey,
   icon: Icon,
   onIncrease,
   onDecrease,
 }: {
   count: number;
-  title: string;
+  titleKey: string;
   icon: LucideIcon;
   onIncrease: () => void;
   onDecrease: () => void;
 }) {
+  const t = useTranslations("player_list");
+
   return (
     <div className="text-sm flex flex-col items-center">
       <p className="font-medium">
         <Icon className="size-4 shrink-0 pr-0.5 inline-flex" />
-        {title}
+        {t(`attributes.${titleKey}`)}
       </p>
       <div className="flex items-center gap-2">
         <Button 
@@ -87,6 +90,8 @@ function UpgradeCount({
 }
 
 export default function PlayerList({ saveData, onUpdateSaveData }: PlayersProps) {
+  const t = useTranslations("player_list");
+
   const updateUpgradeValue = (
     playerId: string, 
     upgradeType: UpgradeType, 
@@ -106,7 +111,7 @@ export default function PlayerList({ saveData, onUpdateSaveData }: PlayersProps)
           <CardDescription>{key}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
-          <h1 className="font-bold">Status</h1>
+          <h1 className="font-bold">{t("status")}</h1>
           <HealthBar
             health={
               saveData?.dictionaryOfDictionaries.value.playerHealth[key] ?? 0
@@ -120,7 +125,7 @@ export default function PlayerList({ saveData, onUpdateSaveData }: PlayersProps)
             }
           />
           <Separator />
-          <h1 className="font-bold">Upgrades</h1>
+          <h1 className="font-bold">{t("upgrades")}</h1>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
             <UpgradeCount
               icon={Zap}
@@ -129,7 +134,7 @@ export default function PlayerList({ saveData, onUpdateSaveData }: PlayersProps)
                   key
                 ] ?? 0
               }
-              title="Velocidade"
+              titleKey="speed"
               onIncrease={() => {
                 const currentValue = saveData?.dictionaryOfDictionaries.value.playerUpgradeSpeed[key] ?? 0;
                 updateUpgradeValue(key, "playerUpgradeSpeed", currentValue + 1);
@@ -148,7 +153,7 @@ export default function PlayerList({ saveData, onUpdateSaveData }: PlayersProps)
                   key
                 ] ?? 0
               }
-              title="Força"
+              titleKey="strength"
               onIncrease={() => {
                 const currentValue = saveData?.dictionaryOfDictionaries.value.playerUpgradeStrength[key] ?? 0;
                 updateUpgradeValue(key, "playerUpgradeStrength", currentValue + 1);
@@ -167,7 +172,7 @@ export default function PlayerList({ saveData, onUpdateSaveData }: PlayersProps)
                   key
                 ] ?? 0
               }
-              title="Alcance"
+              titleKey="range"
               onIncrease={() => {
                 const currentValue = saveData?.dictionaryOfDictionaries.value.playerUpgradeRange[key] ?? 0;
                 updateUpgradeValue(key, "playerUpgradeRange", currentValue + 1);
@@ -186,7 +191,7 @@ export default function PlayerList({ saveData, onUpdateSaveData }: PlayersProps)
                   key
                 ] ?? 0
               }
-              title="Lançamento"
+              titleKey="launch"
               onIncrease={() => {
                 const currentValue = saveData?.dictionaryOfDictionaries.value.playerUpgradeLaunch[key] ?? 0;
                 updateUpgradeValue(key, "playerUpgradeLaunch", currentValue + 1);
@@ -205,7 +210,7 @@ export default function PlayerList({ saveData, onUpdateSaveData }: PlayersProps)
                   key
                 ] ?? 0
               }
-              title="Salto extra"
+              titleKey="extra_jump"
               onIncrease={() => {
                 const currentValue = saveData?.dictionaryOfDictionaries.value.playerUpgradeExtraJump[key] ?? 0;
                 updateUpgradeValue(key, "playerUpgradeExtraJump", currentValue + 1);
@@ -224,7 +229,7 @@ export default function PlayerList({ saveData, onUpdateSaveData }: PlayersProps)
                   key
                 ] ?? 0
               }
-              title="Contagem de jogadores"
+              titleKey="player_count"
               onIncrease={() => {
                 const currentValue = saveData?.dictionaryOfDictionaries.value.playerUpgradeMapPlayerCount[key] ?? 0;
                 updateUpgradeValue(key, "playerUpgradeMapPlayerCount", currentValue + 1);

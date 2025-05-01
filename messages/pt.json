@@ -1,0 +1,45 @@
+{
+  "upload_file": {
+    "title": "Enviar arquivo",
+    "status": {
+      "over": "pode soltar o arquivo agora.",
+      "enter": "solte! solte! solte!",
+      "leave": "coloque o(s) arquivo(s) aqui.",
+      "none": "clique para selecionar, ou arraste o arquivo.",
+      "mouseEnter": "clique para selecionar o arquivo."
+    },
+    "error": {
+      "invalid_file_type": "Tipo de arquivo inválido!",
+      "select_one_file": "Selecione apenas um arquivo!"
+    }
+  },
+  "save_data": {
+    "reset": "Redefinir Alterações",
+    "save": "Salvar"
+  },
+  "player_list": {
+    "title": "Lista de Jogadores",
+    "status": "Status",
+    "upgrades": "Melhorias",
+    "attributes": {
+      "health": "Saúde",
+      "stamina": "Resistência",
+      "speed": "Velocidade",
+      "strength": "Força",
+      "range": "Alcance",
+      "launch": "Lançamento",
+      "extra_jump": "Salto extra",
+      "player_count": "Contagem de jogadores"
+    }
+  },
+  "run_stats": {
+    "title": "Dados da Run",
+    "played_time": "jogados",
+    "stats": {
+      "level": "Nível",
+      "currency": "Dinheiro (K)",
+      "total_haul": "Total extraído (K)",
+      "charging_station": "Cargas na base"
+    }
+  }
+}

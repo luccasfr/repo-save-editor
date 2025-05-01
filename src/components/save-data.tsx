@@ -5,6 +5,7 @@ import PlayerList from "./player-list";
 import RunStats from "./run-stats";
 import { Button } from "./ui/button";
 import { RotateCcw, Save } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type SaveDataProps = {
   saveData: SaveDataType;
@@ -21,30 +22,29 @@ export default function SaveData({
   onSave,
   hasChanges,
 }: SaveDataProps) {
+  const t = useTranslations("save_data")
+
   return (
-    <div className="py-8 px-12">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Editor de Save</h1>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={onReset}
-            className="flex items-center gap-2"
-            disabled={!hasChanges}
-          >
-            <RotateCcw className="h-4 w-4" />
-            Redefinir Alterações
-          </Button>
-          <Button
-            variant="default"
-            onClick={onSave}
-            className="flex items-center gap-2"
-            disabled={!hasChanges}
-          >
-            <Save className="h-4 w-4" />
-            Salvar
-          </Button>
-        </div>
+    <div className="pb-8 pt-4 px-12 space-y-4">
+      <div className="flex justify-end items-center gap-2">
+        <Button
+          variant="outline"
+          onClick={onReset}
+          className="flex items-center gap-2"
+          disabled={!hasChanges}
+        >
+          <RotateCcw className="h-4 w-4" />
+          {t("reset")}
+        </Button>
+        <Button
+          variant="default"
+          onClick={onSave}
+          className="flex items-center gap-2"
+          disabled={!hasChanges}
+        >
+          <Save className="h-4 w-4" />
+          {t("save")}
+        </Button>
       </div>
       <RunStats saveData={saveData} onUpdateSaveData={onUpdateSaveData} />
       <div className="mt-6">
