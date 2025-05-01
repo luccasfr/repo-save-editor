@@ -29,21 +29,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-type PlayersProps = {
-  saveData: SaveDataType;
-  onUpdateSaveData: (updatedSaveData: SaveDataType) => void;
-};
-
-type UpgradeType =
-  | "playerUpgradeSpeed"
-  | "playerUpgradeStrength"
-  | "playerUpgradeRange"
-  | "playerUpgradeLaunch"
-  | "playerUpgradeExtraJump"
-  | "playerUpgradeMapPlayerCount"
-  | "playerUpgradeStamina"
-  | "playerHealth";
-
 function HealthBar({
   health,
   healthUpgrade,
@@ -67,8 +52,10 @@ function HealthBar({
             </div>
           </div>
         </TooltipTrigger>
-        <TooltipContent >
-          <p>{health} / {maxHealth}</p>
+        <TooltipContent>
+          <p>
+            {health} / {maxHealth}
+          </p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
@@ -129,10 +116,25 @@ function UpgradeCount({
   );
 }
 
+type PlayerListProps = {
+  saveData: SaveDataType;
+  onUpdateSaveData: (updatedSaveData: SaveDataType) => void;
+};
+
+type UpgradeType =
+  | "playerUpgradeSpeed"
+  | "playerUpgradeStrength"
+  | "playerUpgradeRange"
+  | "playerUpgradeLaunch"
+  | "playerUpgradeExtraJump"
+  | "playerUpgradeMapPlayerCount"
+  | "playerUpgradeStamina"
+  | "playerHealth";
+
 export default function PlayerList({
   saveData,
   onUpdateSaveData,
-}: PlayersProps) {
+}: PlayerListProps) {
   const t = useTranslations("player_list");
 
   const updateUpgradeValue = (

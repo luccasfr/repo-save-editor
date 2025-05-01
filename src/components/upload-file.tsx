@@ -1,5 +1,5 @@
 "use client";
-import { File, Grab, PackageOpen, Pointer } from "lucide-react";
+import { Copy, File, Grab, PackageOpen, Pointer } from "lucide-react";
 import Image from "next/image";
 import {
   DragEvent,
@@ -12,6 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
+import { Button } from "./ui/button";
 
 const statusIcons: Record<string, JSX.Element> = {
   over: <PackageOpen />,
@@ -171,21 +172,31 @@ export default function UploadFile({
     }
   }, [filesBase64]);
 
-  const getStatusText = useCallback((status: string) => {
-    switch (status) {
-      case "over":
-        return t("status.over");
-      case "enter":
-        return t("status.enter");
-      case "leave":
-        return t("status.leave");
-      case "none":
-        return t("status.none");
-      case "mouseEnter":
-        return t("status.mouseEnter");
-      default:
-        return t("status.none");
-    }
+  const getStatusText = useCallback(
+    (status: string) => {
+      switch (status) {
+        case "over":
+          return t("status.over");
+        case "enter":
+          return t("status.enter");
+        case "leave":
+          return t("status.leave");
+        case "none":
+          return t("status.none");
+        case "mouseEnter":
+          return t("status.mouseEnter");
+        default:
+          return t("status.none");
+      }
+    },
+    [t]
+  );
+
+  const handleCopy = useCallback(() => {
+    navigator.clipboard.writeText(
+      "C:\\Users\\%USERNAME%\\AppData\\LocalLow\\semiwork\\Repo\\saves"
+    );
+    toast.success(t("success.copy"));
   }, [t]);
 
   return (
@@ -197,11 +208,7 @@ export default function UploadFile({
         multiple={multiple}
         accept={getFileType()}
       />
-      <p
-        className={`font-semibold ${
-          errorMessage && "text-destructive"
-        }`}
-      >
+      <p className={`font-semibold ${errorMessage && "text-destructive"}`}>
         {t("title")}
       </p>
       <div>
@@ -261,6 +268,30 @@ export default function UploadFile({
       {errorMessage && (
         <p className="text-sm font-semibold text-destructive">{errorMessage}</p>
       )}
+      <div className="space-y-2 text-sm">
+        <p>{t(`save_game.info`)}</p>
+        <div className="relative break-all rounded border-[1px] border-input py-2 pl-3 pr-8 font-mono">
+          <Button
+            variant="outline"
+            className="absolute right-2 top-1/2 h-6 w-6 -translate-y-1/2"
+            size="icon"
+            onClick={handleCopy}
+          >
+            <Copy className="size-3" />
+          </Button>
+          <p>
+            <span className="font-bold text-yellow-600">C:</span>
+            \Users\%USERNAME%\AppData\LocalLow\semiwork\Repo\saves
+          </p>
+        </div>
+        <p>
+          <span className="text-yellow-600 font-bold">
+            {t(`save_game.warning`)}
+          </span>{" "}
+          {t(`save_game.check_drive_letter`)}{" "}
+          <span className="text-yellow-600 font-bold">C</span>.
+        </p>
+      </div>
     </div>
   );
 }

@@ -8,6 +8,14 @@
       "none": "click to select, or drag and drop the file.",
       "mouseEnter": "click to select the file."
     },
+    "success": {
+      "copy": "File copied to clipboard!"
+    },
+    "save_game": {
+      "info": "The savegames are located in",
+      "warning": "Warning!",
+      "check_drive_letter": "Check if your primary Windows installation drive is the letter"
+    },
     "error": {
       "invalid_file_type": "Invalid file type!",
       "select_one_file": "Select only one file!"
@@ -36,11 +44,51 @@
   "run_stats": {
     "title": "Run Data",
     "played_time": "played",
+    "items_title": "Items",
     "stats": {
       "level": "Level",
       "currency": "Money (K)",
       "total_haul": "Total Haul (K)",
-      "charging_station": "Base Charges"
+      "charging_station": "Base Charges",
+      "Cart Medium": "Cart Medium",
+      "Cart Small": "Cart Small",
+      "Drone Battery": "Drone Battery",
+      "Drone Feather": "Drone Feather",
+      "Drone Indestructible": "Drone Indestructible",
+      "Drone Torque": "Drone Torque",
+      "Drone Zero Gravity": "Drone Zero Gravity",
+      "Extraction Tracker": "Extraction Tracker",
+      "Grenade Duct Taped": "Duct Taped Grenade",
+      "Grenade Explosive": "Explosive Grenade",
+      "Grenade Human": "Human Grenade",
+      "Grenade Shockwave": "Shockwave Grenade",
+      "Grenade Stun": "Stun Grenade",
+      "Gun Handgun": "Handgun",
+      "Gun Shotgun": "Shotgun",
+      "Gun Tranq": "Tranq Gun",
+      "Health Pack Large": "Large Health Pack",
+      "Health Pack Medium": "Medium Health Pack",
+      "Health Pack Small": "Small Health Pack",
+      "Melee Baseball Bat": "Baseball Bat",
+      "Melee Frying Pan": "Frying Pan",
+      "Melee Inflatable Hammer": "Inflatable Hammer",
+      "Melee Sledge Hammer": "Sledge Hammer",
+      "Melee Sword": "Sword",
+      "Mine Explosive": "Explosive Mine",
+      "Mine Shockwave": "Shockwave Mine",
+      "Mine Stun": "Stun Mine",
+      "Orb Zero Gravity": "Zero Gravity Orb",
+      "Power Crystal": "Power Crystal",
+      "Rubber Duck": "Rubber Duck",
+      "Upgrade Map Player Count": "Map Player Count Upgrade",
+      "Upgrade Player Energy": "Player Energy Upgrade",
+      "Upgrade Player Extra Jump": "Extra Jump Upgrade",
+      "Upgrade Player Grab Range": "Grab Range Upgrade",
+      "Upgrade Player Grab Strength": "Grab Strength Upgrade",
+      "Upgrade Player Health": "Player Health Upgrade",
+      "Upgrade Player Sprint Speed": "Sprint Speed Upgrade",
+      "Upgrade Player Tumble Launch": "Tumble Launch Upgrade",
+      "Valuable Tracker": "Valuable Tracker"
     }
   },
   "footer": {

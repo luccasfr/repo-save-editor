@@ -8,6 +8,14 @@
       "none": "clique para selecionar, ou arraste o arquivo.",
       "mouseEnter": "clique para selecionar o arquivo."
     },
+    "success": {
+      "copy": "Arquivo copiado para a área de transferência!"
+    },
+    "save_game": {
+      "info": "Os savegames ficam localizados em",
+      "warning": "Atenção!",
+      "check_drive_letter": "Verifique se o seu disco primário de instalação do Windows é a letra"
+    },
     "error": {
       "invalid_file_type": "Tipo de arquivo inválido!",
       "select_one_file": "Selecione apenas um arquivo!"
@@ -36,11 +44,51 @@
   "run_stats": {
     "title": "Dados da Run",
     "played_time": "jogados",
+    "items_title": "Itens",
     "stats": {
       "level": "Nível",
       "currency": "Dinheiro (K)",
       "total_haul": "Total extraído (K)",
-      "charging_station": "Cargas na base"
+      "charging_station": "Cargas na base",
+      "Cart Medium": "Carrinho Médio",
+      "Cart Small": "Carrinho Pequeno",
+      "Drone Battery": "Bateria de Drone",
+      "Drone Feather": "Drone Leve",
+      "Drone Indestructible": "Drone Indestrutível",
+      "Drone Torque": "Drone de Torque",
+      "Drone Zero Gravity": "Drone Antigravidade",
+      "Extraction Tracker": "Rastreador de Extração",
+      "Grenade Duct Taped": "Granada de Fita Adesiva",
+      "Grenade Explosive": "Granada Explosiva",
+      "Grenade Human": "Granada Humana",
+      "Grenade Shockwave": "Granada de Onda de Choque",
+      "Grenade Stun": "Granada de Atordoamento",
+      "Gun Handgun": "Pistola",
+      "Gun Shotgun": "Espingarda",
+      "Gun Tranq": "Arma de Dardo",
+      "Health Pack Large": "Kit de Saúde Grande",
+      "Health Pack Medium": "Kit de Saúde Médio",
+      "Health Pack Small": "Kit de Saúde Pequeno",
+      "Melee Baseball Bat": "Taco de Beisebol",
+      "Melee Frying Pan": "Frigideira",
+      "Melee Inflatable Hammer": "Martelo Inflável",
+      "Melee Sledge Hammer": "Marreta",
+      "Melee Sword": "Espada",
+      "Mine Explosive": "Mina Explosiva",
+      "Mine Shockwave": "Mina de Onda de Choque",
+      "Mine Stun": "Mina de Atordoamento",
+      "Orb Zero Gravity": "Orbe Antigravidade",
+      "Power Crystal": "Cristal de Poder",
+      "Rubber Duck": "Pato de Borracha",
+      "Upgrade Map Player Count": "Melhoria de Contagem de Jogadores no Mapa",
+      "Upgrade Player Energy": "Melhoria de Energia do Jogador",
+      "Upgrade Player Extra Jump": "Melhoria de Salto Extra",
+      "Upgrade Player Grab Range": "Melhoria de Alcance de Agarre",
+      "Upgrade Player Grab Strength": "Melhoria de Força de Agarre",
+      "Upgrade Player Health": "Melhoria de Saúde do Jogador",
+      "Upgrade Player Sprint Speed": "Melhoria de Velocidade de Corrida",
+      "Upgrade Player Tumble Launch": "Melhoria de Lançamento ao Cair",
+      "Valuable Tracker": "Rastreador de Itens Valiosos"
     }
   },
   "footer": {

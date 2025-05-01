@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -5,10 +6,25 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import type { SaveDataType } from "@/model/save-game";
-import { DollarSign, Gauge, LucideIcon, Zap, Plus, Minus } from "lucide-react";
-import { Button } from "../ui/button";
+import { Separator } from "@/components/ui/separator";
+import { PURCHASED_ITEMS_ICON } from "@/consts/purchased-items-icon";
+import type { ItemsPurchased, SaveDataType } from "@/model/save-game";
+import {
+  Box,
+  DollarSign,
+  Gauge,
+  LucideIcon,
+  Minus,
+  Plus,
+  Zap,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 type RunStatKey = "level" | "currency" | "totalHaul" | "chargingStationCharge";
 
@@ -38,7 +54,7 @@ function RunStatsItem({
   const t = useTranslations("run_stats");
 
   return (
-    <div className="text-sm flex flex-col items-center">
+    <div className="text-sm flex flex-col items-center ">
       <p className="font-medium">
         <Icon className="size-4 shrink-0 pr-0.5 inline-flex" />
         {t(`stats.${titleKey}`)}
@@ -85,6 +101,16 @@ export default function RunStats({
     onUpdateSaveData(updatedSaveData);
   };
 
+  const updatePurchasedItemValue = (
+    itemName: keyof ItemsPurchased,
+    newValue: number
+  ) => {
+    const updatedSaveData = { ...saveData };
+    updatedSaveData.dictionaryOfDictionaries.value.itemsPurchased[itemName] =
+      newValue;
+    onUpdateSaveData(updatedSaveData);
+  };
+
   const handleStatChange = (
     statName: RunStatKey,
     change: number,
@@ -96,6 +122,17 @@ export default function RunStats({
     updateRunStatValue(statName, newValue);
   };
 
+  const handleItemsPurchasedChange = (
+    statName: keyof ItemsPurchased,
+    change: number,
+    minValue = 0
+  ) => {
+    const currentValue =
+      saveData.dictionaryOfDictionaries.value.itemsPurchased[statName];
+    const newValue = Math.max(minValue, currentValue + change);
+    updatePurchasedItemValue(statName, newValue);
+  };
+
   return (
     <Card className="min-w-96">
       <CardHeader>
@@ -104,12 +141,14 @@ export default function RunStats({
           {formatPlayTime(saveData.timePlayed.value)} {t("played_time")}
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <RunStatsItem
             icon={Gauge}
             titleKey="level"
-            value={(saveData.dictionaryOfDictionaries.value.runStats.level + 1).toString()}
+            value={(
+              saveData.dictionaryOfDictionaries.value.runStats.level + 1
+            ).toString()}
             onIncrease={() => handleStatChange("level", 1, 1)}
             onDecrease={() => handleStatChange("level", -1, 1)}
             disableDecrease={
@@ -148,6 +187,47 @@ export default function RunStats({
             }
           />
         </div>
+        <Separator />
+        <Accordion type="single" collapsible>
+          <AccordionItem value="item-1" className="last:border-b">
+            <AccordionTrigger className="hover:bg-accent p-2 ">
+              <div className="flex items-center gap-0.5">
+                <Box className="size-4" />
+                <p>{t(`items_title`)}</p>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent>
+              <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+                {Object.entries(
+                  saveData.dictionaryOfDictionaries.value.itemsPurchased
+                ).map(([key, value]) => {
+                  const itemName = key.replace("Item ", "").replace(/_/g, " ");
+                  return (
+                    <RunStatsItem
+                      key={key}
+                      icon={PURCHASED_ITEMS_ICON[itemName] ?? Zap}
+                      titleKey={itemName}
+                      value={value.toString()}
+                      onIncrease={() =>
+                        handleItemsPurchasedChange(
+                          key as keyof ItemsPurchased,
+                          1
+                        )
+                      }
+                      onDecrease={() =>
+                        handleItemsPurchasedChange(
+                          key as keyof ItemsPurchased,
+                          -1
+                        )
+                      }
+                      disableDecrease={value <= 0}
+                    />
+                  );
+                })}
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </CardContent>
     </Card>
   );
