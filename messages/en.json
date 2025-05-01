@@ -93,6 +93,12 @@
       "Valuable Tracker": "Valuable Tracker"
     }
   },
+  "theme": {
+    "toggle": "Toggle Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
   "footer": {
     "description": "Made with ❤️ by"
   }

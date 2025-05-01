@@ -93,6 +93,12 @@
       "Valuable Tracker": "Rastreador de Itens Valiosos"
     }
   },
+  "theme": {
+    "toggle": "Alterar Tema",
+    "light": "Claro",
+    "dark": "Escuro",
+    "system": "Sistema"
+  },
   "footer": {
     "description": "Feito com ❤️ por"
   }

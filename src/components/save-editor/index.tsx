@@ -55,7 +55,9 @@ export default function SaveEditor() {
     setFileName(null)
   }
 
-  const handleFileUpload = async (files: Array<{ base64: string, name: string }>) => {
+  const handleFileUpload = async (
+    files: Array<{ base64: string; name: string }>
+  ) => {
     if (files.length > 0) {
       const decrypted = await decryptEs3(
         files[0].base64,
@@ -81,10 +83,7 @@ export default function SaveEditor() {
           fileName={fileName}
         />
       ) : (
-        <UploadFile
-          className="w-full"
-          onFilesChange={handleFileUpload}
-        />
+        <UploadFile className="w-full" onFilesChange={handleFileUpload} />
       )}
     </div>
   )
