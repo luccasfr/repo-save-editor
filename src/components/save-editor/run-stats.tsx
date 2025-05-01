@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import type { SaveDataType } from "@/model/save-game";
 import { DollarSign, Gauge, LucideIcon, Zap, Plus, Minus } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { useTranslations } from "next-intl";
 
 type RunStatKey = "level" | "currency" | "totalHaul" | "chargingStationCharge";

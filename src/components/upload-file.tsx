@@ -198,7 +198,7 @@ export default function UploadFile({
         accept={getFileType()}
       />
       <p
-        className={`text-sm font-semibold ${
+        className={`font-semibold ${
           errorMessage && "text-destructive"
         }`}
       >

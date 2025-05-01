@@ -8,14 +8,14 @@ const gzip = promisify(zlib.gzip);
 const gunzip = promisify(zlib.gunzip);
 
 /**
- * Encrypts data using AES-128-CBC encryption with optional GZIP compression
+ * Encrypts a buffer using AES-128-CBC encryption with optional GZIP compression
  *
  * @param data - The buffer containing data to be encrypted
  * @param password - The password used for encryption key derivation
  * @param shouldGzip - Whether to compress the data using GZIP before encryption (default: false)
  * @returns A buffer containing the IV followed by the encrypted data
  */
-async function encryptEs3(
+export async function encryptEs3FromBuffer(
   data: Buffer,
   password: string,
   shouldGzip: boolean = false
@@ -32,21 +32,21 @@ async function encryptEs3(
 }
 
 /**
- * Encrypts a string using AES-128-CBC encryption and converts it to a base64 data URI
- *
+ * Encrypts a string using AES-128-CBC encryption with optional GZIP compression
+ * 
  * @param data - The string to be encrypted
- * @param password - The password used for encryption key derivation
- * @param shouldGzip - Whether to compress the data using GZIP before encryption (default: false)
- * @returns A base64 data URI containing the encrypted data
+ * @param password - The password used for encryption
+ * @param shouldGzip - Whether to compress the data (default: false)
+ * @returns Uint8Array suitable for creating a binary file
  */
-export async function encryptEs3Base64(
-  data: string,
+export async function encryptEs3(
+  data: string, 
   password: string,
   shouldGzip: boolean = false
-): Promise<string> {
+): Promise<Uint8Array> {
   const bufferData = Buffer.from(data, "utf8");
-  const encryptedBuffer = await encryptEs3(bufferData, password, shouldGzip);
-  return `data:application/octet-stream;base64,${encryptedBuffer.toString("base64")}`;
+  const encryptedBuffer = await encryptEs3FromBuffer(bufferData, password, shouldGzip);
+  return encryptedBuffer;
 }
 
 /**
