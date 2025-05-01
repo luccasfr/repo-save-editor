@@ -109,7 +109,7 @@ export default function RunStats({
           <RunStatsItem
             icon={Gauge}
             titleKey="level"
-            value={saveData.dictionaryOfDictionaries.value.runStats.level.toString()}
+            value={(saveData.dictionaryOfDictionaries.value.runStats.level + 1).toString()}
             onIncrease={() => handleStatChange("level", 1, 1)}
             onDecrease={() => handleStatChange("level", -1, 1)}
             disableDecrease={
