@@ -29,25 +29,43 @@ export default function SaveEditor() {
     }
   }
 
+  const downloadSaveFile = (data: Blob, filename: string) => {
+    const url = URL.createObjectURL(data)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    a.click()
+    URL.revokeObjectURL(url)
+    a.remove()
+  }
+
   const handleSave = async () => {
     const binaryData = await encryptEs3(
       JSON.stringify(saveData, null, 4),
       "Why would you want to cheat?... :o It's no fun. :') :'D"
     )
     const blob = new Blob([binaryData])
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = fileName || 'repo-save-game.es3'
-    a.click()
-    URL.revokeObjectURL(url)
-    a.remove()
+    downloadSaveFile(blob, fileName || 'repo-save-game.es3')
     setOriginalSaveData(JSON.parse(JSON.stringify(saveData)))
   }
 
   const handleNewFile = () => {
     setSaveData(null)
     setOriginalSaveData(null)
+    setFileName(null)
+  }
+
+  const handleFileUpload = async (files: Array<{ base64: string, name: string }>) => {
+    if (files.length > 0) {
+      const decrypted = await decryptEs3(
+        files[0].base64,
+        "Why would you want to cheat?... :o It's no fun. :') :'D"
+      )
+      const parsed = JSON.parse(decrypted) as SaveDataType
+      setSaveData(parsed)
+      setOriginalSaveData(JSON.parse(JSON.stringify(parsed)))
+      setFileName(files[0].name)
+    }
   }
 
   return (
@@ -65,18 +83,7 @@ export default function SaveEditor() {
       ) : (
         <UploadFile
           className="w-full"
-          onFilesChange={async (files) => {
-            if (files.length > 0) {
-              const decrypted = await decryptEs3(
-                files[0].base64,
-                "Why would you want to cheat?... :o It's no fun. :') :'D"
-              )
-              const parsed = JSON.parse(decrypted) as SaveDataType
-              setSaveData(parsed)
-              setOriginalSaveData(JSON.parse(JSON.stringify(parsed)))
-              setFileName(files[0].name)
-            }
-          }}
+          onFilesChange={handleFileUpload}
         />
       )}
     </div>
