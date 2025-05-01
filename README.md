@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# R.E.P.O Save Editor
+
+[<img src="https://flagcdn.com/w20/br.png" alt="Bandeira do Brasil"> Versão em Português](./README.pt-BR.md)
+
+<div>
+  <img src="src/app/icon.png" alt="R.E.P.O Save Editor Logo" width="200" height="200" />
+</div>
+
+## Overview
+
+R.E.P.O Save Editor is a web application that allows you to modify R.E.P.O game save files. This tool helps players adjust various game parameters, including:
+
+- Player stats and attributes
+- Run stats and currencies
+- Purchased items and upgrades
+- Team settings and configurations
+
+**Try it now: [https://repo-save-editor.vercel.app](https://repo-save-editor.vercel.app)**
+
+## Technologies
+
+This project is built using modern web technologies:
+
+- **Next.js 15** - React framework with App Router
+- **React 19** - UI library
+- **TypeScript** - Type-safe JavaScript
+- **TailwindCSS 4** - Utility-first CSS framework
+- **next-intl** - Internationalization support
+- **shadcn/ui** - Accessible UI components built with Radix UI
+- **Lucide React** - Beautiful & consistent icon set
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repository
+git clone https://github.com/luccasfr/repo-save-editor.git
+
+# Navigate to the project directory
+cd repo-save-editor
+
+# Install dependencies
+yarn install
+
+# Start the development server
+yarn run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to access the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to Use
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Locate your R.E.P.O save file (typically in `%USERPROFILE%\AppData\LocalLow\Metal Beard\REPO\SaveFiles`)
+2. Upload the save file to the editor
+3. Make your desired changes
+4. Download the modified save file
+5. Replace your original save file with the modified one
 
-## Learn More
+## Building for Production
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Create an optimized production build
+yarn run build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Start the production server
+yarn start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Acknowledgements
 
-## Deploy on Vercel
+Special thanks to [N0edL's R.E.P.O Save Editor](https://github.com/N0edL/R.E.P.O-Save-Editor) for providing the encryption functions with the key in Python, which were extracted and implemented in Node.js for this project.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Author
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[Lucas Ferreira](https://github.com/luccasfr)

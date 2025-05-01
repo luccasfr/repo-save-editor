@@ -43,144 +43,168 @@ export default function UploadFile({
     'over' | 'enter' | 'leave' | 'drop' | 'mouseEnter' | 'none'
   >('none')
   const [files, setFiles] = useState<FileList | null>(null)
-  const [filesBase64, setFilesBase64] = useState<FileBase64[] | null>(null)
+  const [filesBase64, setFilesBase64] = useState<FileBase64[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const filesBase64Ref = useRef<FileBase64[] | null>(null)
   const onFilesChangeRef = useRef(onFilesChange)
+  const [objectUrls, setObjectUrls] = useState<string[]>([])
+
+  // Clean up object URLs on unmount or when files change
+  useEffect(() => {
+    return () => {
+      objectUrls.forEach((url) => URL.revokeObjectURL(url))
+    }
+  }, [objectUrls])
 
   useEffect(() => {
-    if (fileList) {
-      setFiles((prev) => {
-        if (prev) return prev
-        return fileList
-      })
+    if (fileList && !files) {
+      setFiles(fileList)
     }
-  }, [fileList])
-
-  const onDragOver = useCallback((event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    setDragStatus('over')
-    setFiles(null)
-  }, [])
-
-  const onDragEnter = useCallback((event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    setDragStatus('enter')
-  }, [])
-
-  const onDragLeave = useCallback((event: DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    setDragStatus('leave')
-  }, [])
-
-  const checkFileType = useCallback(
-    (file: File) => {
-      if (!fileExtension) return true
-      const extension = file.name.split('.').pop()
-      if (extension !== fileExtension) {
-        toast.error(t('error.invalid_file_type'))
-        return false
-      }
-      return true
-    },
-    [fileExtension, t]
-  )
-
-  const onDrop = useCallback(
-    (event: DragEvent<HTMLDivElement>) => {
-      event.preventDefault()
-      setDragStatus('drop')
-      const files = event.dataTransfer.files
-      if (!multiple && files.length > 1) {
-        toast.error(t('error.select_one_file'))
-        return
-      }
-      const invalidFiles = Array.from(files).filter(
-        (file) => !checkFileType(file)
-      )
-      if (invalidFiles.length > 0) {
-        toast.error(t('error.invalid_file_type'))
-        return
-      }
-      setFiles(files)
-    },
-    [multiple, checkFileType, t]
-  )
-
-  const onMouseEnter = useCallback(() => {
-    if (files) return
-    setDragStatus('mouseEnter')
-  }, [files])
-
-  const onMouseLeave = useCallback(() => {
-    if (files) return
-    setDragStatus('none')
-  }, [files])
-
-  const handleFileSelect = () => {
-    const input = fileInputRef.current
-    if (!input) return
-    input.click()
-    input.addEventListener('change', (event) => {
-      const files = (event.target as HTMLInputElement).files
-      setFiles(files)
-    })
-  }
+  }, [fileList, files])
 
   useEffect(() => {
     onFilesChangeRef.current = onFilesChange
   }, [onFilesChange])
 
   useEffect(() => {
-    setFilesBase64(null)
-    if (files) {
-      const fileList = Array.from(files)
-      fileList.forEach((file) => {
-        const reader = new FileReader()
-        reader.onload = (event) => {
-          const base64 = event.target?.result
-          if (typeof base64 === 'string') {
-            setFilesBase64((prev) => [
-              ...(prev || []),
-              {
-                name: file.name,
-                base64: base64 as string
-              }
-            ])
-          }
-        }
-        reader.readAsDataURL(file)
-      })
+    if (!files) {
+      setFilesBase64([])
+      return
     }
+
+    const newUrls: string[] = []
+    const fileList = Array.from(files)
+
+    // Reset filesBase64 and process files
+    setFilesBase64([])
+
+    fileList.forEach((file) => {
+      if (file.type.startsWith('image/')) {
+        const url = URL.createObjectURL(file)
+        newUrls.push(url)
+      }
+
+      const reader = new FileReader()
+      reader.onload = (event) => {
+        const base64 = event.target?.result
+        if (typeof base64 === 'string') {
+          setFilesBase64((prev) => [
+            ...prev,
+            {
+              name: file.name,
+              base64
+            }
+          ])
+        }
+      }
+      reader.readAsDataURL(file)
+    })
+
+    setObjectUrls((prevUrls) => {
+      prevUrls.forEach((url) => URL.revokeObjectURL(url))
+      return newUrls
+    })
   }, [files])
 
-  const getFileType = useCallback(() => {
-    return `.${fileExtension}`
-  }, [fileExtension])
-
   useEffect(() => {
-    if (filesBase64) {
-      filesBase64Ref.current = filesBase64
+    if (filesBase64.length > 0) {
       onFilesChangeRef.current?.(filesBase64)
     }
   }, [filesBase64])
 
+  const handleDragEvent = useCallback(
+    (event: DragEvent<HTMLDivElement>, status: 'over' | 'enter' | 'leave') => {
+      event.preventDefault()
+      setDragStatus(status)
+      if (status === 'over') setFiles(null)
+    },
+    []
+  )
+
+  const checkFileType = useCallback(
+    (file: File) => {
+      if (!fileExtension) return true
+      const extension = file.name.split('.').pop()?.toLowerCase()
+      return extension === fileExtension.toLowerCase()
+    },
+    [fileExtension]
+  )
+
+  const onDrop = useCallback(
+    (event: DragEvent<HTMLDivElement>) => {
+      event.preventDefault()
+      setDragStatus('drop')
+      const droppedFiles = event.dataTransfer.files
+
+      if (!multiple && droppedFiles.length > 1) {
+        toast.error(t('error.select_one_file'))
+        return
+      }
+
+      const invalidFiles = Array.from(droppedFiles).filter(
+        (file) => !checkFileType(file)
+      )
+
+      if (invalidFiles.length > 0) {
+        toast.error(t('error.invalid_file_type'))
+        return
+      }
+
+      setFiles(droppedFiles)
+    },
+    [multiple, checkFileType, t]
+  )
+
+  const handleMouseState = useCallback(
+    (isEnter: boolean) => {
+      if (files) return
+      setDragStatus(isEnter ? 'mouseEnter' : 'none')
+    },
+    [files]
+  )
+
+  const handleFileSelect = useCallback(() => {
+    const input = fileInputRef.current
+    if (!input) return
+
+    // Reset the input value to ensure onChange fires even if selecting the same file
+    input.value = ''
+    input.click()
+  }, [])
+
+  const handleFileInputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const selectedFiles = event.target.files
+
+      if (selectedFiles && selectedFiles.length > 0) {
+        const invalidFiles = Array.from(selectedFiles).filter(
+          (file) => !checkFileType(file)
+        )
+
+        if (invalidFiles.length > 0) {
+          toast.error(t('error.invalid_file_type'))
+          return
+        }
+
+        setFiles(selectedFiles)
+      }
+    },
+    [checkFileType, t]
+  )
+
   const getStatusText = useCallback(
     (status: string) => {
-      switch (status) {
-        case 'over':
-          return t('status.over')
-        case 'enter':
-          return t('status.enter')
-        case 'leave':
-          return t('status.leave')
-        case 'none':
-          return t('status.none')
-        case 'mouseEnter':
-          return t('status.mouseEnter')
-        default:
-          return t('status.none')
+      const statusMessages = {
+        over: t('status.over'),
+        enter: t('status.enter'),
+        leave: t('status.leave'),
+        none: t('status.none'),
+        mouseEnter: t('status.mouseEnter')
       }
+
+      return (
+        statusMessages[status as keyof typeof statusMessages] ||
+        t('status.none')
+      )
     },
     [t]
   )
@@ -199,56 +223,60 @@ export default function UploadFile({
         className="hidden"
         ref={fileInputRef}
         multiple={multiple}
-        accept={getFileType()}
+        accept={`.${fileExtension}`}
+        onChange={handleFileInputChange}
       />
-      <p className={`font-semibold ${errorMessage && 'text-destructive'}`}>
+      <p className={cn('font-semibold', errorMessage && 'text-destructive')}>
         {t('title')}
       </p>
       <div>
         <div
           className={cn(
-            `cusor-default flex min-h-32 w-full items-center justify-center rounded
-            border-[1px] py-2 lg:min-h-48 ${
-            errorMessage ? 'border-destructive' : 'border-border' }`,
+            'flex min-h-32 w-full cursor-pointer items-center justify-center rounded',
+            'border-[1px] py-2 lg:min-h-48',
+            errorMessage ? 'border-destructive' : 'border-border',
             className
           )}
-          onDragOver={onDragOver}
-          onDragEnter={onDragEnter}
-          onDragLeave={onDragLeave}
+          onDragOver={(e) => handleDragEvent(e, 'over')}
+          onDragEnter={(e) => handleDragEvent(e, 'enter')}
+          onDragLeave={(e) => handleDragEvent(e, 'leave')}
           onDrop={onDrop}
-          onMouseEnter={onMouseEnter}
-          onMouseLeave={onMouseLeave}
+          onMouseEnter={() => handleMouseState(true)}
+          onMouseLeave={() => handleMouseState(false)}
           onClick={handleFileSelect}
           {...props}
         >
           {files ? (
             <div
-              className={`${files.length < 5 ? 'flex justify-center' : 'grid grid-cols-5'} gap-4 text-sm`}
+              className={cn(
+                'gap-4 text-sm',
+                files.length < 5 ? 'flex justify-center' : 'grid grid-cols-5'
+              )}
             >
               {Array.from(files).map((file, index) => (
                 <div
-                  className="flex items-center justify-center gap-1"
+                  className="flex flex-col items-center justify-center gap-1"
                   key={index}
                 >
-                  {file.type.split('/')[0] === 'image' && imagePreview ? (
+                  {file.type.startsWith('image/') && imagePreview ? (
                     <Image
-                      src={URL.createObjectURL(file)}
+                      src={objectUrls[index] || ''}
                       alt={file.name}
                       width={300}
                       height={300}
                       className="aspect-square object-contain"
                     />
                   ) : (
-                    <File />
+                    <File className="text-primary h-12 w-12" />
                   )}
-                  <p className="text-xs">{file.name}</p>
+                  <p className="max-w-32 truncate text-xs">{file.name}</p>
                 </div>
               ))}
             </div>
           ) : (
             <div
-              className={`text-primary/60 pointer-events-none flex w-full items-center justify-center
-                gap-2 px-4 text-sm`}
+              className="text-primary/60 pointer-events-none flex w-full items-center justify-center
+                gap-2 px-4 text-sm"
             >
               {statusIcons[dragStatus]}
               <p>{getStatusText(dragStatus)}</p>

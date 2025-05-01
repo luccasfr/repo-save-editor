@@ -1,3 +1,6 @@
+/**
+ * Represents the complete save data structure for the game
+ */
 export interface SaveDataType {
   dictionaryOfDictionaries: DictionaryOfDictionaries
   playerNames: PlayerNames
@@ -6,16 +9,25 @@ export interface SaveDataType {
   teamName: DateAndTime
 }
 
+/**
+ * Represents date and time data with type information
+ */
 export interface DateAndTime {
   __type: string
   value: string
 }
 
+/**
+ * Container for various dictionaries of game data
+ */
 export interface DictionaryOfDictionaries {
   __type: string
   value: DictionaryOfDictionariesValue
 }
 
+/**
+ * Records the quantities of each purchasable item in the game
+ */
 export interface ItemsPurchased {
   'Item Cart Medium': number
   'Item Cart Small': number
@@ -58,6 +70,9 @@ export interface ItemsPurchased {
   'Item Valuable Tracker': number
 }
 
+/**
+ * Contains all game statistics and player progress data
+ */
 export interface DictionaryOfDictionariesValue {
   runStats: RunStats
   itemsPurchased: ItemsPurchased
@@ -79,6 +94,9 @@ export interface DictionaryOfDictionariesValue {
   itemStatBattery: { [key: string]: number }
 }
 
+/**
+ * Statistics for the current game run
+ */
 export interface RunStats {
   level: number
   currency: number
@@ -88,11 +106,17 @@ export interface RunStats {
   'save level': number
 }
 
+/**
+ * Maps player identifiers to their names
+ */
 export interface PlayerNames {
   __type: string
   value: { [key: string]: number }
 }
 
+/**
+ * Records the total time played in seconds
+ */
 export interface TimePlayed {
   __type: string
   value: number

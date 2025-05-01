@@ -41,6 +41,8 @@ export default function SaveEditor() {
     a.download = fileName || 'repo-save-game.es3'
     a.click()
     URL.revokeObjectURL(url)
+    a.remove()
+    setOriginalSaveData(JSON.parse(JSON.stringify(saveData)))
   }
 
   const handleNewFile = () => {
@@ -49,7 +51,7 @@ export default function SaveEditor() {
   }
 
   return (
-    <div className="w-full">
+    <div>
       {saveData ? (
         <SaveData
           saveData={saveData}
