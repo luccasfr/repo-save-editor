@@ -71,4 +71,15 @@ Special thanks to [N0edL's R.E.P.O Save Editor](https://github.com/N0edL/R.E.P.O
 
 ## Author
 
-[Lucas Ferreira](https://github.com/luccasfr)
+<table>
+  <tbody>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/luccasfr">
+          <img src="https://github.com/luccasfr.png?size=100" alt="Lucas Ferreira" />
+          <p>Lucas Ferreira</p>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
