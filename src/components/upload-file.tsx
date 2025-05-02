@@ -48,7 +48,6 @@ export default function UploadFile({
   const onFilesChangeRef = useRef(onFilesChange)
   const [objectUrls, setObjectUrls] = useState<string[]>([])
 
-  // Clean up object URLs on unmount or when files change
   useEffect(() => {
     return () => {
       objectUrls.forEach((url) => URL.revokeObjectURL(url))
@@ -74,7 +73,6 @@ export default function UploadFile({
     const newUrls: string[] = []
     const fileList = Array.from(files)
 
-    // Reset filesBase64 and process files
     setFilesBase64([])
 
     fileList.forEach((file) => {
@@ -166,7 +164,6 @@ export default function UploadFile({
     const input = fileInputRef.current
     if (!input) return
 
-    // Reset the input value to ensure onChange fires even if selecting the same file
     input.value = ''
     input.click()
   }, [])
