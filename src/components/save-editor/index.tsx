@@ -84,8 +84,6 @@ export default function SaveEditor() {
     fetch()
   }, [saveGame])
 
-  console.log('avatars', steamAvatars)
-
   return (
     <div>
       {saveGame ? (

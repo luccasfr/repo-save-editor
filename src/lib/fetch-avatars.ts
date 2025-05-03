@@ -15,8 +15,6 @@ export default async function fetchAvatars(
   const avatarUrls: SteamAvatars = {}
   if (steamIDs.length === 0) return avatarUrls
 
-  console.log(steamIDs)
-
   await Promise.all(
     steamIDs.map((steamID) =>
       fetch(`https://steamcommunity.com/profiles/${steamID}/?xml=1`)
@@ -24,10 +22,8 @@ export default async function fetchAvatars(
         .then((text) => {
           const parser = new DOMParser()
           const xmlDoc = parser.parseFromString(text, 'text/xml')
-          
-          const avatarFullElements = xmlDoc.getElementsByTagName('avatarFull')
 
-          console.log(avatarFullElements.length)
+          const avatarFullElements = xmlDoc.getElementsByTagName('avatarFull')
 
           if (avatarFullElements.length > 0) {
             const avatarFullElement = avatarFullElements[0]
