@@ -44,7 +44,6 @@ export default function SaveEditor() {
       JSON.stringify(saveData, null, 4),
       "Why would you want to cheat?... :o It's no fun. :') :'D"
     )
-    console.log(JSON.stringify(saveData, null, 4))
     const blob = new Blob([binaryData])
     downloadSaveFile(blob, fileName || 'repo-save-game.es3')
     setOriginalSaveData(JSON.parse(JSON.stringify(saveData)))
@@ -67,7 +66,6 @@ export default function SaveEditor() {
       const parsed = JSON.parse(decrypted) as SaveDataType
       setSaveData(parsed)
       setOriginalSaveData(JSON.parse(JSON.stringify(parsed)))
-      console.log(JSON.stringify(parsed))
       setFileName(files[0].name)
     }
   }
