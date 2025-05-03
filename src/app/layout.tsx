@@ -1,12 +1,12 @@
 import Footer from '@/components/footer'
 import Navbar from '@/components/navbar'
+import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale } from 'next-intl/server'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'repo-save-editor',
-  description: 'Repo Save Editor'
+  description: 'R.E.P.O. Save Editor '
 }
 
 export default async function RootLayout({
@@ -33,8 +33,8 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex min-h-screen flex-col font-sans
-          antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} flex min-h-[100dvh] flex-col
+          font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -49,6 +49,7 @@ export default async function RootLayout({
             </div>
             <Footer />
             <Toaster />
+            
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

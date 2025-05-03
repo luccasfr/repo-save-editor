@@ -32,7 +32,7 @@ export function LocaleSelector({ ...props }: DarkModeToggleProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" {...props}>
+        <Button variant="outline" size="icon" {...props}>
           <Image
             src={`https://flagcdn.com/${flag}.svg`}
             alt="flag"

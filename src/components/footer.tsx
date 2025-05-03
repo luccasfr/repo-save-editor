@@ -5,8 +5,8 @@ export default async function Footer() {
   const t = await getTranslations('footer')
 
   return (
-    <div className="text-foreground/70 px-6 py-4 text-sm md:px-12">
-      <p>
+    <div className="px-6 py-4 text-sm md:px-12">
+      <p className="text-foreground/70">
         {t('description')}{' '}
         <Link
           href="https://github.com/luccasfr"

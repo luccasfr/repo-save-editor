@@ -39,7 +39,7 @@ export function StatsItem({
         >
           <Minus className="size-3" />
         </Button>
-        <p className="font-mono text-lg font-bold">{value}</p>
+        <p className="font-mono text-lg font-bold text-center">{value}</p>
         <Button
           variant="outline"
           size="icon"
