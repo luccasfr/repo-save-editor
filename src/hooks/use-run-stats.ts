@@ -1,4 +1,4 @@
-import type { ItemsPurchased, SaveDataType } from '@/model/save-game'
+import type { ItemsPurchased, SaveGame } from '@/model/save-game'
 
 /**
  * Represents the keys for run statistics that can be updated
@@ -17,8 +17,8 @@ export type RunStatKey =
  * @returns Object with functions to get and modify run statistics
  */
 export function useRunStats(
-  saveData: SaveDataType,
-  onUpdateSaveData: (updatedSaveData: SaveDataType) => void
+  saveData: SaveGame,
+  onUpdateSaveData: (updatedSaveData: SaveGame) => void
 ) {
   /**
    * Updates a specific run statistic value

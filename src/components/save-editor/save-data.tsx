@@ -1,6 +1,6 @@
 'use client'
 
-import { type SaveDataType } from '@/model/save-game'
+import { type SaveGame } from '@/model/save-game'
 import PlayerList from './player-list'
 import RunStats from './run-stats'
 import { Button } from '../ui/button'
@@ -12,6 +12,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip'
+import { SteamAvatars } from "@/model/steam-avatars"
 
 type SaveDataActionButtonProps = {
   icon: LucideIcon
@@ -47,23 +48,25 @@ function SaveDataActionButton({
 }
 
 type SaveDataProps = {
-  saveData: SaveDataType
-  onUpdateSaveData: (updatedSaveData: SaveDataType) => void
+  saveGame: SaveGame
+  onUpdateSaveData: (updatedSaveData: SaveGame) => void
   onReset: () => void
   hasChanges: boolean
   onSave: () => void
   onNewFile: () => void
   fileName?: string | null
+  steamAvatars: SteamAvatars | null
 }
 
 export default function SaveData({
-  saveData,
+  saveGame,
   onUpdateSaveData,
   onReset,
   onSave,
   hasChanges,
   onNewFile,
-  fileName
+  fileName,
+  steamAvatars
 }: SaveDataProps) {
   const t = useTranslations('save_data')
 
@@ -95,9 +98,9 @@ export default function SaveData({
       </div>
       <div className="space-y-4">
         <p className="font-bold">{t('run_data')}</p>
-        <RunStats saveData={saveData} onUpdateSaveData={onUpdateSaveData} />
+        <RunStats saveGame={saveGame} onUpdateSaveData={onUpdateSaveData} />
         <p className="font-bold">{t('players')}</p>
-        <PlayerList saveData={saveData} onUpdateSaveData={onUpdateSaveData} />
+        <PlayerList saveGame={saveGame} onUpdateSaveData={onUpdateSaveData} steamAvatars={steamAvatars} />
       </div>
     </div>
   )

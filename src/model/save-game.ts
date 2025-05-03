@@ -1,7 +1,7 @@
 /**
  * Represents the complete save data structure for the game
  */
-export interface SaveDataType {
+export interface SaveGame {
   dictionaryOfDictionaries: DictionaryOfDictionaries
   playerNames: PlayerNames
   timePlayed: TimePlayed

@@ -6,22 +6,22 @@ import {
 } from '@/components/ui/accordion'
 import { PURCHASED_ITEMS_ICON } from '@/consts/purchased-items-icon'
 import { useRunStats } from '@/hooks/use-run-stats'
-import { ItemsPurchased, SaveDataType } from '@/model/save-game'
+import { ItemsPurchased, SaveGame } from '@/model/save-game'
 import { Box, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { StatsItem } from './stats-item'
 
 type PurchasedItemsProps = {
-  saveData: SaveDataType
-  onUpdateSaveData: (updatedSaveData: SaveDataType) => void
+  saveGame: SaveGame
+  onUpdateSaveData: (updatedSaveData: SaveGame) => void
 }
 
 export function PurchasedItems({
-  saveData,
+  saveGame,
   onUpdateSaveData
 }: PurchasedItemsProps) {
   const t = useTranslations('run_stats')
-  const { handleItemsPurchasedChange } = useRunStats(saveData, onUpdateSaveData)
+  const { handleItemsPurchasedChange } = useRunStats(saveGame, onUpdateSaveData)
 
   return (
     <Accordion type="single" collapsible>
@@ -35,7 +35,7 @@ export function PurchasedItems({
         <AccordionContent>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             {Object.entries(
-              saveData.dictionaryOfDictionaries.value.itemsPurchased
+              saveGame.dictionaryOfDictionaries.value.itemsPurchased
             ).map(([key, value]) => {
               const itemName = key.replace('Item ', '').replace(/_/g, ' ')
               return (

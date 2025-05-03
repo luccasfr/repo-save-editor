@@ -6,7 +6,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import type { SaveDataType } from '@/model/save-game'
+import type { SaveGame } from '@/model/save-game'
 import { DollarSign, Gauge, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { StatsItem } from './stats-item'
@@ -15,26 +15,26 @@ import { PurchasedItems } from './purchased-items'
 import { useRunStats } from '@/hooks/use-run-stats'
 
 type RunStatsProps = {
-  saveData: SaveDataType
-  onUpdateSaveData: (updatedSaveData: SaveDataType) => void
+  saveGame: SaveGame
+  onUpdateSaveData: (updatedSaveData: SaveGame) => void
 }
 
 export default function RunStats({
-  saveData,
+  saveGame,
   onUpdateSaveData
 }: RunStatsProps) {
   const t = useTranslations('run_stats')
   const { getRunStatValue, handleStatChange } = useRunStats(
-    saveData,
+    saveGame,
     onUpdateSaveData
   )
 
   return (
     <Card className="">
       <CardHeader>
-        <CardTitle>{saveData.teamName.value}</CardTitle>
+        <CardTitle>{saveGame.teamName.value}</CardTitle>
         <CardDescription>
-          {formatPlayTime(saveData.timePlayed.value)} {t('played_time')}
+          {formatPlayTime(saveGame.timePlayed.value)} {t('played_time')}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -74,7 +74,7 @@ export default function RunStats({
         </div>
         <Separator />
         <PurchasedItems
-          saveData={saveData}
+          saveGame={saveGame}
           onUpdateSaveData={onUpdateSaveData}
         />
       </CardContent>

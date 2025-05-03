@@ -3,29 +3,32 @@
 import SaveData from '@/components/save-editor/save-data'
 import UploadFile from '@/components/upload-file'
 import { decryptEs3, encryptEs3 } from '@/lib/es3-crypto'
-import { type SaveDataType } from '@/model/save-game'
-import { useMemo, useState } from 'react'
+import fetchAvatars from '@/lib/fetch-avatars'
+import { type SaveGame } from '@/model/save-game'
+import { SteamAvatars } from "@/model/steam-avatars"
+import { useEffect, useMemo, useState } from 'react'
 
 export default function SaveEditor() {
   const [fileName, setFileName] = useState<string | null>(null)
-  const [saveData, setSaveData] = useState<SaveDataType | null>(null)
-  const [originalSaveData, setOriginalSaveData] = useState<SaveDataType | null>(
+  const [saveGame, setSaveGame] = useState<SaveGame | null>(null)
+  const [steamAvatars, setSteamAvatars] = useState<SteamAvatars | null>(null)
+  const [originalSaveData, setOriginalSaveData] = useState<SaveGame | null>(
     null
   )
 
   const hasChanges = useMemo(() => {
-    if (!saveData || !originalSaveData) return false
+    if (!saveGame || !originalSaveData) return false
 
-    return JSON.stringify(saveData) !== JSON.stringify(originalSaveData)
-  }, [saveData, originalSaveData])
+    return JSON.stringify(saveGame) !== JSON.stringify(originalSaveData)
+  }, [saveGame, originalSaveData])
 
-  const handleSaveDataUpdate = (updatedSaveData: SaveDataType) => {
-    setSaveData(updatedSaveData)
+  const handleSaveDataUpdate = (updatedSaveData: SaveGame) => {
+    setSaveGame(updatedSaveData)
   }
 
   const handleReset = () => {
     if (originalSaveData) {
-      setSaveData(JSON.parse(JSON.stringify(originalSaveData)))
+      setSaveGame(JSON.parse(JSON.stringify(originalSaveData)))
     }
   }
 
@@ -41,16 +44,16 @@ export default function SaveEditor() {
 
   const handleSave = async () => {
     const binaryData = await encryptEs3(
-      JSON.stringify(saveData, null, 4),
+      JSON.stringify(saveGame, null, 4),
       "Why would you want to cheat?... :o It's no fun. :') :'D"
     )
     const blob = new Blob([binaryData])
     downloadSaveFile(blob, fileName || 'repo-save-game.es3')
-    setOriginalSaveData(JSON.parse(JSON.stringify(saveData)))
+    setOriginalSaveData(JSON.parse(JSON.stringify(saveGame)))
   }
 
   const handleNewFile = () => {
-    setSaveData(null)
+    setSaveGame(null)
     setOriginalSaveData(null)
     setFileName(null)
   }
@@ -63,24 +66,38 @@ export default function SaveEditor() {
         files[0].base64,
         "Why would you want to cheat?... :o It's no fun. :') :'D"
       )
-      const parsed = JSON.parse(decrypted) as SaveDataType
-      setSaveData(parsed)
+      const parsed = JSON.parse(decrypted) as SaveGame
+      setSaveGame(parsed)
       setOriginalSaveData(JSON.parse(JSON.stringify(parsed)))
       setFileName(files[0].name)
     }
   }
 
+  useEffect(() => {
+    const fetch = async () => {
+      const avatars = await fetchAvatars(
+        Object.keys(saveGame?.playerNames.value ?? {})
+      )
+      setSteamAvatars(avatars)
+    }
+    if (!saveGame) return
+    fetch()
+  }, [saveGame])
+
+  console.log('avatars', steamAvatars)
+
   return (
     <div>
-      {saveData ? (
+      {saveGame ? (
         <SaveData
-          saveData={saveData}
+          saveGame={saveGame}
           onUpdateSaveData={handleSaveDataUpdate}
           onReset={handleReset}
           hasChanges={hasChanges}
           onSave={handleSave}
           onNewFile={handleNewFile}
           fileName={fileName}
+          steamAvatars={steamAvatars}
         />
       ) : (
         <UploadFile className="w-full" onFilesChange={handleFileUpload} />

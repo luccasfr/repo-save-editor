@@ -6,7 +6,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { usePlayerUpgrades } from '@/hooks/use-player-upgrades'
-import { SaveDataType } from '@/model/save-game'
+import { SaveGame } from '@/model/save-game'
 import {
   ArrowBigUp,
   BicepsFlexed,
@@ -20,34 +20,49 @@ import { useTranslations } from 'next-intl'
 import { Separator } from '../ui/separator'
 import { HealthBar, StaminaBar } from './player-status-bars'
 import { UpgradeCount } from './upgrade-count'
+import { SteamAvatars } from '@/model/steam-avatars'
+import Image from 'next/image'
 
 type PlayerListProps = {
-  saveData: SaveDataType
-  onUpdateSaveData: (updatedSaveData: SaveDataType) => void
+  saveGame: SaveGame
+  steamAvatars: SteamAvatars | null
+  onUpdateSaveData: (updatedSaveData: SaveGame) => void
 }
 
 export default function PlayerList({
-  saveData,
-  onUpdateSaveData
+  saveGame,
+  onUpdateSaveData,
+  steamAvatars
 }: PlayerListProps) {
   const t = useTranslations('player_list')
   const { getUpgradeValue, handleIncrease, handleDecrease } = usePlayerUpgrades(
-    saveData,
+    saveGame,
     onUpdateSaveData
   )
 
   return (
-    saveData?.playerNames &&
-    Object.entries(saveData?.playerNames.value).map(([key, value]) => (
+    saveGame?.playerNames &&
+    Object.entries(saveGame?.playerNames.value).map(([key, value]) => (
       <Card key={key}>
         <CardHeader>
           <CardTitle className="relative w-fit">
-            {saveData.dictionaryOfDictionaries.value.playerHasCrown[key] ? (
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+            {saveGame.dictionaryOfDictionaries.value.playerHasCrown[key] ? (
+              <div className="absolute -top-4 left-1">
                 <Crown className="size-3.5 text-yellow-500" />
               </div>
             ) : null}
-            {value}
+            <div className="flex items-baseline gap-2">
+              {steamAvatars && steamAvatars[key] ? (
+                <Image
+                  src={steamAvatars[key]}
+                  alt="avatar"
+                  className=""
+                  width={24}
+                  height={24}
+                />
+              ) : null}
+              <p>{value}</p>
+            </div>
           </CardTitle>
           <CardDescription className="font-mono">{key}</CardDescription>
         </CardHeader>

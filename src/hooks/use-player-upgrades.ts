@@ -1,4 +1,4 @@
-import { SaveDataType } from '@/model/save-game'
+import { SaveGame } from '@/model/save-game'
 
 /**
  * Available player upgrade types that can be modified
@@ -22,8 +22,8 @@ export type UpgradeType =
  * @returns Object with functions to get and modify player upgrades
  */
 export function usePlayerUpgrades(
-  saveData: SaveDataType,
-  onUpdateSaveData: (updatedSaveData: SaveDataType) => void
+  saveData: SaveGame,
+  onUpdateSaveData: (updatedSaveData: SaveGame) => void
 ) {
   /**
    * Updates a specific player upgrade value
