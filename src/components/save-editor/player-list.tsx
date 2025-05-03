@@ -51,7 +51,7 @@ export default function PlayerList({
                 <Crown className="size-3.5 text-yellow-500" />
               </div>
             ) : null}
-            <div className="flex items-baseline gap-2">
+            <div className="flex items-baseline gap-2 h-6">
               {steamAvatars && steamAvatars[key] ? (
                 <Image
                   src={steamAvatars[key]}
