@@ -11,6 +11,7 @@ import {
   ArrowBigUp,
   BicepsFlexed,
   CircleChevronUp,
+  Cross,
   Crown,
   MoveUp,
   Users,
@@ -51,7 +52,7 @@ export default function PlayerList({
                 <Crown className="size-3.5 text-yellow-500" />
               </div>
             ) : null}
-            <div className="flex items-baseline gap-2 h-6">
+            <div className="flex h-6 items-baseline gap-2">
               {steamAvatars && steamAvatars[key] ? (
                 <Image
                   src={steamAvatars[key]}
@@ -121,6 +122,20 @@ export default function PlayerList({
               onDecrease={() =>
                 handleDecrease(key, 'playerUpgradeMapPlayerCount')
               }
+            />
+            <UpgradeCount
+              icon={Cross}
+              count={getUpgradeValue(key, 'playerUpgradeHealth')}
+              titleKey="health"
+              onIncrease={() => handleIncrease(key, 'playerUpgradeHealth')}
+              onDecrease={() => handleDecrease(key, 'playerUpgradeHealth')}
+            />
+            <UpgradeCount
+              icon={Zap}
+              count={getUpgradeValue(key, 'playerUpgradeStamina')}
+              titleKey="stamina"
+              onIncrease={() => handleIncrease(key, 'playerUpgradeStamina')}
+              onDecrease={() => handleDecrease(key, 'playerUpgradeStamina')}
             />
           </div>
         </CardContent>
