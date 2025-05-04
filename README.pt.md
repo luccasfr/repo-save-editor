@@ -47,7 +47,7 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador para acessa
 
 ## Como Usar
 
-1. Localize seu arquivo de salvamento do R.E.P.O (normalmente em `%USERPROFILE%\AppData\LocalLow\Metal Beard\REPO\SaveFiles`)
+1. Localize seu arquivo de salvamento do R.E.P.O (normalmente em `%USERPROFILE%/AppData\LocalLow\semiwork\Repo\saves`)
 2. Faça upload do arquivo de salvamento para o editor
 3. Faça as alterações desejadas
 4. Baixe o arquivo de salvamento modificado

@@ -12,9 +12,7 @@
       "copy": "Arquivo copiado para a área de transferência!"
     },
     "save_game": {
-      "info": "Os savegames ficam localizados em",
-      "warning": "Atenção!",
-      "check_drive_letter": "Verifique se o seu disco primário de instalação do Windows é a letra"
+      "info": "Os savegames usualmente ficam localizados em"
     },
     "error": {
       "invalid_file_type": "Tipo de arquivo inválido!",

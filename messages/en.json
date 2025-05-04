@@ -12,9 +12,7 @@
       "copy": "File copied to clipboard!"
     },
     "save_game": {
-      "info": "The savegames are located in",
-      "warning": "Warning!",
-      "check_drive_letter": "Check if your primary Windows installation drive is the letter"
+      "info": "The savegames are located typically in"
     },
     "error": {
       "invalid_file_type": "Invalid file type!",

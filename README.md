@@ -49,7 +49,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to access th
 
 ## How to Use
 
-1. Locate your R.E.P.O save file (typically in `%USERPROFILE%\AppData\LocalLow\Metal Beard\REPO\SaveFiles`)
+1. Locate your R.E.P.O save file (typically in `%USERPROFILE%/AppData\LocalLow\semiwork\Repo\saves`)
 2. Upload the save file to the editor
 3. Make your desired changes
 4. Download the modified save file

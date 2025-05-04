@@ -208,7 +208,7 @@ export default function UploadFile({
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(
-      'C:\\Users\\%USERNAME%\\AppData\\LocalLow\\semiwork\\Repo\\saves'
+      '%USERPROFILE%\\AppData\\LocalLow\\semiwork\\Repo\\saves'
     )
     toast.success(t('success.copy'))
   }, [t])
@@ -295,18 +295,8 @@ export default function UploadFile({
           >
             <Copy className="size-3" />
           </Button>
-          <p>
-            <span className="font-bold text-yellow-600">C:</span>
-            \Users\%USERNAME%\AppData\LocalLow\semiwork\Repo\saves
-          </p>
+          <p>%USERPROFILE%\AppData\LocalLow\semiwork\Repo\saves</p>
         </div>
-        <p>
-          <span className="font-bold text-yellow-600">
-            {t(`save_game.warning`)}
-          </span>{' '}
-          {t(`save_game.check_drive_letter`)}{' '}
-          <span className="font-bold text-yellow-600">C</span>.
-        </p>
       </div>
     </div>
   )
