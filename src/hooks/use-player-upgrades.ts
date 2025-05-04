@@ -69,17 +69,39 @@ export function usePlayerUpgrades(
     }
   }
 
+  /**
+   * Sets a player's upgrade value to a specific number
+   *
+   * @param playerId - The ID of the player
+   * @param upgradeType - The type of upgrade to set
+   * @param newValue - The new value for the upgrade
+   */
+  const setUpgradeValue = (
+    playerId: string,
+    upgradeType: UpgradeType,
+    newValue: number
+  ) => {
+    updateUpgradeValue(playerId, upgradeType, newValue)
+  }
+
+  /**
+   * Gets the current value of a player's upgrade
+   *
+   * @param playerId - The ID of the player
+   * @param upgradeType - The type of upgrade to retrieve
+   * @returns The current value of the upgrade or 0 if not set
+   */
+  const getUpgradeValue = (
+    playerId: string,
+    upgradeType: UpgradeType
+  ): number => {
+    return saveData?.dictionaryOfDictionaries.value[upgradeType][playerId] ?? 0
+  }
+
   return {
-    /**
-     * Gets the current value of a player's upgrade
-     *
-     * @param playerId - The ID of the player
-     * @param upgradeType - The type of upgrade to retrieve
-     * @returns The current value of the upgrade or 0 if not set
-     */
-    getUpgradeValue: (playerId: string, upgradeType: UpgradeType) =>
-      saveData?.dictionaryOfDictionaries.value[upgradeType][playerId] ?? 0,
+    getUpgradeValue,
     handleIncrease,
-    handleDecrease
+    handleDecrease,
+    setUpgradeValue
   }
 }

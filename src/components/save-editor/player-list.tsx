@@ -7,6 +7,7 @@ import {
 } from '@/components/ui/card'
 import { usePlayerUpgrades } from '@/hooks/use-player-upgrades'
 import { SaveGame } from '@/model/save-game'
+import { SteamAvatars } from '@/model/steam-avatars'
 import {
   ArrowBigUp,
   BicepsFlexed,
@@ -18,11 +19,10 @@ import {
   Zap
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import Image from 'next/image'
 import { Separator } from '../ui/separator'
 import { HealthBar, StaminaBar } from './player-status-bars'
 import { UpgradeCount } from './upgrade-count'
-import { SteamAvatars } from '@/model/steam-avatars'
-import Image from 'next/image'
 
 type PlayerListProps = {
   saveGame: SaveGame
@@ -36,10 +36,22 @@ export default function PlayerList({
   steamAvatars
 }: PlayerListProps) {
   const t = useTranslations('player_list')
-  const { getUpgradeValue, handleIncrease, handleDecrease } = usePlayerUpgrades(
-    saveGame,
-    onUpdateSaveData
-  )
+  const { getUpgradeValue, handleIncrease, handleDecrease, setUpgradeValue } =
+    usePlayerUpgrades(saveGame, onUpdateSaveData)
+
+  const handleIncreaseHealth = (key: string) => {
+    handleIncrease(key, 'playerUpgradeHealth')
+    const healthUpgrade = getUpgradeValue(key, 'playerUpgradeHealth')
+    const maxHealth = 100 + healthUpgrade * 20
+    setUpgradeValue(key, 'playerHealth', maxHealth)
+  }
+
+  const handleDecreaseHealth = (key: string) => {
+    handleDecrease(key, 'playerUpgradeHealth')
+    const healthUpgrade = getUpgradeValue(key, 'playerUpgradeHealth')
+    const maxHealth = 100 + healthUpgrade * 20
+    setUpgradeValue(key, 'playerHealth', maxHealth)
+  }
 
   return (
     saveGame?.playerNames &&
@@ -72,11 +84,28 @@ export default function PlayerList({
           <HealthBar
             healthUpgrade={getUpgradeValue(key, 'playerUpgradeHealth')}
             health={getUpgradeValue(key, 'playerHealth')}
+            onChange={(newHealth) =>
+              setUpgradeValue(key, 'playerHealth', newHealth)
+            }
           />
           <StaminaBar stamina={getUpgradeValue(key, 'playerUpgradeStamina')} />
           <Separator />
           <h1 className="font-bold">{t('upgrades')}</h1>
           <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+            <UpgradeCount
+              icon={Cross}
+              count={getUpgradeValue(key, 'playerUpgradeHealth')}
+              titleKey="health"
+              onIncrease={() => handleIncreaseHealth(key)}
+              onDecrease={() => handleDecreaseHealth(key)}
+            />
+            <UpgradeCount
+              icon={Zap}
+              count={getUpgradeValue(key, 'playerUpgradeStamina')}
+              titleKey="stamina"
+              onIncrease={() => handleIncrease(key, 'playerUpgradeStamina')}
+              onDecrease={() => handleDecrease(key, 'playerUpgradeStamina')}
+            />
             <UpgradeCount
               icon={Zap}
               count={getUpgradeValue(key, 'playerUpgradeSpeed')}
@@ -122,20 +151,6 @@ export default function PlayerList({
               onDecrease={() =>
                 handleDecrease(key, 'playerUpgradeMapPlayerCount')
               }
-            />
-            <UpgradeCount
-              icon={Cross}
-              count={getUpgradeValue(key, 'playerUpgradeHealth')}
-              titleKey="health"
-              onIncrease={() => handleIncrease(key, 'playerUpgradeHealth')}
-              onDecrease={() => handleDecrease(key, 'playerUpgradeHealth')}
-            />
-            <UpgradeCount
-              icon={Zap}
-              count={getUpgradeValue(key, 'playerUpgradeStamina')}
-              titleKey="stamina"
-              onIncrease={() => handleIncrease(key, 'playerUpgradeStamina')}
-              onDecrease={() => handleDecrease(key, 'playerUpgradeStamina')}
             />
           </div>
         </CardContent>

@@ -33,7 +33,7 @@ export function PurchasedItems({
           </div>
         </AccordionTrigger>
         <AccordionContent>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 mt-4">
             {Object.entries(
               saveGame.dictionaryOfDictionaries.value.itemsPurchased
             ).map(([key, value]) => {
