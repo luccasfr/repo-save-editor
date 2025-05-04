@@ -1,7 +1,7 @@
 'use server'
 
 import { SteamAvatars } from '@/model/steam-avatars'
-import { DOMParser } from 'xmldom'
+import { DOMParser } from '@xmldom/xmldom'
 
 /**
  * Fetches the full avatar URLs for a list of Steam IDs.
