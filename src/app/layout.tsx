@@ -6,7 +6,6 @@ import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale } from 'next-intl/server'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from "@vercel/analytics/react"
 import './globals.css'
 
 const geistSans = Geist({
@@ -47,7 +46,6 @@ export default async function RootLayout({
             <Navbar />
             <div className="flex-1 space-y-4 px-6 pt-18 md:px-12">
               {children}
-              <Analytics />
             </div>
             <Footer />
             <Toaster />
