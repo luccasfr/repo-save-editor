@@ -3,7 +3,7 @@
 import { type SaveGame } from '@/model/save-game'
 import PlayerList from './player-list'
 import RunStats from './run-stats'
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/button'
 import { LucideIcon, Plus, RotateCcw, Save } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import {

@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
+import { Separator } from '@/components/ui/separator'
 import { usePlayerUpgrades } from '@/hooks/use-player-upgrades'
 import { SaveGame } from '@/model/save-game'
 import { SteamAvatars } from '@/model/steam-avatars'
@@ -20,7 +21,6 @@ import {
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { Separator } from '../ui/separator'
 import { HealthBar, StaminaBar } from './player-status-bars'
 import { UpgradeCount } from './upgrade-count'
 

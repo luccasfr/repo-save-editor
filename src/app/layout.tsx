@@ -20,8 +20,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'repo-save-editor',
-  description: 'R.E.P.O. Save Editor '
+  title: 'R.E.P.O. Save Editor',
+  description: 'Web application that allows you to modify R.E.P.O game save files easily.',
 }
 
 export default async function RootLayout({
