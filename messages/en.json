@@ -19,6 +19,10 @@
       "select_one_file": "Select only one file!"
     }
   },
+  "github_stars": {
+    "title": "Stars on GitHub",
+    "description": "If you like the project, consider giving a star on GitHub!"
+  },
   "save_data": {
     "new_file": "New file",
     "reset": "Reset changes",

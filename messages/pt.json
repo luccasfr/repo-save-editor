@@ -19,6 +19,10 @@
       "select_one_file": "Selecione apenas um arquivo!"
     }
   },
+  "github_stars": {
+    "title": "Estrelas no GitHub",
+    "description": "Se você gosta do projeto, considere dar uma estrela no GitHub!"
+  },
   "save_data": {
     "new_file": "Novo arquivo",
     "reset": "Redefinir Alterações",
