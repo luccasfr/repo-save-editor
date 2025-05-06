@@ -1,20 +1,21 @@
 'use client'
 
 import gitHubLogo from '@/assets/github-mark.svg'
+import gitHubLogoWhite from '@/assets/github-mark-white.svg'
+import Star from '@/components/star'
 import { Button } from '@/components/ui/button'
-import fetchGitHubStars from '@/lib/fetch-github-stars'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useLayoutEffect, useState } from 'react'
-import Star from './star'
-import { NumberTicker } from './ui/number-ticker'
-import { useTranslations } from 'next-intl'
+import { NumberTicker } from '@/components/ui/number-ticker'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip'
+import fetchGitHubStars from '@/lib/fetch-github-stars'
+import { useTranslations } from 'next-intl'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useLayoutEffect, useState } from 'react'
 
 export default function GitHubStars() {
   const t = useTranslations('github_stars')
@@ -42,7 +43,14 @@ export default function GitHubStars() {
                 alt="logo"
                 width={32}
                 height={32}
-                className="size-4"
+                className="size-4 dark:hidden block"
+              />
+              <Image
+                src={gitHubLogoWhite}
+                alt="logo"
+                width={32}
+                height={32}
+                className="size-4 dark:block hidden"
               />
               <p className="font-sans">{t('title')}</p>
               <div className="flex items-center gap-1">
