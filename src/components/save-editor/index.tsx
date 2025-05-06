@@ -5,10 +5,13 @@ import UploadFile from '@/components/upload-file'
 import { decryptEs3, encryptEs3 } from '@/lib/es3-crypto'
 import fetchAvatars from '@/lib/fetch-avatars'
 import { type SaveGame } from '@/model/save-game'
-import { SteamAvatars } from "@/model/steam-avatars"
+import { SteamAvatars } from '@/model/steam-avatars'
+import { useTranslations } from "next-intl"
 import { useEffect, useMemo, useState } from 'react'
+import { toast } from 'sonner'
 
 export default function SaveEditor() {
+  const t = useTranslations('save_editor')
   const [fileName, setFileName] = useState<string | null>(null)
   const [saveGame, setSaveGame] = useState<SaveGame | null>(null)
   const [steamAvatars, setSteamAvatars] = useState<SteamAvatars | null>(null)
@@ -62,14 +65,18 @@ export default function SaveEditor() {
     files: Array<{ base64: string; name: string }>
   ) => {
     if (files.length > 0) {
-      const decrypted = await decryptEs3(
-        files[0].base64,
-        "Why would you want to cheat?... :o It's no fun. :') :'D"
-      )
-      const parsed = JSON.parse(decrypted) as SaveGame
-      setSaveGame(parsed)
-      setOriginalSaveData(JSON.parse(JSON.stringify(parsed)))
-      setFileName(files[0].name)
+      try {
+        const decrypted = await decryptEs3(
+          files[0].base64,
+          "Why would you want to cheat?... :o It's no fun. :') :'D"
+        )
+        const parsed = JSON.parse(decrypted) as SaveGame
+        setSaveGame(parsed)
+        setOriginalSaveData(JSON.parse(JSON.stringify(parsed)))
+        setFileName(files[0].name)
+      } catch {
+        toast.error(t('error.invalid_file'))
+      }
     }
   }
 

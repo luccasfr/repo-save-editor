@@ -27,14 +27,16 @@ export default function Logo() {
         alt="logo"
         width={64}
         height={64}
-        className={cn('size-8 md:size-6', isOpen ? 'hidden' : 'block')}
+        className={cn('size-12', isOpen ? 'hidden' : 'block')}
+        priority
       />
       <Image
         src={logoOpen}
         alt="logoOpen"
         width={64}
         height={64}
-        className={cn('size-8 md:size-6', isOpen ? 'block' : 'hidden')}
+        className={cn('size-12', isOpen ? 'block' : 'hidden')}
+        priority
       />
     </>
   )

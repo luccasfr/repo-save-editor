@@ -16,11 +16,17 @@
     },
     "error": {
       "invalid_file_type": "Invalid file type!",
-      "select_one_file": "Select only one file!"
+      "select_one_file": "Select only one file!",
+      "invalid_file": "Invalid file! Please upload a valid save game file."
+    }
+  },
+  "save_editor": {
+    "error": {
+      "invalid_file": "Invalid file! Please upload a valid save game file."
     }
   },
   "github_stars": {
-    "title": "Stars on GitHub",
+    "title": "Stars",
     "description": "If you like the project, consider giving a star on GitHub!"
   },
   "save_data": {

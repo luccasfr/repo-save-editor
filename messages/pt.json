@@ -19,8 +19,13 @@
       "select_one_file": "Selecione apenas um arquivo!"
     }
   },
+  "save_editor": {
+    "error": {
+      "invalid_file": "Arquivo inválido! Por favor, faça o upload de um arquivo de save game válido."
+    }
+  },
   "github_stars": {
-    "title": "Estrelas no GitHub",
+    "title": "Estrelas",
     "description": "Se você gosta do projeto, considere dar uma estrela no GitHub!"
   },
   "save_data": {
