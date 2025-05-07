@@ -1,5 +1,5 @@
-import { getCookie } from '@/lib/cookie'
 import { getRequestConfig } from 'next-intl/server'
+import { cookies } from "next/headers"
 
 /**
  * This function retrieves the locale from a cookie and loads the corresponding
@@ -9,7 +9,8 @@ import { getRequestConfig } from 'next-intl/server'
  * @returns An object containing the locale and messages for that locale.
  */
 export default getRequestConfig(async () => {
-  const localeCookie = await getCookie('locale')
+  const cookieStore = await cookies()
+  const localeCookie = cookieStore.get('locale')
   const locale = localeCookie?.value || 'en'
 
   return {

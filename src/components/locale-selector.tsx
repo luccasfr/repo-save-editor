@@ -7,16 +7,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { setCookie } from '@/lib/cookie'
 import { cn } from '@/lib/utils'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useMemo } from 'react'
+import Cookies from 'js-cookie'
 
-type DarkModeToggleProps = React.ComponentPropsWithoutRef<typeof Button>
+type LocaleSelectorProps = React.ComponentPropsWithoutRef<typeof Button>
 
-export function LocaleSelector({ ...props }: DarkModeToggleProps) {
+export function LocaleSelector({ ...props }: LocaleSelectorProps) {
   const locale = useLocale()
+  const router = useRouter()
 
   const flag = useMemo(() => {
     switch (locale) {
@@ -28,6 +30,16 @@ export function LocaleSelector({ ...props }: DarkModeToggleProps) {
         return 'us'
     }
   }, [locale])
+
+  const handleLocaleChange = (newLocale: string) => {
+    Cookies.set('locale', newLocale, {
+      path: '/',
+      expires: 365,
+      sameSite: 'strict',
+      secure: window.location.protocol === 'https:'
+    })
+    router.refresh()
+  }
 
   return (
     <DropdownMenu>
@@ -47,7 +59,7 @@ export function LocaleSelector({ ...props }: DarkModeToggleProps) {
             'flex justify-between',
             locale === 'en' && 'font-semibold'
           )}
-          onClick={() => setCookie('locale', 'en')}
+          onClick={() => handleLocaleChange('en')}
         >
           <Image
             src={`https://flagcdn.com/us.svg`}
@@ -62,7 +74,7 @@ export function LocaleSelector({ ...props }: DarkModeToggleProps) {
             'flex justify-between',
             locale === 'pt' && 'font-semibold'
           )}
-          onClick={() => setCookie('locale', 'pt')}
+          onClick={() => handleLocaleChange('pt')}
         >
           <Image
             src={`https://flagcdn.com/br.svg`}
