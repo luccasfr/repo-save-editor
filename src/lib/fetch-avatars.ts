@@ -1,5 +1,3 @@
-'use server'
-
 import { SteamAvatars } from '@/model/steam-avatars'
 import { DOMParser } from '@xmldom/xmldom'
 
@@ -17,7 +15,7 @@ export default async function fetchAvatars(
 
   await Promise.all(
     steamIDs.map((steamID) =>
-      fetch(`https://steamcommunity.com/profiles/${steamID}/?xml=1`)
+      fetch(`https://api.cors.lol/?url=steamcommunity.com/profiles/${steamID}/?xml=1`)
         .then((res) => res.text())
         .then((text) => {
           const parser = new DOMParser()
