@@ -92,7 +92,7 @@ export default function SaveEditor() {
   }, [saveGame])
 
   return (
-    <div>
+    <>
       {saveGame ? (
         <SaveData
           saveGame={saveGame}
@@ -107,6 +107,6 @@ export default function SaveEditor() {
       ) : (
         <UploadFile className="w-full" onFilesChange={handleFileUpload} />
       )}
-    </div>
+    </>
   )
 }
