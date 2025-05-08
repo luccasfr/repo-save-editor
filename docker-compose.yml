@@ -1,0 +1,7 @@
+services:
+  repo-save-editor:
+    container_name: repo-save-editor
+    build: .
+    ports:
+      - '8000:3000'
+    restart: unless-stopped
