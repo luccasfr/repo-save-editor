@@ -25,7 +25,8 @@ import {
   TimerOff,
   Search,
   type LucideIcon,
-  BowArrow
+  BowArrow,
+  PaintBucket
 } from 'lucide-react'
 
 export const PURCHASED_ITEMS_ICON: Record<string, LucideIcon> = {
@@ -67,5 +68,6 @@ export const PURCHASED_ITEMS_ICON: Record<string, LucideIcon> = {
   'Upgrade Player Health': HeartPulse,
   'Upgrade Player Sprint Speed': Dumbbell,
   'Upgrade Player Tumble Launch': TimerOff,
-  'Valuable Tracker': Search
+  'Valuable Tracker': Search,
+  'Duck Bucket': PaintBucket,
 }

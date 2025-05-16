@@ -97,7 +97,11 @@
       "Upgrade Player Health": "Melhoria de Saúde do Jogador",
       "Upgrade Player Sprint Speed": "Melhoria de Velocidade de Corrida",
       "Upgrade Player Tumble Launch": "Melhoria de Lançamento ao Cair",
-      "Valuable Tracker": "Rastreador de Itens Valiosos"
+      "Valuable Tracker": "Rastreador de Itens Valiosos",
+      "Gun Stun": "Arma de Atordoamento",
+      "Melee Stun Baton": "Cassetete de Atordoamento",
+      "Gun Shockwave": "Arma de Onda de Choque",
+      "Duck Bucket": "Balde de Pato"
     }
   },
   "theme": {

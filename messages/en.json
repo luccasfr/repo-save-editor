@@ -98,7 +98,11 @@
       "Upgrade Player Health": "Player Health Upgrade",
       "Upgrade Player Sprint Speed": "Sprint Speed Upgrade",
       "Upgrade Player Tumble Launch": "Tumble Launch Upgrade",
-      "Valuable Tracker": "Valuable Tracker"
+      "Valuable Tracker": "Valuable Tracker",
+      "Gun Stun": "Gun Stun",
+      "Melee Stun Baton": "Melee Stun Baton",
+      "Gun Shockwave": "Gun Shockwave",
+      "Duck Bucket": "Duck Bucket"
     }
   },
   "theme": {

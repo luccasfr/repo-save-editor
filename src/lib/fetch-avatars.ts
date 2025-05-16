@@ -13,8 +13,6 @@ export default async function fetchAvatars(
   steamIDs: string[]
 ): Promise<SteamAvatars> {
   const avatarUrls: SteamAvatars = {}
-  // Paused while investigating abnormal behavior
-  return avatarUrls
   await Promise.all(
     steamIDs.map((steamID) =>
       fetch(`https://steamcommunity.com/profiles/${steamID}/?xml=1`)
