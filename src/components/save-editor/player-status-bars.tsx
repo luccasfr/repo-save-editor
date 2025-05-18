@@ -97,19 +97,19 @@ export function HealthBar({
 
   useEffect(() => {
     if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove)
-      window.addEventListener('mouseup', handleEnd)
-      window.addEventListener('touchmove', handleTouchMove)
-      window.addEventListener('touchend', handleEnd)
-      window.addEventListener('touchcancel', handleEnd)
+      globalThis.addEventListener('mousemove', handleMouseMove)
+      globalThis.addEventListener('mouseup', handleEnd)
+      globalThis.addEventListener('touchmove', handleTouchMove)
+      globalThis.addEventListener('touchend', handleEnd)
+      globalThis.addEventListener('touchcancel', handleEnd)
     }
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('mouseup', handleEnd)
-      window.removeEventListener('touchmove', handleTouchMove)
-      window.removeEventListener('touchend', handleEnd)
-      window.removeEventListener('touchcancel', handleEnd)
+      globalThis.removeEventListener('mousemove', handleMouseMove)
+      globalThis.removeEventListener('mouseup', handleEnd)
+      globalThis.removeEventListener('touchmove', handleTouchMove)
+      globalThis.removeEventListener('touchend', handleEnd)
+      globalThis.removeEventListener('touchcancel', handleEnd)
     }
   }, [isDragging, handleMouseMove, handleTouchMove, handleEnd])
 

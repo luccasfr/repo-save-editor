@@ -22,12 +22,15 @@ export function LocaleSelector({ ...props }: LocaleSelectorProps) {
 
   const flag = useMemo(() => {
     switch (locale) {
-      case 'pt':
+      case 'pt': {
         return 'br'
-      case 'en':
+      }
+      case 'en': {
         return 'us'
-      default:
+      }
+      default: {
         return 'us'
+      }
     }
   }, [locale])
 
@@ -36,7 +39,7 @@ export function LocaleSelector({ ...props }: LocaleSelectorProps) {
       path: '/',
       expires: 365,
       sameSite: 'strict',
-      secure: window.location.protocol === 'https:'
+      secure: globalThis.location.protocol === 'https:'
     })
     router.refresh()
   }

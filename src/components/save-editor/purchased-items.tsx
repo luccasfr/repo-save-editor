@@ -37,7 +37,7 @@ export function PurchasedItems({
             {Object.entries(
               saveGame.dictionaryOfDictionaries.value.itemsPurchased
             ).map(([key, value]) => {
-              const itemName = key.replace('Item ', '').replace(/_/g, ' ')
+              const itemName = key.replace('Item ', '').replaceAll('_', ' ')
               return (
                 <StatsItem
                   key={key}

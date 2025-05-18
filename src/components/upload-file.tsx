@@ -50,7 +50,7 @@ export default function UploadFile({
 
   useEffect(() => {
     return () => {
-      objectUrls.forEach((url) => URL.revokeObjectURL(url))
+      for (const url of objectUrls) URL.revokeObjectURL(url)
     }
   }, [objectUrls])
 
@@ -71,18 +71,18 @@ export default function UploadFile({
     }
 
     const newUrls: string[] = []
-    const fileList = Array.from(files)
+    const fileList = [...files]
 
     setFilesBase64([])
 
-    fileList.forEach((file) => {
+    for (const file of fileList) {
       if (file.type.startsWith('image/')) {
         const url = URL.createObjectURL(file)
         newUrls.push(url)
       }
 
       const reader = new FileReader()
-      reader.onload = (event) => {
+      reader.addEventListener('load', (event) => {
         const base64 = event.target?.result
         if (typeof base64 === 'string') {
           setFilesBase64((prev) => [
@@ -93,12 +93,12 @@ export default function UploadFile({
             }
           ])
         }
-      }
+      })
       reader.readAsDataURL(file)
-    })
+    }
 
     setObjectUrls((prevUrls) => {
-      prevUrls.forEach((url) => URL.revokeObjectURL(url))
+      for (const url of prevUrls) URL.revokeObjectURL(url)
       return newUrls
     })
   }, [files])
@@ -138,7 +138,7 @@ export default function UploadFile({
         return
       }
 
-      const invalidFiles = Array.from(droppedFiles).filter(
+      const invalidFiles = [...droppedFiles].filter(
         (file) => !checkFileType(file)
       )
 
@@ -173,7 +173,7 @@ export default function UploadFile({
       const selectedFiles = event.target.files
 
       if (selectedFiles && selectedFiles.length > 0) {
-        const invalidFiles = Array.from(selectedFiles).filter(
+        const invalidFiles = [...selectedFiles].filter(
           (file) => !checkFileType(file)
         )
 
@@ -208,7 +208,7 @@ export default function UploadFile({
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(
-      '%USERPROFILE%\\AppData\\LocalLow\\semiwork\\Repo\\saves'
+      String.raw`%USERPROFILE%\AppData\LocalLow\semiwork\Repo\saves`
     )
     toast.success(t('success.copy'))
   }, [t])
@@ -250,7 +250,7 @@ export default function UploadFile({
                 files.length < 5 ? 'flex justify-center' : 'grid grid-cols-5'
               )}
             >
-              {Array.from(files).map((file, index) => (
+              {[...files].map((file, index) => (
                 <div
                   className="flex flex-col items-center justify-center gap-1"
                   key={index}

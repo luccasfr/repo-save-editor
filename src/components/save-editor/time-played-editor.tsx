@@ -74,7 +74,7 @@ export function TimePlayedEditor({
                 type="number"
                 min="0"
                 value={hours}
-                onChange={(e) => setHours(parseInt(e.target.value) || 0)}
+                onChange={(e) => setHours(Number.parseInt(e.target.value) || 0)}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -85,7 +85,7 @@ export function TimePlayedEditor({
                 min="0"
                 max="59"
                 value={minutes}
-                onChange={(e) => setMinutes(parseInt(e.target.value) || 0)}
+                onChange={(e) => setMinutes(Number.parseInt(e.target.value) || 0)}
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -96,7 +96,7 @@ export function TimePlayedEditor({
                 min="0"
                 max="59"
                 value={seconds}
-                onChange={(e) => setSeconds(parseInt(e.target.value) || 0)}
+                onChange={(e) => setSeconds(Number.parseInt(e.target.value) || 0)}
               />
             </div>
           </div>

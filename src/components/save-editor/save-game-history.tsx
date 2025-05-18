@@ -9,8 +9,10 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { useSaveGameHistory } from '@/hooks/use-save-game-history'
+import downloadFile from '@/lib/download-file'
+import { encryptEs3 } from '@/lib/es3-crypto'
 import { SaveGameHistoryType } from '@/model/save-game-history'
-import { Check, Clock, Trash2, Upload, X } from 'lucide-react'
+import { Check, Clock, Download, Trash2, Upload, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 interface SaveGameStatsProps {
@@ -50,6 +52,16 @@ export default function SaveGameHistory({
   const { history, clearHistory, disabled, disableHistory, enableHistory } =
     useSaveGameHistory()
   const t = useTranslations('save_history')
+
+  const handleDownload = async (item: SaveGameHistoryType) => {
+    const saveGame = item.saveGame
+    const binaryData = await encryptEs3(
+      JSON.stringify(saveGame, null, 4),
+      "Why would you want to cheat?... :o It's no fun. :') :'D"
+    )
+    const blob = new Blob([binaryData])
+    downloadFile(blob, item.fileName || 'repo-save-game.es3')
+  }
 
   if (disabled) {
     return (
@@ -118,14 +130,25 @@ export default function SaveGameHistory({
                   totalHaul={item.summary.totalHaul}
                   playerCount={item.summary.playerCount}
                 />
-                <Button
-                  size="sm"
-                  className="mt-2 flex w-full items-center gap-1"
-                  onClick={() => onSelectSave?.(item)}
-                >
-                  <Upload className="h-4 w-4" />
-                  <span>{t('load')}</span>
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="sm"
+                    className="flex items-center gap-1 flex-1"
+                    onClick={() => onSelectSave?.(item)}
+                  >
+                    <Upload className="h-4 w-4" />
+                    <span>{t('load')}</span>
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="flex items-center gap-1"
+                    onClick={() => handleDownload(item)}
+                  >
+                    <Download className="h-4 w-4" />
+                    <span>{t('download')}</span>
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>

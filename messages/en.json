@@ -32,6 +32,7 @@
     "total_haul": "Total haul:",
     "players": "Players:",
     "load": "Load Save",
+    "download": "Download",
     "disclaimer": "The save game data is stored locally in your browser. It is not sent to any server and is deleted when you clear your browser cache or use incognito mode.",
     "disable": "Disable history",
     "enable": "Enable history",

@@ -3,11 +3,12 @@
 import SaveData from '@/components/save-editor/save-data'
 import SaveGameHistory from '@/components/save-editor/save-game-history'
 import UploadFile from '@/components/upload-file'
-import { SaveGameHistoryType } from '@/model/save-game-history'
 import { useSaveGameHistory } from '@/hooks/use-save-game-history'
+import downloadFile from '@/lib/download-file'
 import { decryptEs3, encryptEs3 } from '@/lib/es3-crypto'
 import fetchAvatars from '@/lib/fetch-avatars'
 import { type SaveGame } from '@/model/save-game'
+import { SaveGameHistoryType } from '@/model/save-game-history'
 import { SteamAvatars } from '@/model/steam-avatars'
 import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useState } from 'react'
@@ -35,18 +36,8 @@ export default function SaveEditor() {
 
   const handleReset = () => {
     if (originalSaveData) {
-      setSaveGame(JSON.parse(JSON.stringify(originalSaveData)))
+      setSaveGame(structuredClone(originalSaveData))
     }
-  }
-
-  const downloadSaveFile = (data: Blob, filename: string) => {
-    const url = URL.createObjectURL(data)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = filename
-    a.click()
-    URL.revokeObjectURL(url)
-    a.remove()
   }
 
   const handleSave = async () => {
@@ -55,8 +46,8 @@ export default function SaveEditor() {
       "Why would you want to cheat?... :o It's no fun. :') :'D"
     )
     const blob = new Blob([binaryData])
-    downloadSaveFile(blob, fileName || 'repo-save-game.es3')
-    setOriginalSaveData(JSON.parse(JSON.stringify(saveGame)))
+    downloadFile(blob, fileName || 'repo-save-game.es3')
+    setOriginalSaveData(structuredClone(saveGame))
   }
 
   const handleNewFile = () => {
@@ -76,7 +67,7 @@ export default function SaveEditor() {
         )
         const parsed = JSON.parse(decrypted) as SaveGame
         setSaveGame(parsed)
-        setOriginalSaveData(JSON.parse(JSON.stringify(parsed)))
+        setOriginalSaveData(structuredClone(parsed))
         setFileName(files[0].name)
 
         addToHistory(files[0].name, parsed)
@@ -87,8 +78,8 @@ export default function SaveEditor() {
   }
 
   const handleSelectSave = (historyItem: SaveGameHistoryType) => {
-    setSaveGame(JSON.parse(JSON.stringify(historyItem.saveGame)))
-    setOriginalSaveData(JSON.parse(JSON.stringify(historyItem.saveGame)))
+    setSaveGame(structuredClone(historyItem.saveGame))
+    setOriginalSaveData(structuredClone(historyItem.saveGame))
     setFileName(historyItem.fileName)
   }
 

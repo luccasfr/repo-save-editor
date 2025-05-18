@@ -1,6 +1,6 @@
 'use server'
 
-import crypto from 'crypto'
+import crypto from 'node:crypto'
 import { promisify } from 'node:util'
 import zlib from 'node:zlib'
 
@@ -84,7 +84,7 @@ export async function decryptEs3(
     decipher.final()
   ])
 
-  if (decryptedData.subarray(0, 2).equals(Buffer.from([0x1f, 0x8b]))) {
+  if (decryptedData.subarray(0, 2).equals(Buffer.from([0x1F, 0x8B]))) {
     const unzippedData = await gunzip(decryptedData)
     return unzippedData.toString(encoding)
   }

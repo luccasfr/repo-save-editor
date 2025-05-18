@@ -13,7 +13,7 @@ export default async function fetchGitHubStars(): Promise<number> {
     const data = await response.json()
     return data.length
   } catch (error) {
-    console.error('Error fetching GitHub stars: ', error)
+    console.error('Error fetching GitHub stars:', error)
     return 0
   }
 }
