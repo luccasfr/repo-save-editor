@@ -55,6 +55,14 @@
     "title": "Run Data",
     "played_time": "played",
     "items_title": "Items",
+    "edit_time": "Edit time played",
+    "edit_time_title": "Edit Time Played",
+    "edit_time_description": "Adjust the time played for your save game",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
+    "cancel": "Cancel",
+    "save": "Save",
     "stats": {
       "level": "Level",
       "currency": "Money (K)",
@@ -102,7 +110,9 @@
       "Gun Stun": "Gun Stun",
       "Melee Stun Baton": "Melee Stun Baton",
       "Gun Shockwave": "Gun Shockwave",
-      "Duck Bucket": "Duck Bucket"
+      "Duck Bucket": "Duck Bucket",
+      "Cart Cannon": "Cart Cannon",
+      "Cart Laser": "Cart Laser"
     }
   },
   "theme": {

@@ -6,13 +6,12 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
+import { useRunStats } from '@/hooks/use-run-stats'
 import type { SaveGame } from '@/model/save-game'
 import { DollarSign, Gauge, Zap } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { StatsItem } from './stats-item'
-import { formatPlayTime } from '@/utils/format-utils'
 import { PurchasedItems } from './purchased-items'
-import { useRunStats } from '@/hooks/use-run-stats'
+import { StatsItem } from './stats-item'
+import { TimePlayedEditor } from './time-played-editor'
 
 type RunStatsProps = {
   saveGame: SaveGame
@@ -23,18 +22,31 @@ export default function RunStats({
   saveGame,
   onUpdateSaveData
 }: RunStatsProps) {
-  const t = useTranslations('run_stats')
   const { getRunStatValue, handleStatChange } = useRunStats(
     saveGame,
     onUpdateSaveData
   )
 
+  const handleTimePlayedChange = (newTimePlayed: number) => {
+    const updatedSaveGame = { 
+      ...saveGame,
+      timePlayed: { 
+        ...saveGame.timePlayed, 
+        value: newTimePlayed 
+      } 
+    };
+    onUpdateSaveData(updatedSaveGame);
+  };
+
   return (
-    <Card className="">
+    <Card>
       <CardHeader>
         <CardTitle>{saveGame.teamName.value}</CardTitle>
         <CardDescription>
-          {formatPlayTime(saveGame.timePlayed.value)} {t('played_time')}
+          <TimePlayedEditor 
+            timePlayed={saveGame.timePlayed.value} 
+            onTimePlayedChange={handleTimePlayedChange} 
+          />
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">

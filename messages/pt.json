@@ -54,6 +54,14 @@
     "title": "Dados da Run",
     "played_time": "jogados",
     "items_title": "Itens",
+    "edit_time": "Editar tempo jogado",
+    "edit_time_title": "Editar Tempo Jogado",
+    "edit_time_description": "Ajuste o tempo jogado para seu save game",
+    "hours": "Horas",
+    "minutes": "Minutos",
+    "seconds": "Segundos",
+    "cancel": "Cancelar",
+    "save": "Salvar",
     "stats": {
       "level": "Nível",
       "currency": "Dinheiro (K)",
@@ -101,7 +109,9 @@
       "Gun Stun": "Arma de Atordoamento",
       "Melee Stun Baton": "Cassetete de Atordoamento",
       "Gun Shockwave": "Arma de Onda de Choque",
-      "Duck Bucket": "Balde de Pato"
+      "Duck Bucket": "Balde de Pato",
+      "Cart Cannon": "Canhão de Carrinho",
+      "Cart Laser": "Cart Laser"
     }
   },
   "theme": {
