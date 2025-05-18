@@ -9,8 +9,7 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { useSaveGameHistory } from '@/hooks/use-save-game-history'
-import downloadFile from '@/lib/download-file'
-import { encryptEs3 } from '@/lib/es3-crypto'
+import downloadSaveGame from '@/lib/download-save-game'
 import { SaveGameHistoryType } from '@/model/save-game-history'
 import { Check, Clock, Download, Trash2, Upload, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -52,16 +51,6 @@ export default function SaveGameHistory({
   const { history, clearHistory, disabled, disableHistory, enableHistory } =
     useSaveGameHistory()
   const t = useTranslations('save_history')
-
-  const handleDownload = async (item: SaveGameHistoryType) => {
-    const saveGame = item.saveGame
-    const binaryData = await encryptEs3(
-      JSON.stringify(saveGame, null, 4),
-      "Why would you want to cheat?... :o It's no fun. :') :'D"
-    )
-    const blob = new Blob([binaryData])
-    downloadFile(blob, item.fileName || 'repo-save-game.es3')
-  }
 
   if (disabled) {
     return (
@@ -143,7 +132,7 @@ export default function SaveGameHistory({
                     size="sm"
                     variant="outline"
                     className="flex items-center gap-1"
-                    onClick={() => handleDownload(item)}
+                    onClick={() => downloadSaveGame(item.saveGame, item.fileName)}
                   >
                     <Download className="h-4 w-4" />
                     <span>{t('download')}</span>

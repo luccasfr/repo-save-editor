@@ -15,7 +15,6 @@ const eslintConfig = [
   eslintPluginUnicorn.configs.recommended,
   {
     rules: {
-      ...unicorn.configs.recommended.rules,
       'unicorn/filename-case': ['error', { cases: { kebabCase: true } }],
       'unicorn/prevent-abbreviations': 'off',
       'unicorn/no-null': 'off',

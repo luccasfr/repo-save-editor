@@ -3,9 +3,10 @@
 import SaveData from '@/components/save-editor/save-data'
 import SaveGameHistory from '@/components/save-editor/save-game-history'
 import UploadFile from '@/components/upload-file'
+import { ENCRYPTION_KEY } from '@/consts/encrypton-key'
 import { useSaveGameHistory } from '@/hooks/use-save-game-history'
-import downloadFile from '@/lib/download-file'
-import { decryptEs3, encryptEs3 } from '@/lib/es3-crypto'
+import downloadSaveGame from '@/lib/download-save-game'
+import { decryptEs3 } from '@/lib/es3-crypto'
 import fetchAvatars from '@/lib/fetch-avatars'
 import { type SaveGame } from '@/model/save-game'
 import { SaveGameHistoryType } from '@/model/save-game-history'
@@ -41,12 +42,8 @@ export default function SaveEditor() {
   }
 
   const handleSave = async () => {
-    const binaryData = await encryptEs3(
-      JSON.stringify(saveGame, null, 4),
-      "Why would you want to cheat?... :o It's no fun. :') :'D"
-    )
-    const blob = new Blob([binaryData])
-    downloadFile(blob, fileName || 'repo-save-game.es3')
+    if (!saveGame) return
+    downloadSaveGame(saveGame, fileName ?? 'savegame.es3')
     setOriginalSaveData(structuredClone(saveGame))
   }
 
@@ -61,10 +58,7 @@ export default function SaveEditor() {
   ) => {
     if (files.length > 0) {
       try {
-        const decrypted = await decryptEs3(
-          files[0].base64,
-          "Why would you want to cheat?... :o It's no fun. :') :'D"
-        )
+        const decrypted = await decryptEs3(files[0].base64, ENCRYPTION_KEY)
         const parsed = JSON.parse(decrypted) as SaveGame
         setSaveGame(parsed)
         setOriginalSaveData(structuredClone(parsed))

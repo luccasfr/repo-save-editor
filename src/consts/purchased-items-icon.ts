@@ -29,6 +29,13 @@ import {
   PaintBucket
 } from 'lucide-react'
 
+/**
+ * Maps purchased item names from the game to their corresponding Lucide icons.
+ * Used to display appropriate visual indicators for different item types in the UI.
+ * 
+ * @constant {Record<string, LucideIcon>}
+ * 
+ */
 export const PURCHASED_ITEMS_ICON: Record<string, LucideIcon> = {
   'Cart Medium': ShoppingCart,
   'Cart Small': ShoppingCart,
