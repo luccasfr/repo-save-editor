@@ -24,6 +24,19 @@
       "invalid_file": "Arquivo inválido! Por favor, faça o upload de um arquivo de save game válido."
     }
   },
+  "save_history": {
+    "title": "Recentes",
+    "clear": "Limpar histórico",
+    "level": "Nível:",
+    "total_haul": "Total extraído:",
+    "players": "Jogadores:",
+    "load": "Carregar Save",
+    "disclaimer": "Os dados do save game são armazenados localmente no seu navegador. Eles não são enviados para nenhum servidor e são excluídos quando você limpa o cache do navegador ou usa o modo de navegação anônima.",
+    "disable": "Desabilitar histórico",
+    "enable": "Habilitar histórico",
+    "disabled": "Histórico desabilitado",
+    "empty": "Nenhum save recente encontrado."
+  },
   "github_stars": {
     "title": "Estrelas",
     "description": "Se você gosta do projeto, considere dar uma estrela no GitHub!"

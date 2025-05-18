@@ -1,12 +1,15 @@
 'use client'
 
 import SaveData from '@/components/save-editor/save-data'
+import SaveGameHistory from '@/components/save-editor/save-game-history'
 import UploadFile from '@/components/upload-file'
+import { SaveGameHistoryType } from '@/model/save-game-history'
+import { useSaveGameHistory } from '@/hooks/use-save-game-history'
 import { decryptEs3, encryptEs3 } from '@/lib/es3-crypto'
 import fetchAvatars from '@/lib/fetch-avatars'
 import { type SaveGame } from '@/model/save-game'
 import { SteamAvatars } from '@/model/steam-avatars'
-import { useTranslations } from "next-intl"
+import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -18,6 +21,7 @@ export default function SaveEditor() {
   const [originalSaveData, setOriginalSaveData] = useState<SaveGame | null>(
     null
   )
+  const { addToHistory } = useSaveGameHistory()
 
   const hasChanges = useMemo(() => {
     if (!saveGame || !originalSaveData) return false
@@ -74,10 +78,18 @@ export default function SaveEditor() {
         setSaveGame(parsed)
         setOriginalSaveData(JSON.parse(JSON.stringify(parsed)))
         setFileName(files[0].name)
+
+        addToHistory(files[0].name, parsed)
       } catch {
         toast.error(t('error.invalid_file'))
       }
     }
+  }
+
+  const handleSelectSave = (historyItem: SaveGameHistoryType) => {
+    setSaveGame(JSON.parse(JSON.stringify(historyItem.saveGame)))
+    setOriginalSaveData(JSON.parse(JSON.stringify(historyItem.saveGame)))
+    setFileName(historyItem.fileName)
   }
 
   useEffect(() => {
@@ -105,7 +117,10 @@ export default function SaveEditor() {
           steamAvatars={steamAvatars}
         />
       ) : (
-        <UploadFile className="w-full" onFilesChange={handleFileUpload} />
+        <div className="space-y-8">
+          <UploadFile className="w-full" onFilesChange={handleFileUpload} />
+          <SaveGameHistory onSelectSave={handleSelectSave} />
+        </div>
       )}
     </>
   )
