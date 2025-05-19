@@ -1,6 +1,5 @@
 import Footer from '@/components/footer'
 import Navbar from '@/components/navbar'
-import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 import type { Metadata } from 'next'
@@ -47,7 +46,6 @@ export default async function RootLayout({
             <Navbar />
             <div className="flex-1 space-y-4 px-6 pt-18 md:px-12">
               {children}
-              <Analytics />
             </div>
             <Footer />
             <Toaster />
