@@ -2,6 +2,7 @@ import Footer from '@/components/footer'
 import Navbar from '@/components/navbar'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
+import { type LocaleType } from "@/model/locale"
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale } from 'next-intl/server'
@@ -20,7 +21,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'R.E.P.O. Save Editor',
-  description: 'Web application that allows you to modify R.E.P.O game save files easily.',
+  description:
+    'Web application that allows you to modify R.E.P.O game save files easily.'
 }
 
 export default async function RootLayout({
@@ -28,7 +30,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const locale = await getLocale()
+  const locale = await getLocale() as LocaleType
 
   return (
     <html lang={locale} suppressHydrationWarning>

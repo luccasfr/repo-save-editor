@@ -1,4 +1,7 @@
 {
+  "version_history": {
+    "title": "Version History"
+  },
   "upload_file": {
     "title": "Send file",
     "status": {

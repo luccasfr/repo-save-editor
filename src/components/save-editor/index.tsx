@@ -14,6 +14,7 @@ import { SteamAvatars } from '@/model/steam-avatars'
 import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
+import { Separator } from "@/components/ui/separator"
 
 export default function SaveEditor() {
   const t = useTranslations('save_editor')
@@ -104,6 +105,7 @@ export default function SaveEditor() {
       ) : (
         <div className="space-y-8">
           <UploadFile className="w-full" onFilesChange={handleFileUpload} />
+          <Separator />
           <SaveGameHistory onSelectSave={handleSelectSave} />
         </div>
       )}

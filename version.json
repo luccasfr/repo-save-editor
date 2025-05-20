@@ -1,5 +1,5 @@
 {
-  "relases": [
+  "releases": [
     {
       "version": "0.1.0",
       "date": "2025-05-01",
@@ -22,7 +22,7 @@
         ],
         "en": [
           "Added option to change save items",
-          "Added option to search for players' steam avatars"
+          "Added option to search for players steam avatars"
         ]
       }
     },
