@@ -28,7 +28,7 @@ export default function VersionHistory() {
             <AccordionContent className="space-y-2 p-2">
               {release.changes[locale].map((change, index) => (
                 <div className="flex items-center gap-1" key={index}>
-                  <Asterisk className="size-4 text-accent" />
+                  <Asterisk className="size-4" />
                   <div  className="flex items-center gap-2">
                     <span className="text-sm">{change}</span>
                   </div>
