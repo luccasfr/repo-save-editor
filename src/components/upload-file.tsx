@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { DragEvent, JSX, useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
+import Heading from "./heading"
 
 const statusIcons: Record<string, JSX.Element> = {
   over: <PackageOpen />,
@@ -223,9 +224,7 @@ export default function UploadFile({
         accept={`.${fileExtension}`}
         onChange={handleFileInputChange}
       />
-      <p className={cn('font-semibold', errorMessage && 'text-destructive')}>
-        {t('title')}
-      </p>
+      <Heading title={t(`title`)} description={t(`description`)} />
       <div>
         <div
           className={cn(

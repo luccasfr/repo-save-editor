@@ -1,9 +1,11 @@
 {
   "version_history": {
-    "title": "Version History"
+    "title": "Version History",
+    "description": "This is a list of all the changes made to the project. It includes bug fixes, new features, and other improvements."
   },
   "upload_file": {
     "title": "Send file",
+    "description": "Drag and drop the save game file here or click to select.",
     "status": {
       "over": "you can drop the file now.",
       "enter": "drop! drop! drop!",

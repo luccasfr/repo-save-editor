@@ -1,9 +1,11 @@
 {
   "version_history": {
-    "title": "Histórico de Versões"
+    "title": "Histórico de Versões",
+    "description": "Esta é uma lista de todas as alterações feitas no projeto. Inclui correções de bugs, novos recursos e outras melhorias."
   },
   "upload_file": {
     "title": "Enviar arquivo",
+    "description": "Arraste e solte o arquivo de save game aqui ou clique para selecionar.",
     "status": {
       "over": "pode soltar o arquivo agora.",
       "enter": "solte! solte! solte!",

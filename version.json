@@ -18,11 +18,13 @@
       "changes": {
         "pt": [
           "Adicionada opção de alterar os itens do save",
-          "Adicionada opção de efetuar buscar avatar da steam dos players"
+          "Adicionada opção de efetuar buscar avatar da steam dos players",
+          "Adicionada opção de alterar a vida atual do player"
         ],
         "en": [
           "Added option to change save items",
-          "Added option to search for players steam avatars"
+          "Added option to search for players steam avatars",
+          "Added option to change player current health"
         ]
       }
     },
