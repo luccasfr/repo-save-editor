@@ -5,11 +5,11 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/ui/accordion'
-import { LocaleType } from "@/model/locale"
+import { LocaleType } from '@/model/locale'
 import { type VersionHistoryType } from '@/model/version-history'
-import { Asterisk } from "lucide-react"
+import { Asterisk } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
-import Heading from "./heading"
+import Heading from './heading'
 
 export default function VersionHistory() {
   const t = useTranslations('version_history')
@@ -19,25 +19,27 @@ export default function VersionHistory() {
   return (
     <div className="space-y-2">
       <Heading title={t(`title`)} description={t(`description`)} />
-      {versionHistory.releases.map((release) => (
-        <Accordion key={release.version} type="single" collapsible>
-          <AccordionItem value={release.version} className="last:border-b">
-            <AccordionTrigger className="hover:bg-accent p-2 font-mono font-semibold">
-              {release.version}
-            </AccordionTrigger>
-            <AccordionContent className="space-y-2 p-2">
-              {release.changes[locale].map((change, index) => (
-                <div className="flex items-center gap-1" key={index}>
-                  <Asterisk className="size-4" />
-                  <div  className="flex items-center gap-2">
-                    <span className="text-sm">{change}</span>
+      <div className="flex flex-col-reverse gap-2">
+        {versionHistory.releases.map((release) => (
+          <Accordion key={release.version} type="single" collapsible>
+            <AccordionItem value={release.version} className="last:border-b">
+              <AccordionTrigger className="hover:bg-accent p-2 font-mono font-semibold">
+                {release.version}
+              </AccordionTrigger>
+              <AccordionContent className="space-y-2 p-2">
+                {release.changes[locale].map((change, index) => (
+                  <div className="flex items-center gap-1" key={index}>
+                    <Asterisk className="size-4" />
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">{change}</span>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      ))}
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        ))}
+      </div>
     </div>
   )
 }

@@ -2,6 +2,7 @@
 
 import SaveData from '@/components/save-editor/save-data'
 import SaveGameHistory from '@/components/save-editor/save-game-history'
+import { Separator } from '@/components/ui/separator'
 import UploadFile from '@/components/upload-file'
 import { ENCRYPTION_KEY } from '@/consts/encrypton-key'
 import { useSaveGameHistory } from '@/hooks/use-save-game-history'
@@ -14,7 +15,7 @@ import { SteamAvatars } from '@/model/steam-avatars'
 import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
-import { Separator } from "@/components/ui/separator"
+import VersionHistory from '../version-history'
 
 export default function SaveEditor() {
   const t = useTranslations('save_editor')
@@ -107,6 +108,8 @@ export default function SaveEditor() {
           <UploadFile className="w-full" onFilesChange={handleFileUpload} />
           <Separator />
           <SaveGameHistory onSelectSave={handleSelectSave} />
+          <Separator />
+          <VersionHistory />
         </div>
       )}
     </>
