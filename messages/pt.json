@@ -1,7 +1,9 @@
 {
   "version_history": {
     "title": "Histórico de Versões",
-    "description": "Esta é uma lista de todas as alterações feitas no projeto. Inclui correções de bugs, novos recursos e outras melhorias."
+    "description": "Esta é uma lista de todas as alterações feitas no projeto. Inclui correções de bugs, novos recursos e outras melhorias.",
+    "release_date": "Data de Lançamento",
+    "changes": "Alterações"
   },
   "upload_file": {
     "title": "Enviar arquivo",
@@ -59,16 +61,17 @@
     "status": "Status",
     "upgrades": "Melhorias",
     "attributes": {
-      "health": "Saúde",
-      "stamina": "Resistência",
-      "speed": "Velocidade",
-      "strength": "Força",
-      "range": "Alcance",
-      "launch": "Lançamento",
-      "extra_jump": "Salto extra",
-      "player_count": "Contagem de jogadores",
-      "crouch_rest": "Descanso ao agachar",
-      "tumble_wings": "Asas ao cair"
+      "playerHealth": "Saúde",
+      "playerUpgradeStamina": "Estamina",
+      "playerUpgradeSpeed": "Velocidade",
+      "playerUpgradeStrength": "Força",
+      "playerUpgradeRange": "Alcance",
+      "playerUpgradeLaunch": "Lançamento",
+      "playerUpgradeExtraJump": "Salto Extra",
+      "playerUpgradeMapPlayerCount": "Contagem de Jogadores",
+      "playerUpgradeHealth": "Vida",
+      "playerUpgradeCrouchRest": "Descanso ao Agachar",
+      "playerUpgradeTumbleWings": "Asas ao Cair"
     }
   },
   "run_stats": {

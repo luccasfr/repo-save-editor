@@ -21,9 +21,9 @@ export function UpgradeCount({
   const t = useTranslations('player_list')
 
   return (
-    <div className="flex flex-col items-center text-sm text-center">
+    <div className="flex flex-col items-center text-center text-sm">
       <p className="font-medium">
-        <Icon className="inline-flex size-4 shrink-0 pr-0.5 " />
+        <Icon className="inline-flex size-4 shrink-0 pr-0.5" />
         {t(`attributes.${titleKey}`)}
       </p>
       <div className="flex items-center gap-2">

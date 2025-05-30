@@ -4,7 +4,7 @@ export interface VersionHistoryType {
 
 export interface ReleaseType {
   version: string;
-  date:    Date;
+  date:    string;
   changes: ChangeType;
 }
 

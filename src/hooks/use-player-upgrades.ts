@@ -3,18 +3,22 @@ import { SaveGame } from '@/model/save-game'
 /**
  * Available player upgrade types that can be modified
  */
-export type UpgradeType =
-  | 'playerUpgradeSpeed'
-  | 'playerUpgradeStrength'
-  | 'playerUpgradeRange'
-  | 'playerUpgradeLaunch'
-  | 'playerUpgradeExtraJump'
-  | 'playerUpgradeMapPlayerCount'
-  | 'playerUpgradeStamina'
-  | 'playerHealth'
-  | 'playerUpgradeHealth'
-  | 'playerUpgradeCrouchRest'
-  | 'playerUpgradeTumbleWings'
+export enum upgradeType {
+  Speed = 'playerUpgradeSpeed',
+  Strength = 'playerUpgradeStrength',
+  Range = 'playerUpgradeRange',
+  Launch = 'playerUpgradeLaunch',
+  ExtraJump = 'playerUpgradeExtraJump',
+  MapPlayerCount = 'playerUpgradeMapPlayerCount',
+  Stamina = 'playerUpgradeStamina',
+  Health = 'playerHealth',
+  UpgradeHealth = 'playerUpgradeHealth',
+  CrouchRest = 'playerUpgradeCrouchRest',
+  TumbleWings = 'playerUpgradeTumbleWings'
+}
+
+// Type that matches the original UpgradeType
+export type UpgradeType = `${upgradeType}`
 
 /**
  * Hook for managing player upgrades in the save data
@@ -53,6 +57,7 @@ export function usePlayerUpgrades(
    * @param upgradeType - The type of upgrade to increase
    */
   const handleIncrease = (playerId: string, upgradeType: UpgradeType) => {
+    console.log('handleIncrease', playerId, upgradeType)
     if (!saveData?.dictionaryOfDictionaries.value[upgradeType]) return
     const currentValue =
       saveData?.dictionaryOfDictionaries.value[upgradeType][playerId] ?? 0

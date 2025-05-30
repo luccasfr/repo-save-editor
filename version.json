@@ -2,7 +2,7 @@
   "releases": [
     {
       "version": "0.1.0",
-      "date": "2025-05-01",
+      "date": "2025-05-01 23:00",
       "changes": {
         "pt": [
           "Criação do save editor com as funcionalidades básicas."
@@ -14,7 +14,7 @@
     },
     {
       "version": "0.2.0",
-      "date": "2025-05-20",
+      "date": "2025-05-20 20:32",
       "changes": {
         "pt": [
           "Adicionada opção de alterar os itens do save",
@@ -30,7 +30,7 @@
     },
     {
       "version": "0.3.0",
-      "date": "2025-05-25",
+      "date": "2025-05-25 20:45",
       "changes": {
         "pt": [
           "Implementada a funcionalidade de histórico de saves"
@@ -42,13 +42,25 @@
     },
     {
       "version": "0.4.0",
-      "date": "2025-05-30",
+      "date": "2025-05-30 20:49",
       "changes": {
         "pt": [
           "Adicionado itens e melhorias introduzidos na versão v0.1.2.37_beta do R.E.P.O."
         ],
         "en": [
           "New items and upgrades introduced in version v0.1.2.37_beta of R.E.P.O."
+        ]
+      }
+    },
+    {
+      "version": "0.5.0",
+      "date": "2025-05-30 20:50",
+      "changes": {
+        "pt": [
+          "Alterada a maneira de lidar com upgrades internamente, para permitir mais flexibilidade e facilidade de manutenção."
+        ],
+        "en": [
+          "Changed the way to handle upgrades internally, to allow more flexibility and ease of maintenance."
         ]
       }
     }

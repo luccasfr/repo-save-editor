@@ -9,22 +9,11 @@ import { Separator } from '@/components/ui/separator'
 import { usePlayerUpgrades } from '@/hooks/use-player-upgrades'
 import { SaveGame } from '@/model/save-game'
 import { SteamAvatars } from '@/model/steam-avatars'
-import {
-  ArrowBigUp,
-  BicepsFlexed,
-  CircleChevronUp,
-  Cross,
-  Crown,
-  Feather,
-  MoveUp,
-  Sofa,
-  Users,
-  Zap
-} from 'lucide-react'
+import { Crown } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
+import PlayerUpgrades from './player-upgrades'
 import { HealthBar, StaminaBar } from './player-status-bars'
-import { UpgradeCount } from './upgrade-count'
 
 type PlayerListProps = {
   saveGame: SaveGame
@@ -38,22 +27,10 @@ export default function PlayerList({
   steamAvatars
 }: PlayerListProps) {
   const t = useTranslations('player_list')
-  const { getUpgradeValue, handleIncrease, handleDecrease, setUpgradeValue } =
-    usePlayerUpgrades(saveGame, onUpdateSaveData)
-
-  const handleIncreaseHealth = (key: string) => {
-    handleIncrease(key, 'playerUpgradeHealth')
-    const healthUpgrade = getUpgradeValue(key, 'playerUpgradeHealth')
-    const maxHealth = 100 + healthUpgrade * 20
-    setUpgradeValue(key, 'playerHealth', maxHealth)
-  }
-
-  const handleDecreaseHealth = (key: string) => {
-    handleDecrease(key, 'playerUpgradeHealth')
-    const healthUpgrade = getUpgradeValue(key, 'playerUpgradeHealth')
-    const maxHealth = 100 + healthUpgrade * 20
-    setUpgradeValue(key, 'playerHealth', maxHealth)
-  }
+  const { getUpgradeValue, setUpgradeValue } = usePlayerUpgrades(
+    saveGame,
+    onUpdateSaveData
+  )
 
   return (
     saveGame?.playerNames &&
@@ -93,82 +70,11 @@ export default function PlayerList({
           <StaminaBar stamina={getUpgradeValue(key, 'playerUpgradeStamina')} />
           <Separator />
           <h1 className="font-bold">{t('upgrades')}</h1>
-          <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-            <UpgradeCount
-              icon={Cross}
-              count={getUpgradeValue(key, 'playerUpgradeHealth')}
-              titleKey="health"
-              onIncrease={() => handleIncreaseHealth(key)}
-              onDecrease={() => handleDecreaseHealth(key)}
-            />
-            <UpgradeCount
-              icon={Zap}
-              count={getUpgradeValue(key, 'playerUpgradeStamina')}
-              titleKey="stamina"
-              onIncrease={() => handleIncrease(key, 'playerUpgradeStamina')}
-              onDecrease={() => handleDecrease(key, 'playerUpgradeStamina')}
-            />
-            <UpgradeCount
-              icon={Zap}
-              count={getUpgradeValue(key, 'playerUpgradeSpeed')}
-              titleKey="speed"
-              onIncrease={() => handleIncrease(key, 'playerUpgradeSpeed')}
-              onDecrease={() => handleDecrease(key, 'playerUpgradeSpeed')}
-            />
-            <UpgradeCount
-              icon={BicepsFlexed}
-              count={getUpgradeValue(key, 'playerUpgradeStrength')}
-              titleKey="strength"
-              onIncrease={() => handleIncrease(key, 'playerUpgradeStrength')}
-              onDecrease={() => handleDecrease(key, 'playerUpgradeStrength')}
-            />
-            <UpgradeCount
-              icon={MoveUp}
-              count={getUpgradeValue(key, 'playerUpgradeRange')}
-              titleKey="range"
-              onIncrease={() => handleIncrease(key, 'playerUpgradeRange')}
-              onDecrease={() => handleDecrease(key, 'playerUpgradeRange')}
-            />
-            <UpgradeCount
-              icon={CircleChevronUp}
-              count={getUpgradeValue(key, 'playerUpgradeLaunch')}
-              titleKey="launch"
-              onIncrease={() => handleIncrease(key, 'playerUpgradeLaunch')}
-              onDecrease={() => handleDecrease(key, 'playerUpgradeLaunch')}
-            />
-            <UpgradeCount
-              icon={ArrowBigUp}
-              count={getUpgradeValue(key, 'playerUpgradeExtraJump')}
-              titleKey="extra_jump"
-              onIncrease={() => handleIncrease(key, 'playerUpgradeExtraJump')}
-              onDecrease={() => handleDecrease(key, 'playerUpgradeExtraJump')}
-            />
-            <UpgradeCount
-              icon={Users}
-              count={getUpgradeValue(key, 'playerUpgradeMapPlayerCount')}
-              titleKey="player_count"
-              onIncrease={() =>
-                handleIncrease(key, 'playerUpgradeMapPlayerCount')
-              }
-              onDecrease={() =>
-                handleDecrease(key, 'playerUpgradeMapPlayerCount')
-              }
-            />
-            <UpgradeCount
-              icon={Sofa}
-              count={getUpgradeValue(key, 'playerUpgradeCrouchRest')}
-              titleKey="crouch_rest"
-              onIncrease={() => handleIncrease(key, 'playerUpgradeCrouchRest')}
-              onDecrease={() => handleDecrease(key, 'playerUpgradeCrouchRest')}
-            />
-            <UpgradeCount
-              icon={Feather}
-              count={getUpgradeValue(key, 'playerUpgradeTumbleWings')}
-              titleKey="tumble_wings"
-              onIncrease={() => handleIncrease(key, 'playerUpgradeTumbleWings')}
-              onDecrease={() => handleDecrease(key, 'playerUpgradeTumbleWings')}
-            />
-          </div>
+          <PlayerUpgrades
+            saveGame={saveGame}
+            onUpdateSaveData={onUpdateSaveData}
+            playerId={key}
+          />
         </CardContent>
       </Card>
     ))

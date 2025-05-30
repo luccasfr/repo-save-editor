@@ -1,7 +1,9 @@
 {
   "version_history": {
     "title": "Version History",
-    "description": "This is a list of all the changes made to the project. It includes bug fixes, new features, and other improvements."
+    "description": "This is a list of all the changes made to the project. It includes bug fixes, new features, and other improvements.",
+    "release_date": "Release Date",
+    "changes": "Changes"
   },
   "upload_file": {
     "title": "Send file",
@@ -60,16 +62,17 @@
     "status": "Status",
     "upgrades": "Upgrades",
     "attributes": {
-      "health": "Health",
-      "stamina": "Stamina",
-      "speed": "Speed",
-      "strength": "Strength",
-      "range": "Range",
-      "launch": "Launch",
-      "extra_jump": "Extra Jump",
-      "player_count": "Player Count",
-      "crouch_rest": "Crouch Rest",
-      "tumble_wings": "Tumble Wings"
+      "playerHealth": "Health",
+      "playerUpgradeStamina": "Stamina",
+      "playerUpgradeSpeed": "Speed",
+      "playerUpgradeStrength": "Strength",
+      "playerUpgradeRange": "Range",
+      "playerUpgradeLaunch": "Launch",
+      "playerUpgradeExtraJump": "Extra Jump",
+      "playerUpgradeMapPlayerCount": "Player Count",
+      "playerUpgradeHealth": "Health Upgrade",
+      "playerUpgradeCrouchRest": "Crouch Rest",
+      "playerUpgradeTumbleWings": "Tumble Wings"
     }
   },
   "run_stats": {
