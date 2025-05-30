@@ -40,6 +40,7 @@ export function usePlayerUpgrades(
     newValue: number
   ) => {
     const updatedSaveData = { ...saveData }
+    if (!updatedSaveData.dictionaryOfDictionaries.value[upgradeType]) return
     updatedSaveData.dictionaryOfDictionaries.value[upgradeType][playerId] =
       newValue
     onUpdateSaveData(updatedSaveData)
@@ -52,6 +53,7 @@ export function usePlayerUpgrades(
    * @param upgradeType - The type of upgrade to increase
    */
   const handleIncrease = (playerId: string, upgradeType: UpgradeType) => {
+    if (!saveData?.dictionaryOfDictionaries.value[upgradeType]) return
     const currentValue =
       saveData?.dictionaryOfDictionaries.value[upgradeType][playerId] ?? 0
     updateUpgradeValue(playerId, upgradeType, currentValue + 1)
@@ -64,6 +66,7 @@ export function usePlayerUpgrades(
    * @param upgradeType - The type of upgrade to decrease
    */
   const handleDecrease = (playerId: string, upgradeType: UpgradeType) => {
+    if (!saveData?.dictionaryOfDictionaries.value[upgradeType]) return
     const currentValue =
       saveData?.dictionaryOfDictionaries.value[upgradeType][playerId] ?? 0
     if (currentValue > 0) {
@@ -97,6 +100,7 @@ export function usePlayerUpgrades(
     playerId: string,
     upgradeType: UpgradeType
   ): number => {
+    if (!saveData?.dictionaryOfDictionaries.value[upgradeType]) return 0
     return saveData?.dictionaryOfDictionaries.value[upgradeType][playerId] ?? 0
   }
 
