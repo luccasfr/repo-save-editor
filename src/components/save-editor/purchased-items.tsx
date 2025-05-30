@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/accordion'
 import { PURCHASED_ITEMS_ICON } from '@/consts/purchased-items-icon'
 import { useRunStats } from '@/hooks/use-run-stats'
-import { ItemsPurchased, SaveGame } from '@/model/save-game'
+import {  SaveGame } from '@/model/save-game'
 import { Box, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { StatsItem } from './stats-item'
@@ -45,10 +45,10 @@ export function PurchasedItems({
                   titleKey={itemName}
                   value={value.toString()}
                   onIncrease={() =>
-                    handleItemsPurchasedChange(key as keyof ItemsPurchased, 1)
+                    handleItemsPurchasedChange(key, 1)
                   }
                   onDecrease={() =>
-                    handleItemsPurchasedChange(key as keyof ItemsPurchased, -1)
+                    handleItemsPurchasedChange(key, -1)
                   }
                   disableDecrease={value <= 0}
                 />

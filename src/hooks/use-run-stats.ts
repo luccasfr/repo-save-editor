@@ -1,4 +1,4 @@
-import type { ItemsPurchased, SaveGame } from '@/model/save-game'
+import type { SaveGame } from '@/model/save-game'
 
 /**
  * Represents the keys for run statistics that can be updated
@@ -39,7 +39,7 @@ export function useRunStats(
    * @param newValue - The new quantity value
    */
   const updatePurchasedItemValue = (
-    itemName: keyof ItemsPurchased,
+    itemName: string,
     newValue: number
   ) => {
     const updatedSaveData = { ...saveData }
@@ -77,7 +77,7 @@ export function useRunStats(
    * @param minValue - The minimum allowed quantity (default: 0)
    */
   const handleItemsPurchasedChange = (
-    statName: keyof ItemsPurchased,
+    statName: string,
     change: number,
     minValue = 0
   ) => {
@@ -103,7 +103,7 @@ export function useRunStats(
    * @param itemName - The name of the item to retrieve
    * @returns The current quantity of the item
    */
-  const getItemPurchasedValue = (itemName: keyof ItemsPurchased) => {
+  const getItemPurchasedValue = (itemName: string) => {
     return saveData.dictionaryOfDictionaries.value.itemsPurchased[itemName]
   }
 
