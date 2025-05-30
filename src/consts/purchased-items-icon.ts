@@ -32,9 +32,9 @@ import {
 /**
  * Maps purchased item names from the game to their corresponding Lucide icons.
  * Used to display appropriate visual indicators for different item types in the UI.
- * 
+ *
  * @constant {Record<string, LucideIcon>}
- * 
+ *
  */
 export const PURCHASED_ITEMS_ICON: Record<string, LucideIcon> = {
   'Cart Medium': ShoppingCart,
@@ -77,4 +77,10 @@ export const PURCHASED_ITEMS_ICON: Record<string, LucideIcon> = {
   'Upgrade Player Tumble Launch': TimerOff,
   'Valuable Tracker': Search,
   'Duck Bucket': PaintBucket,
+  'Cart Cannon': ShoppingCart,
+  'Cart Laser': ShoppingCart,
+  'Gun Laser': BowArrow,
+  'Phase Bridge': GripVertical,
+  'Upgrade Player Crouch Rest': Shield,
+  'Upgrade Player Tumble Wings': Feather
 }

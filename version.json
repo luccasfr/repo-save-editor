@@ -14,7 +14,7 @@
     },
     {
       "version": "0.2.0",
-      "date": "2025-06-01",
+      "date": "2025-05-20",
       "changes": {
         "pt": [
           "Adicionada opção de alterar os itens do save",
@@ -30,13 +30,25 @@
     },
     {
       "version": "0.3.0",
-      "date": "2025-07-01",
+      "date": "2025-05-25",
       "changes": {
         "pt": [
           "Implementada a funcionalidade de histórico de saves"
         ],
         "en": [
           "Implemented save history functionality"
+        ]
+      }
+    },
+    {
+      "version": "0.4.0",
+      "date": "2025-05-30",
+      "changes": {
+        "pt": [
+          "Adicionado itens e melhorias introduzidos na versão v0.1.2.37_beta do R.E.P.O."
+        ],
+        "en": [
+          "New items and upgrades introduced in version v0.1.2.37_beta of R.E.P.O."
         ]
       }
     }

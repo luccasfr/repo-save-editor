@@ -67,7 +67,9 @@
       "range": "Range",
       "launch": "Launch",
       "extra_jump": "Extra Jump",
-      "player_count": "Player Count"
+      "player_count": "Player Count",
+      "crouch_rest": "Crouch Rest",
+      "tumble_wings": "Tumble Wings"
     }
   },
   "run_stats": {
@@ -131,7 +133,11 @@
       "Gun Shockwave": "Gun Shockwave",
       "Duck Bucket": "Duck Bucket",
       "Cart Cannon": "Cart Cannon",
-      "Cart Laser": "Cart Laser"
+      "Cart Laser": "Cart Laser",
+      "Gun Laser": "Gun Laser",
+      "Phase Bridge": "Phase Bridge",
+      "Upgrade Player Crouch Rest": "Crouch Rest Upgrade",
+      "Upgrade Player Tumble Wings": "Tumble Wings Upgrade"
     }
   },
   "theme": {

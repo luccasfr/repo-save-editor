@@ -13,6 +13,8 @@ export type UpgradeType =
   | 'playerUpgradeStamina'
   | 'playerHealth'
   | 'playerUpgradeHealth'
+  | 'playerUpgradeCrouchRest'
+  | 'playerUpgradeTumbleWings'
 
 /**
  * Hook for managing player upgrades in the save data

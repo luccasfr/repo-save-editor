@@ -66,7 +66,9 @@
       "range": "Alcance",
       "launch": "Lançamento",
       "extra_jump": "Salto extra",
-      "player_count": "Contagem de jogadores"
+      "player_count": "Contagem de jogadores",
+      "crouch_rest": "Descanso ao agachar",
+      "tumble_wings": "Asas ao cair"
     }
   },
   "run_stats": {
@@ -130,7 +132,11 @@
       "Gun Shockwave": "Arma de Onda de Choque",
       "Duck Bucket": "Balde de Pato",
       "Cart Cannon": "Canhão de Carrinho",
-      "Cart Laser": "Cart Laser"
+      "Cart Laser": "Laser de Carrinho",
+      "Gun Laser": "Arma de Laser",
+      "Phase Bridge": "Ponte de Fase",
+      "Upgrade Player Crouch Rest": "Melhoria de Descanso ao Agachar",
+      "Upgrade Player Tumble Wings": "Melhoria de Asas ao Cair"
     }
   },
   "theme": {

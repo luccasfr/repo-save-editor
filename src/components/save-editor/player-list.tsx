@@ -15,7 +15,9 @@ import {
   CircleChevronUp,
   Cross,
   Crown,
+  Feather,
   MoveUp,
+  Sofa,
   Users,
   Zap
 } from 'lucide-react'
@@ -151,6 +153,20 @@ export default function PlayerList({
               onDecrease={() =>
                 handleDecrease(key, 'playerUpgradeMapPlayerCount')
               }
+            />
+            <UpgradeCount
+              icon={Sofa}
+              count={getUpgradeValue(key, 'playerUpgradeCrouchRest')}
+              titleKey="crouch_rest"
+              onIncrease={() => handleIncrease(key, 'playerUpgradeCrouchRest')}
+              onDecrease={() => handleDecrease(key, 'playerUpgradeCrouchRest')}
+            />
+            <UpgradeCount
+              icon={Feather}
+              count={getUpgradeValue(key, 'playerUpgradeTumbleWings')}
+              titleKey="tumble_wings"
+              onIncrease={() => handleIncrease(key, 'playerUpgradeTumbleWings')}
+              onDecrease={() => handleDecrease(key, 'playerUpgradeTumbleWings')}
             />
           </div>
         </CardContent>
