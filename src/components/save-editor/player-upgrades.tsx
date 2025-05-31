@@ -14,6 +14,9 @@ type PlayerUpgradesProps = {
   playerId: string
 }
 
+const BASE_HEALTH = 100
+const HEALTH_INCREMENT = 20
+
 export default function PlayerUpgrades({
   saveGame,
   onUpdateSaveData,
@@ -33,14 +36,14 @@ export default function PlayerUpgrades({
   const handleIncreaseHealth = (key: string) => {
     handleIncrease(key, 'playerUpgradeHealth')
     const healthUpgrade = getUpgradeValue(key, 'playerUpgradeHealth')
-    const maxHealth = 100 + healthUpgrade * 20
+    const maxHealth = BASE_HEALTH + healthUpgrade * HEALTH_INCREMENT
     setUpgradeValue(key, 'playerHealth', maxHealth)
   }
 
   const handleDecreaseHealth = (key: string) => {
     handleDecrease(key, 'playerUpgradeHealth')
     const healthUpgrade = getUpgradeValue(key, 'playerUpgradeHealth')
-    const maxHealth = 100 + healthUpgrade * 20
+    const maxHealth = BASE_HEALTH + healthUpgrade * HEALTH_INCREMENT
     setUpgradeValue(key, 'playerHealth', maxHealth)
   }
 
