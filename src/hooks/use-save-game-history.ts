@@ -2,14 +2,27 @@ import { useCallback, useEffect, useState } from 'react'
 import { SaveGame } from '@/model/save-game'
 import { SaveGameHistoryType } from '../model/save-game-history'
 
+// Storage key for save game history
 const STORAGE_KEY = 'save-game-history'
+// Storage key for disabling save game history
 const STORAGE_KEY_DISABLED = 'disable-save-game-history'
+// Maximum number of history items to keep
 const MAX_HISTORY_ITEMS = 3
 
+/**
+ * Hook for managing save game history in local storage
+ *
+ * @returns Object with functions and state for managing save game history
+ */
 export function useSaveGameHistory() {
   const [history, setHistory] = useState<SaveGameHistoryType[]>([])
   const [disabled, setDisabled] = useState(false)
 
+  /**
+   * Loads save game history from local storage
+   *
+   * @returns The parsed history array or null if not found or invalid
+   */
   const loadHistoryFromLocalStorage = useCallback(() => {
     const storedHistory = localStorage.getItem(STORAGE_KEY)
     if (!storedHistory) return null
@@ -39,6 +52,12 @@ export function useSaveGameHistory() {
     }
   }, [disabled, loadHistoryFromLocalStorage])
 
+  /**
+   * Adds a save game to the history
+   *
+   * @param fileName - The name of the save game file
+   * @param saveGame - The save game data to add to history
+   */
   const addToHistory = useCallback(
     (fileName: string, saveGame: SaveGame) => {
       if (disabled) return
@@ -79,6 +98,9 @@ export function useSaveGameHistory() {
     [disabled, loadHistoryFromLocalStorage]
   )
 
+  /**
+   * Disables history tracking and clears stored history
+   */
   const disableHistory = useCallback(() => {
     setDisabled(true)
     localStorage.setItem(STORAGE_KEY_DISABLED, 'true')
@@ -86,6 +108,9 @@ export function useSaveGameHistory() {
     setHistory([])
   }, [])
 
+  /**
+   * Enables history tracking and loads any existing history
+   */
   const enableHistory = useCallback(() => {
     setDisabled(false)
     localStorage.removeItem(STORAGE_KEY_DISABLED)
@@ -96,6 +121,9 @@ export function useSaveGameHistory() {
     }
   }, [loadHistoryFromLocalStorage])
 
+  /**
+   * Clears the save game history from storage and state
+   */
   const clearHistory = useCallback(() => {
     localStorage.removeItem(STORAGE_KEY)
     setHistory([])

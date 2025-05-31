@@ -17,7 +17,9 @@ export enum upgradeType {
   TumbleWings = 'playerUpgradeTumbleWings'
 }
 
-// Type that matches the original UpgradeType
+/**
+ * Type representing the keys of player upgrades
+ */
 export type UpgradeType = `${upgradeType}`
 
 /**
