@@ -13,7 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip'
-import { SteamAvatars } from "@/model/steam-avatars"
+import { SteamAvatars } from '@/model/steam-avatars'
 
 type SaveDataActionButtonProps = {
   icon: LucideIcon
@@ -70,10 +70,10 @@ export default function SaveData({
   steamAvatars
 }: SaveDataProps) {
   const t = useTranslations('save_data')
-  
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div className="space-y-4">
@@ -105,7 +105,11 @@ export default function SaveData({
         <p className="font-bold">{t('run_data')}</p>
         <RunStats saveGame={saveGame} onUpdateSaveData={onUpdateSaveData} />
         <p className="font-bold">{t('players')}</p>
-        <PlayerList saveGame={saveGame} onUpdateSaveData={onUpdateSaveData} steamAvatars={steamAvatars} />
+        <PlayerList
+          saveGame={saveGame}
+          onUpdateSaveData={onUpdateSaveData}
+          steamAvatars={steamAvatars}
+        />
       </div>
     </div>
   )

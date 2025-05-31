@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { SaveGame } from '@/model/save-game'
-import { SaveGameHistoryType } from '../model/save-game-history'
+import { SaveGameHistoryType } from '@/model/save-game-history'
 
 // Storage key for save game history
 const STORAGE_KEY = 'save-game-history'
