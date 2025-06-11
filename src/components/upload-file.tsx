@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { DragEvent, JSX, useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
-import Heading from "./heading"
+import Heading from './heading'
 
 const statusIcons: Record<string, JSX.Element> = {
   over: <PackageOpen />,

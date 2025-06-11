@@ -1,6 +1,6 @@
 import { useSaveGame } from '@/hooks/use-save-game'
 import { SaveGame } from '@/model/save-game'
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/button'
 import { Trash } from 'lucide-react'
 import {
   AlertDialog,

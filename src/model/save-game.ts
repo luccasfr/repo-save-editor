@@ -46,7 +46,7 @@ export interface DictionaryOfDictionariesValue {
   playerUpgradeThrow: { [key: string]: number }
   playerHasCrown: { [key: string]: number }
   item: { [key: string]: number }
-  itemStatBattery: { [key: string]: number },
+  itemStatBattery: { [key: string]: number }
   playerUpgradeCrouchRest?: { [key: string]: number }
   playerUpgradeTumbleWings?: { [key: string]: number }
 }

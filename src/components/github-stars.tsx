@@ -43,14 +43,14 @@ export default function GitHubStars() {
                 alt="logo"
                 width={32}
                 height={32}
-                className="size-4 dark:hidden block"
+                className="block size-4 dark:hidden"
               />
               <Image
                 src={gitHubLogoWhite}
                 alt="logo"
                 width={32}
                 height={32}
-                className="size-4 dark:block hidden"
+                className="hidden size-4 dark:block"
               />
               <p className="font-sans">{t('title')}</p>
               <div className="flex items-center gap-1">
@@ -60,7 +60,9 @@ export default function GitHubStars() {
             </Button>
           </Link>
         </TooltipTrigger>
-        <TooltipContent className="block md:hidden">{t(`description`)}</TooltipContent>
+        <TooltipContent className="block md:hidden">
+          {t(`description`)}
+        </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   )

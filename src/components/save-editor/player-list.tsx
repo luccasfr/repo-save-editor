@@ -13,7 +13,7 @@ import { useTranslations } from 'next-intl'
 import PlayerAvatar from './player-avatar'
 import { HealthBar, StaminaBar } from './player-status-bars'
 import PlayerUpgrades from './player-upgrades'
-import RemovePlayer from "./remove-player"
+import RemovePlayer from './remove-player'
 
 type PlayerListProps = {
   saveGame: SaveGame

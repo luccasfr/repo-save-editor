@@ -2,7 +2,7 @@ import Footer from '@/components/footer'
 import Navbar from '@/components/navbar'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
-import { type LocaleType } from "@/model/locale"
+import { type LocaleType } from '@/model/locale'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider } from 'next-intl'
 import { getLocale } from 'next-intl/server'
@@ -30,7 +30,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const locale = await getLocale() as LocaleType
+  const locale = (await getLocale()) as LocaleType
 
   return (
     <html lang={locale} suppressHydrationWarning>

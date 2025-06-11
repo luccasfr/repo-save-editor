@@ -9,10 +9,9 @@ export default function Navbar() {
       className="bg-background/50 fixed z-50 flex w-full items-center justify-between border-b
         px-7 pt-2 backdrop-blur md:px-12"
     >
+      <Logo />
 
-        <Logo />
-
-      <div className="flex gap-2 -translate-y-1">
+      <div className="flex -translate-y-1 gap-2">
         <GitHubStars />
         <DarkModeToggle />
         <LocaleSelector />

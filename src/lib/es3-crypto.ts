@@ -84,7 +84,7 @@ export async function decryptEs3(
     decipher.final()
   ])
 
-  if (decryptedData.subarray(0, 2).equals(Buffer.from([0x1F, 0x8B]))) {
+  if (decryptedData.subarray(0, 2).equals(Buffer.from([0x1f, 0x8b]))) {
     const unzippedData = await gunzip(decryptedData)
     return unzippedData.toString(encoding)
   }

@@ -6,7 +6,7 @@ import {
 } from '@/components/ui/accordion'
 import { PURCHASED_ITEMS_ICON } from '@/consts/purchased-items-icon'
 import { useRunStats } from '@/hooks/use-run-stats'
-import {  SaveGame } from '@/model/save-game'
+import { SaveGame } from '@/model/save-game'
 import { Box, Zap } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { StatsItem } from './stats-item'
@@ -33,7 +33,7 @@ export function PurchasedItems({
           </div>
         </AccordionTrigger>
         <AccordionContent>
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 mt-4">
+          <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
             {Object.entries(
               saveGame.dictionaryOfDictionaries.value.itemsPurchased
             ).map(([key, value]) => {
@@ -44,12 +44,8 @@ export function PurchasedItems({
                   icon={PURCHASED_ITEMS_ICON[itemName] ?? Zap}
                   titleKey={itemName}
                   value={value.toString()}
-                  onIncrease={() =>
-                    handleItemsPurchasedChange(key, 1)
-                  }
-                  onDecrease={() =>
-                    handleItemsPurchasedChange(key, -1)
-                  }
+                  onIncrease={() => handleItemsPurchasedChange(key, 1)}
+                  onDecrease={() => handleItemsPurchasedChange(key, -1)}
                   disableDecrease={value <= 0}
                 />
               )

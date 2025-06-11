@@ -38,10 +38,7 @@ export function useRunStats(
    * @param itemName - The name of the item to update
    * @param newValue - The new quantity value
    */
-  const updatePurchasedItemValue = (
-    itemName: string,
-    newValue: number
-  ) => {
+  const updatePurchasedItemValue = (itemName: string, newValue: number) => {
     const updatedSaveData = { ...saveData }
     updatedSaveData.dictionaryOfDictionaries.value.itemsPurchased[itemName] =
       newValue

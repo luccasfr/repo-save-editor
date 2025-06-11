@@ -13,7 +13,7 @@ import downloadSaveGame from '@/lib/download-save-game'
 import { SaveGameHistoryType } from '@/model/save-game-history'
 import { Check, Clock, Download, Trash2, Upload, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import Heading from "@/components/heading"
+import Heading from '@/components/heading'
 
 interface SaveGameStatsProps {
   level: number
@@ -74,7 +74,7 @@ export default function SaveGameHistory({
     return <p className="text-foreground/40 text-sm">{t('empty')}</p>
 
   return (
-    <div className="space-y-4">      
+    <div className="space-y-4">
       <Heading title={t(`title`)} description={t(`disclaimer`)} />
       <div className="flex justify-end">
         <Button
@@ -120,7 +120,7 @@ export default function SaveGameHistory({
                 <div className="flex items-center gap-2">
                   <Button
                     size="sm"
-                    className="flex items-center gap-1 flex-1"
+                    className="flex flex-1 items-center gap-1"
                     onClick={() => onSelectSave?.(item)}
                   >
                     <Upload className="h-4 w-4" />
@@ -130,7 +130,9 @@ export default function SaveGameHistory({
                     size="sm"
                     variant="outline"
                     className="flex items-center gap-1"
-                    onClick={() => downloadSaveGame(item.saveGame, item.fileName)}
+                    onClick={() =>
+                      downloadSaveGame(item.saveGame, item.fileName)
+                    }
                   >
                     <Download className="h-4 w-4" />
                     <span>{t('download')}</span>
