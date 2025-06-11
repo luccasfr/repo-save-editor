@@ -12,6 +12,7 @@ import { DollarSign, Gauge, Zap } from 'lucide-react'
 import { PurchasedItems } from './purchased-items'
 import { StatsItem } from './stats-item'
 import { TimePlayedEditor } from './time-played-editor'
+import { useSaveGame } from '@/hooks/use-save-game'
 
 type RunStatsProps = {
   saveGame: SaveGame
@@ -26,26 +27,23 @@ export default function RunStats({
     saveGame,
     onUpdateSaveData
   )
+  const { updateTimePlayed } = useSaveGame({
+    saveGame,
+    onUpdateSaveData
+  })
 
   const handleTimePlayedChange = (newTimePlayed: number) => {
-    const updatedSaveGame = { 
-      ...saveGame,
-      timePlayed: { 
-        ...saveGame.timePlayed, 
-        value: newTimePlayed 
-      } 
-    };
-    onUpdateSaveData(updatedSaveGame);
-  };
+    updateTimePlayed(newTimePlayed)
+  }
 
   return (
     <Card>
       <CardHeader>
         <CardTitle>{saveGame.teamName.value}</CardTitle>
         <CardDescription>
-          <TimePlayedEditor 
-            timePlayed={saveGame.timePlayed.value} 
-            onTimePlayedChange={handleTimePlayedChange} 
+          <TimePlayedEditor
+            timePlayed={saveGame.timePlayed.value}
+            onTimePlayedChange={handleTimePlayedChange}
           />
         </CardDescription>
       </CardHeader>

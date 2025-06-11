@@ -59,7 +59,6 @@ export function usePlayerUpgrades(
    * @param upgradeType - The type of upgrade to increase
    */
   const handleIncrease = (playerId: string, upgradeType: UpgradeType) => {
-    console.log('handleIncrease', playerId, upgradeType)
     if (!saveData?.dictionaryOfDictionaries.value[upgradeType]) return
     const currentValue =
       saveData?.dictionaryOfDictionaries.value[upgradeType][playerId] ?? 0

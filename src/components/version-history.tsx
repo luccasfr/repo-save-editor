@@ -43,7 +43,7 @@ export default function VersionHistory() {
                 </p>
                 {release.changes[locale].map((change, index) => (
                   <div className="flex items-center gap-1" key={index}>
-                    <Asterisk className="size-4" />
+                    <Asterisk className="size-4 shrink-0" />
                     <div className="flex items-center gap-2">
                       <span className="text-sm">{change}</span>
                     </div>

@@ -9,11 +9,11 @@ import { Separator } from '@/components/ui/separator'
 import { usePlayerUpgrades } from '@/hooks/use-player-upgrades'
 import { SaveGame } from '@/model/save-game'
 import { SteamAvatars } from '@/model/steam-avatars'
-import { Crown } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import Image from 'next/image'
-import PlayerUpgrades from './player-upgrades'
+import PlayerAvatar from './player-avatar'
 import { HealthBar, StaminaBar } from './player-status-bars'
+import PlayerUpgrades from './player-upgrades'
+import RemovePlayer from "./remove-player"
 
 type PlayerListProps = {
   saveGame: SaveGame
@@ -36,27 +36,25 @@ export default function PlayerList({
     saveGame?.playerNames &&
     Object.entries(saveGame?.playerNames.value).map(([key, value]) => (
       <Card key={key}>
-        <CardHeader>
-          <CardTitle className="relative w-fit">
-            {saveGame.dictionaryOfDictionaries.value.playerHasCrown[key] ? (
-              <div className="absolute -top-4 left-1">
-                <Crown className="size-3.5 text-yellow-500" />
-              </div>
-            ) : null}
-            <div className="flex h-6 items-baseline gap-2">
-              {steamAvatars && steamAvatars[key] ? (
-                <Image
-                  src={steamAvatars[key]}
-                  alt="avatar"
-                  className=""
-                  width={24}
-                  height={24}
-                />
-              ) : null}
-              <p>{value}</p>
-            </div>
-          </CardTitle>
-          <CardDescription className="font-mono">{key}</CardDescription>
+        <CardHeader className="flex items-center justify-between">
+          <div className="space-y-2">
+            <CardTitle>
+              <PlayerAvatar
+                hasCrown={
+                  saveGame.dictionaryOfDictionaries.value.playerHasCrown[key] >
+                  0
+                }
+                url={(steamAvatars && steamAvatars[key]) || undefined}
+                name={value}
+              />
+            </CardTitle>
+            <CardDescription className="font-mono">{key}</CardDescription>
+          </div>
+          <RemovePlayer
+            saveGame={saveGame}
+            onUpdateSaveData={onUpdateSaveData}
+            playerId={key}
+          />
         </CardHeader>
         <CardContent className="space-y-2">
           <h1 className="font-bold">{t('status')}</h1>

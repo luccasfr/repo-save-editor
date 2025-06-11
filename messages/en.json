@@ -75,6 +75,13 @@
       "playerUpgradeTumbleWings": "Tumble Wings"
     }
   },
+  "remove_player": {
+    "confirmation_title": "Are you absolutely sure?",
+    "confirmation_description": "This will permanently remove the player from your save game.",
+    "cancel": "Cancel",
+    "continue": "Continue",
+    "button_label": "Remove player"
+  },
   "run_stats": {
     "title": "Run Data",
     "played_time": "played",

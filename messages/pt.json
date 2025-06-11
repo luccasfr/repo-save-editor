@@ -74,6 +74,13 @@
       "playerUpgradeTumbleWings": "Asas ao Cair"
     }
   },
+  "remove_player": {
+    "confirmation_title": "Você tem certeza absoluta?",
+    "confirmation_description": "Isso removerá permanentemente o jogador do seu save game.",
+    "cancel": "Cancelar",
+    "continue": "Continuar",
+    "button_label": "Remover jogador"
+  },
   "run_stats": {
     "title": "Dados da Run",
     "played_time": "jogados",

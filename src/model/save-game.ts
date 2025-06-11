@@ -68,7 +68,7 @@ export interface RunStats {
  */
 export interface PlayerNames {
   __type: string
-  value: { [key: string]: number }
+  value: { [key: string]: string }
 }
 
 /**

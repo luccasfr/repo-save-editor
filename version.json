@@ -63,6 +63,20 @@
           "Changed the way to handle upgrades internally, to allow more flexibility and ease of maintenance."
         ]
       }
+    },
+    {
+      "version": "0.6.0",
+      "date": "2025-06-10 22:43",
+      "changes": {
+        "pt": [
+          "Adiconada opção de excluir jogadores do save-game.",
+          "Ajuste visual na exibição da descrição do histórico de versões."
+        ],
+        "en": [
+          "Added option to delete players from the save-game.",
+          "Visual adjustment in the display of the version history description."
+        ]
+      }
     }
   ]
 }
