@@ -4,8 +4,12 @@
       "version": "0.1.0",
       "date": "2025-05-01 23:00",
       "changes": {
-        "pt": ["Criação do save editor com as funcionalidades básicas."],
-        "en": ["Creation of the save editor with basic functionalities."]
+        "pt": [
+          "Criação do save editor com as funcionalidades básicas."
+        ],
+        "en": [
+          "Creation of the save editor with basic functionalities."
+        ]
       }
     },
     {
@@ -28,8 +32,12 @@
       "version": "0.3.0",
       "date": "2025-05-25 20:45",
       "changes": {
-        "pt": ["Implementada a funcionalidade de histórico de saves"],
-        "en": ["Implemented save history functionality"]
+        "pt": [
+          "Implementada a funcionalidade de histórico de saves"
+        ],
+        "en": [
+          "Implemented save history functionality"
+        ]
       }
     },
     {
@@ -37,7 +45,7 @@
       "date": "2025-05-30 20:49",
       "changes": {
         "pt": [
-          "Adicionado itens e melhorias introduzidos na versão v0.1.2.37_beta do R.E.P.O."
+          "Adicionados itens e melhorias introduzidos na versão v0.1.2.37_beta do R.E.P.O."
         ],
         "en": [
           "New items and upgrades introduced in version v0.1.2.37_beta of R.E.P.O."
