@@ -39,10 +39,10 @@ git clone https://github.com/luccasfr/repo-save-editor.git
 cd repo-save-editor
 
 # Install dependencies
-yarn install
+pnpm install
 
 # Start the development server
-yarn run dev
+pnpm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to access the application.
@@ -59,10 +59,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to access th
 
 ```bash
 # Create an optimized production build
-yarn run build
+pnpm run build
 
 # Start the production server
-yarn start
+node .next/standalone/server.js
 ```
 
 ## Acknowledgements
