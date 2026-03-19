@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { useTranslations } from 'next-intl'
 
-export default function RemovePlayer({
+export function RemovePlayer({
   saveGame,
   onUpdateSaveData,
   playerId

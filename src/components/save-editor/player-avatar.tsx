@@ -7,7 +7,7 @@ type PlayerAvatarProps = {
   hasCrown?: boolean
 }
 
-export default function PlayerAvatar({
+export function PlayerAvatar({
   name,
   url,
   hasCrown = false

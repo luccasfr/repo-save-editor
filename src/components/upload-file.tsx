@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { DragEvent, JSX, useCallback, useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
-import Heading from './heading'
+import { Heading } from './heading'
 
 const statusIcons: Record<string, JSX.Element> = {
   over: <PackageOpen />,
@@ -29,7 +29,7 @@ type UploadFileProps = {
   fileList?: FileList | null
 } & React.HTMLProps<HTMLDivElement>
 
-export default function UploadFile({
+export function UploadFile({
   multiple,
   onFilesChange,
   errorMessage,
@@ -228,7 +228,8 @@ export default function UploadFile({
       <div>
         <div
           className={cn(
-            'flex min-h-32 w-full cursor-pointer items-center justify-center rounded',
+            `flex min-h-32 w-full cursor-pointer items-center justify-center
+            rounded`,
             'border-[1px] py-2 lg:min-h-48',
             errorMessage ? 'border-destructive' : 'border-border',
             className
@@ -271,8 +272,8 @@ export default function UploadFile({
             </div>
           ) : (
             <div
-              className="text-primary/60 pointer-events-none flex w-full items-center justify-center
-                gap-2 px-4 text-sm"
+              className="text-primary/60 pointer-events-none flex w-full
+                items-center justify-center gap-2 px-4 text-sm"
             >
               {statusIcons[dragStatus]}
               <p>{getStatusText(dragStatus)}</p>
@@ -285,7 +286,10 @@ export default function UploadFile({
       )}
       <div className="space-y-2 text-sm">
         <p>{t(`save_game.info`)}</p>
-        <div className="border-input relative rounded border-[1px] py-2 pr-8 pl-3 font-mono break-all">
+        <div
+          className="border-input relative rounded border-[1px] py-2 pr-8 pl-3
+            font-mono break-all"
+        >
           <Button
             variant="outline"
             className="absolute top-1/2 right-2 h-6 w-6 -translate-y-1/2"

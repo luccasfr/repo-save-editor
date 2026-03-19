@@ -6,7 +6,7 @@ import logoOpen from '@/assets/open.png'
 import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
 
-export default function Logo() {
+export function Logo() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {

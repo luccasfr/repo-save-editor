@@ -1,23 +1,23 @@
 'use client'
 
-import SaveData from '@/components/save-editor/save-data'
-import SaveGameHistory from '@/components/save-editor/save-game-history'
+import { SaveData } from '@/components/save-editor/save-data'
+import { SaveGameHistory } from '@/components/save-editor/save-game-history'
 import { Separator } from '@/components/ui/separator'
-import UploadFile from '@/components/upload-file'
-import VersionHistory from '@/components/version-history'
+import { UploadFile } from '@/components/upload-file'
+import { VersionHistory } from '@/components/version-history'
 import { ENCRYPTION_KEY } from '@/consts/encrypton-key'
 import { useSaveGameHistory } from '@/hooks/use-save-game-history'
-import downloadSaveGame from '@/lib/download-save-game'
+import { downloadSaveGame } from '@/lib/download-save-game'
 import { decryptEs3 } from '@/lib/es3-crypto'
-import fetchAvatars from '@/lib/fetch-avatars'
-import { type SaveGame } from '@/model/save-game'
+import { fetchAvatars } from '@/lib/fetch-avatars'
+import type { SaveGame } from '@/model/save-game'
 import { SaveGameHistoryType } from '@/model/save-game-history'
 import { SteamAvatars } from '@/model/steam-avatars'
 import { useTranslations } from 'next-intl'
 import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
 
-export default function SaveEditor() {
+export function SaveEditor() {
   const t = useTranslations('save_editor')
   const [fileName, setFileName] = useState<string | null>(null)
   const [saveGame, setSaveGame] = useState<SaveGame | null>(null)
@@ -65,30 +65,28 @@ export default function SaveEditor() {
         setSaveGame(parsed)
         setOriginalSaveData(structuredClone(parsed))
         setFileName(files[0].name)
-
         addToHistory(files[0].name, parsed)
+
+        const avatars = await fetchAvatars(
+          Object.keys(parsed.playerNames.value)
+        )
+        setSteamAvatars(avatars)
       } catch {
         toast.error(t('error.invalid_file'))
       }
     }
   }
 
-  const handleSelectSave = (historyItem: SaveGameHistoryType) => {
+  const handleSelectSave = async (historyItem: SaveGameHistoryType) => {
     setSaveGame(structuredClone(historyItem.saveGame))
     setOriginalSaveData(structuredClone(historyItem.saveGame))
     setFileName(historyItem.fileName)
-  }
 
-  useEffect(() => {
-    const fetch = async () => {
-      const avatars = await fetchAvatars(
-        Object.keys(saveGame?.playerNames.value ?? {})
-      )
-      setSteamAvatars(avatars)
-    }
-    if (!saveGame) return
-    fetch()
-  }, [saveGame])
+    const avatars = await fetchAvatars(
+      Object.keys(historyItem.saveGame.playerNames.value)
+    )
+    setSteamAvatars(avatars)
+  }
 
   return (
     <>

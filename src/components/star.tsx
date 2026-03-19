@@ -20,4 +20,4 @@ const Star = (props: StarProps) => (
   </svg>
 )
 
-export default Star
+export { Star }

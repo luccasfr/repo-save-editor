@@ -17,7 +17,7 @@ type PlayerUpgradesProps = {
 const BASE_HEALTH = 100
 const HEALTH_INCREMENT = 20
 
-export default function PlayerUpgrades({
+export function PlayerUpgrades({
   saveGame,
   onUpdateSaveData,
   playerId

@@ -9,11 +9,11 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { useSaveGameHistory } from '@/hooks/use-save-game-history'
-import downloadSaveGame from '@/lib/download-save-game'
+import { downloadSaveGame } from '@/lib/download-save-game'
 import { SaveGameHistoryType } from '@/model/save-game-history'
 import { Check, Clock, Download, Trash2, Upload, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import Heading from '@/components/heading'
+import { Heading } from '@/components/heading'
 
 interface SaveGameStatsProps {
   level: number
@@ -46,9 +46,7 @@ type SaveGameHistoryProps = {
   onSelectSave?: (saveGame: SaveGameHistoryType) => void
 }
 
-export default function SaveGameHistory({
-  onSelectSave
-}: SaveGameHistoryProps) {
+export function SaveGameHistory({ onSelectSave }: SaveGameHistoryProps) {
   const { history, clearHistory, disabled, disableHistory, enableHistory } =
     useSaveGameHistory()
   const t = useTranslations('save_history')

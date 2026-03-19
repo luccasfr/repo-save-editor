@@ -19,10 +19,7 @@ type RunStatsProps = {
   onUpdateSaveData: (updatedSaveData: SaveGame) => void
 }
 
-export default function RunStats({
-  saveGame,
-  onUpdateSaveData
-}: RunStatsProps) {
+export function RunStats({ saveGame, onUpdateSaveData }: RunStatsProps) {
   const { getRunStatValue, handleStatChange } = useRunStats(
     saveGame,
     onUpdateSaveData

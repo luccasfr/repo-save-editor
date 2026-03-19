@@ -9,9 +9,7 @@ import { DOMParser } from '@xmldom/xmldom'
  * @param {number[]} steamIDs - Array of Steam IDs
  * @returns {Promise<SteamAvatars>} - A promise that resolves to an object mapping Steam IDs to their full avatar URLs
  */
-export default async function fetchAvatars(
-  steamIDs: string[]
-): Promise<SteamAvatars> {
+export async function fetchAvatars(steamIDs: string[]): Promise<SteamAvatars> {
   const avatarUrls: SteamAvatars = {}
   await Promise.all(
     steamIDs.map((steamID) =>

@@ -12,7 +12,7 @@ import { encryptEs3 } from './es3-crypto'
  * @returns {Promise<void>} A promise that resolves when the download is initiated
  * @throws {TypeError} When called outside of a browser environment
  */
-export default async function downloadSaveGame(
+export async function downloadSaveGame(
   saveGame: SaveGame,
   filename: string
 ): Promise<void> {
@@ -24,7 +24,7 @@ export default async function downloadSaveGame(
     JSON.stringify(saveGame, null, 4),
     ENCRYPTION_KEY
   )
-  const blob = new Blob([binaryData])
+  const blob = new Blob([binaryData as Uint8Array<ArrayBuffer>])
 
   const url = URL.createObjectURL(blob)
   const a = document.createElement('a')

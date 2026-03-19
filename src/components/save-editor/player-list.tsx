@@ -10,10 +10,10 @@ import { usePlayerUpgrades } from '@/hooks/use-player-upgrades'
 import { SaveGame } from '@/model/save-game'
 import { SteamAvatars } from '@/model/steam-avatars'
 import { useTranslations } from 'next-intl'
-import PlayerAvatar from './player-avatar'
+import { PlayerAvatar } from './player-avatar'
 import { HealthBar, StaminaBar } from './player-status-bars'
-import PlayerUpgrades from './player-upgrades'
-import RemovePlayer from './remove-player'
+import { PlayerUpgrades } from './player-upgrades'
+import { RemovePlayer } from './remove-player'
 
 type PlayerListProps = {
   saveGame: SaveGame
@@ -21,7 +21,7 @@ type PlayerListProps = {
   onUpdateSaveData: (updatedSaveData: SaveGame) => void
 }
 
-export default function PlayerList({
+export function PlayerList({
   saveGame,
   onUpdateSaveData,
   steamAvatars

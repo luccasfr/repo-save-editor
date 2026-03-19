@@ -1,8 +1,8 @@
 'use client'
 
 import { type SaveGame } from '@/model/save-game'
-import PlayerList from './player-list'
-import RunStats from './run-stats'
+import { PlayerList } from './player-list'
+import { RunStats } from './run-stats'
 import { Button } from '@/components/ui/button'
 import { LucideIcon, Plus, RotateCcw, Save } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -59,7 +59,7 @@ type SaveDataProps = {
   steamAvatars: SteamAvatars | null
 }
 
-export default function SaveData({
+export function SaveData({
   saveGame,
   onUpdateSaveData,
   onReset,

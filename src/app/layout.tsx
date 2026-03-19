@@ -1,5 +1,5 @@
-import Footer from '@/components/footer'
-import Navbar from '@/components/navbar'
+import { Footer } from '@/components/footer'
+import { Navbar } from '@/components/navbar'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 import { type LocaleType } from '@/model/locale'
@@ -35,8 +35,8 @@ export default async function RootLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex min-h-[100dvh] flex-col
-          font-sans antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} flex min-h-dvh
+          flex-col font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"

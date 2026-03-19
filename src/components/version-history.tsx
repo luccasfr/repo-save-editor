@@ -11,9 +11,9 @@ import { type VersionHistoryType } from '@/model/version-history'
 import { Asterisk } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import { useCallback } from 'react'
-import Heading from './heading'
+import { Heading } from './heading'
 
-export default function VersionHistory() {
+export function VersionHistory() {
   const t = useTranslations('version_history')
   const versionHistory = version as unknown as VersionHistoryType
   const locale = useLocale() as LocaleType

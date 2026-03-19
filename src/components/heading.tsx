@@ -3,7 +3,7 @@ type HeadingProps = {
   description: string
 }
 
-export default function Heading({ title, description }: HeadingProps) {
+export function Heading({ title, description }: HeadingProps) {
   return (
     <div>
       <h2 className="font-semibold">{title}</h2>
