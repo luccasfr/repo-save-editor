@@ -71,6 +71,7 @@
       "playerUpgradeMapPlayerCount": "Contagem de Jogadores",
       "playerUpgradeHealth": "Vida",
       "playerUpgradeCrouchRest": "Descanso ao Agachar",
+      "playerUpgradeTumbleClimb": "Escalada ao Cair",
       "playerUpgradeTumbleWings": "Asas ao Cair"
     }
   },
