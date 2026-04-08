@@ -72,6 +72,7 @@
       "playerUpgradeMapPlayerCount": "Player Count",
       "playerUpgradeHealth": "Health Upgrade",
       "playerUpgradeCrouchRest": "Crouch Rest",
+      "playerUpgradeTumbleClimb": "Tumble Climb",
       "playerUpgradeTumbleWings": "Tumble Wings"
     }
   },
@@ -136,6 +137,7 @@
       "Upgrade Player Grab Strength": "Grab Strength Upgrade",
       "Upgrade Player Health": "Player Health Upgrade",
       "Upgrade Player Sprint Speed": "Sprint Speed Upgrade",
+      "Upgrade Player Tumble Climb": "Tumble Climb Upgrade",
       "Upgrade Player Tumble Launch": "Tumble Launch Upgrade",
       "Valuable Tracker": "Valuable Tracker",
       "Gun Stun": "Gun Stun",
