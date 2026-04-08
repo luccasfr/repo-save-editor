@@ -14,6 +14,7 @@ export enum upgradeType {
   Health = 'playerHealth',
   UpgradeHealth = 'playerUpgradeHealth',
   CrouchRest = 'playerUpgradeCrouchRest',
+  TumbleClimb = 'playerUpgradeTumbleClimb',
   TumbleWings = 'playerUpgradeTumbleWings'
 }
 

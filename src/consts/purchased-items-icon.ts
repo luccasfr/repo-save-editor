@@ -26,7 +26,8 @@ import {
   Search,
   type LucideIcon,
   BowArrow,
-  PaintBucket
+  PaintBucket,
+  BrickWall
 } from 'lucide-react'
 
 /**
@@ -74,6 +75,7 @@ export const PURCHASED_ITEMS_ICON: Record<string, LucideIcon> = {
   'Upgrade Player Grab Strength': Hand,
   'Upgrade Player Health': HeartPulse,
   'Upgrade Player Sprint Speed': Dumbbell,
+  'Upgrade Player Tumble Climb': BrickWall,
   'Upgrade Player Tumble Launch': TimerOff,
   'Valuable Tracker': Search,
   'Duck Bucket': PaintBucket,

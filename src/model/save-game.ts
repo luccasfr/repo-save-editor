@@ -48,6 +48,7 @@ export interface DictionaryOfDictionariesValue {
   item: { [key: string]: number }
   itemStatBattery: { [key: string]: number }
   playerUpgradeCrouchRest?: { [key: string]: number }
+  playerUpgradeTumbleClimb?: { [key: string]: number }
   playerUpgradeTumbleWings?: { [key: string]: number }
 }
 

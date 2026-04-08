@@ -9,7 +9,8 @@ import {
   Sofa,
   Users,
   type LucideIcon,
-  BicepsFlexed
+  BicepsFlexed,
+  Move
 } from 'lucide-react'
 
 /**
@@ -22,6 +23,7 @@ export const UPGRADES_ICON: Record<UpgradeType, LucideIcon> = {
   playerHealth: Cross,
   playerUpgradeCrouchRest: Sofa,
   playerUpgradeHealth: Cross,
+  playerUpgradeTumbleClimb: Move,
   playerUpgradeTumbleWings: Feather,
   playerUpgradeExtraJump: ArrowBigUp,
   playerUpgradeLaunch: CircleChevronUp,
