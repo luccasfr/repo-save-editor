@@ -10,6 +10,7 @@ export enum upgradeType {
   Launch = 'playerUpgradeLaunch',
   ExtraJump = 'playerUpgradeExtraJump',
   MapPlayerCount = 'playerUpgradeMapPlayerCount',
+  DeathHeadBattery = 'playerUpgradeDeathHeadBattery',
   Stamina = 'playerUpgradeStamina',
   Health = 'playerHealth',
   UpgradeHealth = 'playerUpgradeHealth',
