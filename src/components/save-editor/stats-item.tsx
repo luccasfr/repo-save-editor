@@ -9,7 +9,9 @@ type StatsItemProps = {
   onIncrease: () => void
   onDecrease: () => void
   disableDecrease?: boolean
+  disableIncrease?: boolean
   translationNamespace?: string
+  rawTitle?: string
 }
 
 export function StatsItem({
@@ -19,7 +21,9 @@ export function StatsItem({
   onIncrease,
   onDecrease,
   disableDecrease = false,
-  translationNamespace = 'stats'
+  disableIncrease = false,
+  translationNamespace = 'stats',
+  rawTitle
 }: StatsItemProps) {
   const t = useTranslations('run_stats')
 
@@ -27,7 +31,7 @@ export function StatsItem({
     <div className="flex flex-col items-center text-sm">
       <p className="text-center font-medium">
         <Icon className="inline-flex size-4 shrink-0 pr-0.5" />
-        {t(`${translationNamespace}.${titleKey}`)}
+        {rawTitle ?? t(`${translationNamespace}.${titleKey}`)}
       </p>
       <div className="flex items-center gap-2">
         <Button
@@ -45,6 +49,7 @@ export function StatsItem({
           size="icon"
           className="size-6"
           onClick={onIncrease}
+          disabled={disableIncrease}
         >
           <Plus className="size-3" />
         </Button>

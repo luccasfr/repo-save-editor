@@ -8,6 +8,7 @@ export type RunStatKey =
   | 'currency'
   | 'totalHaul'
   | 'chargingStationCharge'
+  | 'chargingStationChargeTotal'
 
 /**
  * Hook for managing game run statistics
@@ -61,7 +62,7 @@ export function useRunStats(
     minValue = 0
   ) => {
     const currentValue =
-      saveData.dictionaryOfDictionaries.value.runStats[statName]
+      saveData.dictionaryOfDictionaries.value.runStats[statName] ?? 0
     const newValue = Math.max(minValue, currentValue + change)
     updateRunStatValue(statName, newValue)
   }
@@ -90,8 +91,8 @@ export function useRunStats(
    * @param statName - The name of the statistic to retrieve
    * @returns The current value of the statistic
    */
-  const getRunStatValue = (statName: RunStatKey) => {
-    return saveData.dictionaryOfDictionaries.value.runStats[statName]
+  const getRunStatValue = (statName: RunStatKey): number => {
+    return saveData.dictionaryOfDictionaries.value.runStats[statName] ?? 0
   }
 
   /**

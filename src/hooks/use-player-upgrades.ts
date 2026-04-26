@@ -8,6 +8,7 @@ export enum upgradeType {
   Strength = 'playerUpgradeStrength',
   Range = 'playerUpgradeRange',
   Launch = 'playerUpgradeLaunch',
+  Throw = 'playerUpgradeThrow',
   ExtraJump = 'playerUpgradeExtraJump',
   MapPlayerCount = 'playerUpgradeMapPlayerCount',
   Stamina = 'playerUpgradeStamina',
@@ -15,7 +16,8 @@ export enum upgradeType {
   UpgradeHealth = 'playerUpgradeHealth',
   CrouchRest = 'playerUpgradeCrouchRest',
   TumbleClimb = 'playerUpgradeTumbleClimb',
-  TumbleWings = 'playerUpgradeTumbleWings'
+  TumbleWings = 'playerUpgradeTumbleWings',
+  DeathHeadBattery = 'playerUpgradeDeathHeadBattery'
 }
 
 /**

@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# R.E.P.O save files
+*.es3
+
+# logs
+*.log

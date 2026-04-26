@@ -27,7 +27,8 @@ import {
   type LucideIcon,
   BowArrow,
   PaintBucket,
-  BrickWall
+  BrickWall,
+  Zap
 } from 'lucide-react'
 
 /**
@@ -84,5 +85,9 @@ export const PURCHASED_ITEMS_ICON: Record<string, LucideIcon> = {
   'Gun Laser': BowArrow,
   'Phase Bridge': GripVertical,
   'Upgrade Player Crouch Rest': Shield,
-  'Upgrade Player Tumble Wings': Feather
+  'Upgrade Player Tumble Wings': Feather,
+  'Gun Shockwave': Radio,
+  'Gun Stun': ZapOff,
+  'Melee Stun Baton': Zap,
+  'Upgrade Death Head Battery': BatteryCharging
 }

@@ -77,6 +77,28 @@
           "Visual adjustment in the display of the version history description."
         ]
       }
+    },
+    {
+      "version": "0.7.0",
+      "date": "2026-04-26 00:00",
+      "changes": {
+        "pt": [
+          "Adicionados parâmetros ausentes do save: upgrades Throw e Death Head Battery, total de cargas da base.",
+          "Corrigido bug de hidratação no histórico de saves que causava falha no carregamento da página.",
+          "Adicionado editor de bateria para drones e armas com sliders e botão de maximizar.",
+          "Adicionado campo para editar o total de energia da base (Base Power %).",
+          "Corrigido posicionamento da navbar com ancoragem explícita ao topo da página.",
+          "Adicionados ícones para Gun Shockwave, Gun Stun, Melee Stun Baton e Upgrade Death Head Battery."
+        ],
+        "en": [
+          "Added missing save parameters: Throw and Death Head Battery upgrades, charging station total.",
+          "Fixed save history hydration bug that caused the page to break on load.",
+          "Added battery editor for drones and weapons with sliders and a maximize button.",
+          "Added field to edit base power total (Base Power %).",
+          "Fixed navbar positioning with explicit top anchor.",
+          "Added icons for Gun Shockwave, Gun Stun, Melee Stun Baton and Upgrade Death Head Battery."
+        ]
+      }
     }
   ]
 }
