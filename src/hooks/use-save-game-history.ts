@@ -15,23 +15,21 @@ const MAX_HISTORY_ITEMS = 3
  * @returns Object with functions and state for managing save game history
  */
 export function useSaveGameHistory() {
-  const [disabled, setDisabled] = useState(
-    () =>
-      globalThis.window !== undefined &&
-      Boolean(localStorage.getItem(STORAGE_KEY_DISABLED))
-  )
-  const [history, setHistory] = useState<SaveGameHistoryType[]>(() => {
-    if (globalThis.window === undefined) return []
-    if (localStorage.getItem(STORAGE_KEY_DISABLED)) return []
+  const [disabled, setDisabled] = useState(false)
+  const [history, setHistory] = useState<SaveGameHistoryType[]>([])
+
+  useEffect(() => {
+    const isDisabled = Boolean(localStorage.getItem(STORAGE_KEY_DISABLED))
+    setDisabled(isDisabled)
+    if (isDisabled) return
     const stored = localStorage.getItem(STORAGE_KEY)
-    if (!stored) return []
+    if (!stored) return
     try {
-      return JSON.parse(stored) as SaveGameHistoryType[]
+      setHistory(JSON.parse(stored) as SaveGameHistoryType[])
     } catch {
       localStorage.removeItem(STORAGE_KEY)
-      return []
     }
-  })
+  }, [])
 
   /**
    * Loads save game history from local storage

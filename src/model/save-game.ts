@@ -50,6 +50,7 @@ export interface DictionaryOfDictionariesValue {
   playerUpgradeCrouchRest?: { [key: string]: number }
   playerUpgradeTumbleClimb?: { [key: string]: number }
   playerUpgradeTumbleWings?: { [key: string]: number }
+  playerUpgradeDeathHeadBattery?: { [key: string]: number }
 }
 
 /**
@@ -60,6 +61,7 @@ export interface RunStats {
   currency: number
   lives: number
   chargingStationCharge: number
+  chargingStationChargeTotal?: number
   totalHaul: number
   'save level': number
 }

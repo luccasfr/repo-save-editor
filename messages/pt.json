@@ -72,7 +72,9 @@
       "playerUpgradeHealth": "Vida",
       "playerUpgradeCrouchRest": "Descanso ao Agachar",
       "playerUpgradeTumbleClimb": "Escalada ao Cair",
-      "playerUpgradeTumbleWings": "Asas ao Cair"
+      "playerUpgradeTumbleWings": "Asas ao Cair",
+      "playerUpgradeThrow": "Arremesso",
+      "playerUpgradeDeathHeadBattery": "Bateria Cabeça da Morte"
     }
   },
   "remove_player": {
@@ -86,6 +88,7 @@
     "title": "Dados da Run",
     "played_time": "jogados",
     "items_title": "Itens",
+    "battery_title": "Baterias dos Itens",
     "edit_time": "Editar tempo jogado",
     "edit_time_title": "Editar Tempo Jogado",
     "edit_time_description": "Ajuste o tempo jogado para seu save game",
@@ -99,6 +102,7 @@
       "currency": "Dinheiro (K)",
       "total_haul": "Total extraído (K)",
       "charging_station": "Cargas na base",
+      "charging_station_total": "% Energia da Base",
       "Cart Medium": "Carrinho Médio",
       "Cart Small": "Carrinho Pequeno",
       "Drone Battery": "Bateria de Drone",
