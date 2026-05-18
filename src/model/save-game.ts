@@ -39,6 +39,7 @@ export interface DictionaryOfDictionariesValue {
   playerUpgradeStamina: { [key: string]: number }
   playerUpgradeExtraJump: { [key: string]: number }
   playerUpgradeLaunch: { [key: string]: number }
+  playerUpgradeDeathHeadBattery?: { [key: string]: number }
   playerUpgradeMapPlayerCount: { [key: string]: number }
   playerUpgradeSpeed: { [key: string]: number }
   playerUpgradeStrength: { [key: string]: number }

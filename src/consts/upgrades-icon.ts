@@ -1,6 +1,7 @@
 import { UpgradeType } from '@/hooks/use-player-upgrades'
 import {
   ArrowBigUp,
+  Battery,
   CircleChevronUp,
   Cross,
   Zap,
@@ -22,6 +23,7 @@ import {
 export const UPGRADES_ICON: Record<UpgradeType, LucideIcon> = {
   playerHealth: Cross,
   playerUpgradeCrouchRest: Sofa,
+  playerUpgradeDeathHeadBattery: Battery,
   playerUpgradeHealth: Cross,
   playerUpgradeTumbleClimb: Move,
   playerUpgradeTumbleWings: Feather,
