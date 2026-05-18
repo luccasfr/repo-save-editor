@@ -8,7 +8,8 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { useRunStats } from '@/hooks/use-run-stats'
 import type { SaveGame } from '@/model/save-game'
-import { DollarSign, Gauge, Zap } from 'lucide-react'
+import { BatteryFull, DollarSign, Gauge, Zap } from 'lucide-react'
+import { ItemBattery } from './item-battery'
 import { PurchasedItems } from './purchased-items'
 import { StatsItem } from './stats-item'
 import { TimePlayedEditor } from './time-played-editor'
@@ -78,9 +79,32 @@ export function RunStats({ saveGame, onUpdateSaveData }: RunStatsProps) {
             onDecrease={() => handleStatChange('chargingStationCharge', -1)}
             disableDecrease={getRunStatValue('chargingStationCharge') <= 0}
           />
+          {saveGame.dictionaryOfDictionaries.value.runStats
+            .chargingStationChargeTotal !== undefined && (
+            <StatsItem
+              icon={BatteryFull}
+              titleKey="charging_station_total"
+              value={getRunStatValue(
+                'chargingStationChargeTotal'
+              ).toString()}
+              onIncrease={() =>
+                handleStatChange('chargingStationChargeTotal', 1)
+              }
+              onDecrease={() =>
+                handleStatChange('chargingStationChargeTotal', -1)
+              }
+              disableDecrease={
+                getRunStatValue('chargingStationChargeTotal') <= 0
+              }
+            />
+          )}
         </div>
         <Separator />
         <PurchasedItems
+          saveGame={saveGame}
+          onUpdateSaveData={onUpdateSaveData}
+        />
+        <ItemBattery
           saveGame={saveGame}
           onUpdateSaveData={onUpdateSaveData}
         />

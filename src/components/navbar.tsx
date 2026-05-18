@@ -6,8 +6,8 @@ import { Logo } from '@/components/logo'
 export function Navbar() {
   return (
     <div
-      className="bg-background/50 fixed z-50 flex w-full items-center
-        justify-between border-b px-7 pt-2 backdrop-blur md:px-12"
+      className="bg-background/50 fixed top-0 z-50 flex w-full items-center
+        justify-between border-b px-7 py-2 backdrop-blur md:px-12"
     >
       <Logo />
 
