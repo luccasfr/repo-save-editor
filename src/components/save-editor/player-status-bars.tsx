@@ -1,12 +1,11 @@
 import { Cross, Zap } from 'lucide-react'
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useState } from 'react'
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger
 } from '@/components/ui/tooltip'
-import throttle from 'lodash.throttle'
 import { cn } from '@/lib/utils'
 
 export function HealthBar({
@@ -18,123 +17,27 @@ export function HealthBar({
   healthUpgrade: number
   onChange?: (newHealth: number) => void
 }) {
-  const maxHealth = useMemo(() => 100 + healthUpgrade * 20, [healthUpgrade])
-  const barRef = useRef<HTMLDivElement>(null)
+  const maxHealth = 100 + healthUpgrade * 20
   const [isDragging, setIsDragging] = useState(false)
 
-  // Always holds the latest onChange without causing re-renders
-  const onChangeRef = useRef(onChange)
-  useEffect(() => {
-    onChangeRef.current = onChange
-  })
-
-  // Initialized null — throttle is created after mount to avoid closing over refs during render
-  const throttledUpdateRef = useRef<ReturnType<
-    typeof throttle<(n: number) => void>
-  > | null>(null)
-
-  useEffect(() => {
-    const throttled = throttle((newHealth: number) => {
-      onChangeRef.current?.(newHealth)
-    }, 50)
-    throttledUpdateRef.current = throttled
-    return () => {
-      throttled.cancel()
-      throttledUpdateRef.current = null
-    }
-  }, [])
-
-  const handleDrag = useCallback(
-    (clientX: number) => {
-      if (!barRef.current || !onChange) return
-
-      const rect = barRef.current.getBoundingClientRect()
-      const percentage = Math.max(
-        0,
-        Math.min(1, (clientX - rect.left) / rect.width)
-      )
-      const newHealth = Math.round(percentage * maxHealth)
-
-      throttledUpdateRef.current?.(newHealth)
+  const handleRangeChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      onChange?.(Number(e.currentTarget.value))
     },
-    [onChange, maxHealth]
+    [onChange]
   )
-
-  const handleMouseDown = useCallback(
-    (e: React.MouseEvent) => {
-      if (!onChange) return
-      e.preventDefault()
-      setIsDragging(true)
-      handleDrag(e.clientX)
-    },
-    [onChange, handleDrag]
-  )
-
-  const handleTouchStart = useCallback(
-    (e: React.TouchEvent) => {
-      if (!onChange) return
-      setIsDragging(true)
-      if (e.touches.length > 0) {
-        handleDrag(e.touches[0].clientX)
-      }
-    },
-    [onChange, handleDrag]
-  )
-
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (isDragging) {
-        handleDrag(e.clientX)
-      }
-    },
-    [isDragging, handleDrag]
-  )
-
-  const handleTouchMove = useCallback(
-    (e: TouchEvent) => {
-      if (isDragging && e.touches.length > 0) {
-        handleDrag(e.touches[0].clientX)
-      }
-    },
-    [isDragging, handleDrag]
-  )
-
-  const handleEnd = useCallback(() => {
-    setIsDragging(false)
-  }, [])
-
-  useEffect(() => {
-    if (isDragging) {
-      globalThis.addEventListener('mousemove', handleMouseMove)
-      globalThis.addEventListener('mouseup', handleEnd)
-      globalThis.addEventListener('touchmove', handleTouchMove)
-      globalThis.addEventListener('touchend', handleEnd)
-      globalThis.addEventListener('touchcancel', handleEnd)
-    }
-
-    return () => {
-      globalThis.removeEventListener('mousemove', handleMouseMove)
-      globalThis.removeEventListener('mouseup', handleEnd)
-      globalThis.removeEventListener('touchmove', handleTouchMove)
-      globalThis.removeEventListener('touchend', handleEnd)
-      globalThis.removeEventListener('touchcancel', handleEnd)
-    }
-  }, [isDragging, handleMouseMove, handleTouchMove, handleEnd])
 
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
           <div
-            ref={barRef}
             className={cn(
               `relative flex h-8 w-full items-center justify-end rounded
               bg-green-800 px-2 text-white`,
               onChange && 'cursor-grab',
               isDragging && 'cursor-grabbing'
             )}
-            onMouseDown={onChange ? handleMouseDown : undefined}
-            onTouchStart={onChange ? handleTouchStart : undefined}
           >
             <div
               style={{ width: (health / maxHealth) * 100 + '%' }}
@@ -145,6 +48,22 @@ export function HealthBar({
               <p className="font-mono">{health}</p>
             </div>
             <p className="absolute right-2 z-10 font-mono">{maxHealth}</p>
+            <input
+              type="range"
+              min={0}
+              max={maxHealth}
+              value={health}
+              onChange={handleRangeChange}
+              onPointerDown={() => setIsDragging(true)}
+              onPointerUp={() => setIsDragging(false)}
+              onPointerCancel={() => setIsDragging(false)}
+              onBlur={() => setIsDragging(false)}
+              readOnly={!onChange}
+              aria-label="Health"
+              className="absolute inset-0 z-30 size-full cursor-grab opacity-0
+                disabled:cursor-default"
+              disabled={!onChange}
+            />
           </div>
         </TooltipTrigger>
         <TooltipContent>

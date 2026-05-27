@@ -41,8 +41,11 @@ export function VersionHistory() {
                 <p className="w-fit font-mono text-sm font-semibold">
                   {t(`changes`)} ({release.changes[locale].length})
                 </p>
-                {release.changes[locale].map((change, index) => (
-                  <div className="flex items-center gap-1" key={index}>
+                {release.changes[locale].map((change) => (
+                  <div
+                    className="flex items-center gap-1"
+                    key={`${release.version}-${locale}-${change}`}
+                  >
                     <Asterisk className="size-4 shrink-0" />
                     <div className="flex items-center gap-2">
                       <span className="text-sm">{change}</span>

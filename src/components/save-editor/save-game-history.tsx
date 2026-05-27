@@ -61,7 +61,7 @@ export function SaveGameHistory({ onSelectSave }: SaveGameHistoryProps) {
           onClick={enableHistory}
           className="flex items-center gap-1"
         >
-          <Check className="h-4 w-4" />
+          <Check className="size-4" />
           <span>{t('enable')}</span>
         </Button>
       </div>
@@ -81,7 +81,7 @@ export function SaveGameHistory({ onSelectSave }: SaveGameHistoryProps) {
           onClick={clearHistory}
           className="flex items-center gap-1"
         >
-          <Trash2 className="h-4 w-4" />
+          <Trash2 className="size-4" />
           <span>{t('clear')}</span>
         </Button>
         <Button
@@ -90,7 +90,7 @@ export function SaveGameHistory({ onSelectSave }: SaveGameHistoryProps) {
           onClick={disableHistory}
           className="ml-2 flex items-center gap-1"
         >
-          <X className="h-4 w-4" />
+          <X className="size-4" />
           <span>{t('disable')}</span>
         </Button>
       </div>
@@ -102,7 +102,7 @@ export function SaveGameHistory({ onSelectSave }: SaveGameHistoryProps) {
                 {item.fileName}
               </CardTitle>
               <CardDescription className="flex items-center gap-1">
-                <Clock className="h-3 w-3" />
+                <Clock className="size-3" />
                 <span className="text-muted-foreground text-xs">
                   {new Date(item.timestamp).toLocaleString()}
                 </span>
@@ -121,7 +121,7 @@ export function SaveGameHistory({ onSelectSave }: SaveGameHistoryProps) {
                     className="flex flex-1 items-center gap-1"
                     onClick={() => onSelectSave?.(item)}
                   >
-                    <Upload className="h-4 w-4" />
+                    <Upload className="size-4" />
                     <span>{t('load')}</span>
                   </Button>
                   <Button
@@ -132,7 +132,7 @@ export function SaveGameHistory({ onSelectSave }: SaveGameHistoryProps) {
                       downloadSaveGame(item.saveGame, item.fileName)
                     }
                   >
-                    <Download className="h-4 w-4" />
+                    <Download className="size-4" />
                     <span>{t('download')}</span>
                   </Button>
                 </div>

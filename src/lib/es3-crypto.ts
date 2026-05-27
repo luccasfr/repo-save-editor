@@ -3,19 +3,12 @@
 import crypto from 'node:crypto'
 import { promisify } from 'node:util'
 import zlib from 'node:zlib'
+import { assertServerActionAuthorized } from './server-action-auth'
 
 const gzip = promisify(zlib.gzip)
 const gunzip = promisify(zlib.gunzip)
 
-/**
- * Encrypts a buffer using AES-128-CBC encryption with optional GZIP compression
- *
- * @param data - The buffer containing data to be encrypted
- * @param password - The password used for encryption key derivation
- * @param shouldGzip - Whether to compress the data using GZIP before encryption (default: false)
- * @returns A buffer containing the IV followed by the encrypted data
- */
-export async function encryptEs3FromBuffer(
+async function encryptBuffer(
   data: Buffer,
   password: string,
   shouldGzip: boolean = false
@@ -32,6 +25,23 @@ export async function encryptEs3FromBuffer(
 }
 
 /**
+ * Encrypts a buffer using AES-128-CBC encryption with optional GZIP compression
+ *
+ * @param data - The buffer containing data to be encrypted
+ * @param password - The password used for encryption key derivation
+ * @param shouldGzip - Whether to compress the data using GZIP before encryption (default: false)
+ * @returns A buffer containing the IV followed by the encrypted data
+ */
+export async function encryptEs3FromBuffer(
+  data: Buffer,
+  password: string,
+  shouldGzip: boolean = false
+): Promise<Buffer> {
+  await assertServerActionAuthorized()
+  return encryptBuffer(data, password, shouldGzip)
+}
+
+/**
  * Encrypts a string using AES-128-CBC encryption with optional GZIP compression
  *
  * @param data - The string to be encrypted
@@ -44,12 +54,9 @@ export async function encryptEs3(
   password: string,
   shouldGzip: boolean = false
 ): Promise<Uint8Array> {
+  await assertServerActionAuthorized()
   const bufferData = Buffer.from(data, 'utf8')
-  const encryptedBuffer = await encryptEs3FromBuffer(
-    bufferData,
-    password,
-    shouldGzip
-  )
+  const encryptedBuffer = await encryptBuffer(bufferData, password, shouldGzip)
   return encryptedBuffer
 }
 
@@ -66,6 +73,7 @@ export async function decryptEs3(
   password: string,
   encoding: BufferEncoding = 'utf8'
 ): Promise<string> {
+  await assertServerActionAuthorized()
   // Extract the base64 part from the data URI if it includes the prefix
   const base64Content = base64Data.includes('base64,')
     ? base64Data.split('base64,')[1]

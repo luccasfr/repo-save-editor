@@ -16,6 +16,7 @@ type PlayerUpgradesProps = {
 
 const BASE_HEALTH = 100
 const HEALTH_INCREMENT = 20
+const DEATH_HEAD_BATTERY_ITEM = 'Item Upgrade Death Head Battery'
 
 export function PlayerUpgrades({
   saveGame,
@@ -32,6 +33,15 @@ export function PlayerUpgrades({
       ),
     []
   )
+
+  const hasUpgrade = (upgrade: UpgradeType) => {
+    if (saveGame.dictionaryOfDictionaries.value[upgrade]) return true
+    return (
+      upgrade === 'playerUpgradeDeathHeadBattery' &&
+      DEATH_HEAD_BATTERY_ITEM in
+        saveGame.dictionaryOfDictionaries.value.itemsPurchased
+    )
+  }
 
   const handleIncreaseHealth = (key: string) => {
     handleIncrease(key, 'playerUpgradeHealth')
@@ -51,7 +61,7 @@ export function PlayerUpgrades({
     <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
       {upgradeValues.map(
         (upgrade: UpgradeType) =>
-          saveGame.dictionaryOfDictionaries.value[upgrade] && (
+          hasUpgrade(upgrade) && (
             <UpgradeCount
               count={getUpgradeValue(playerId, upgrade)}
               key={upgrade}

@@ -38,7 +38,7 @@ function SaveDataActionButton({
             className="flex items-center gap-2"
             disabled={disabled}
           >
-            <Icon className="h-4 w-4" />
+            <Icon className="size-4" />
             <p className="hidden md:block">{label}</p>
           </Button>
         </TooltipTrigger>

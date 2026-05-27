@@ -2,6 +2,7 @@
 
 import { SteamAvatars } from '@/model/steam-avatars'
 import { DOMParser } from '@xmldom/xmldom'
+import { assertServerActionAuthorized } from './server-action-auth'
 
 /**
  * Fetches the full avatar URLs for a list of Steam IDs.
@@ -10,6 +11,7 @@ import { DOMParser } from '@xmldom/xmldom'
  * @returns {Promise<SteamAvatars>} - A promise that resolves to an object mapping Steam IDs to their full avatar URLs
  */
 export async function fetchAvatars(steamIDs: string[]): Promise<SteamAvatars> {
+  await assertServerActionAuthorized()
   const avatarUrls: SteamAvatars = {}
   await Promise.all(
     steamIDs.map((steamID) =>

@@ -11,7 +11,8 @@ import {
   Users,
   type LucideIcon,
   BicepsFlexed,
-  Move
+  Move,
+  Send
 } from 'lucide-react'
 
 /**
@@ -29,6 +30,7 @@ export const UPGRADES_ICON: Record<UpgradeType, LucideIcon> = {
   playerUpgradeTumbleWings: Feather,
   playerUpgradeExtraJump: ArrowBigUp,
   playerUpgradeLaunch: CircleChevronUp,
+  playerUpgradeThrow: Send,
   playerUpgradeMapPlayerCount: Users,
   playerUpgradeRange: MoveUp,
   playerUpgradeStamina: Zap,

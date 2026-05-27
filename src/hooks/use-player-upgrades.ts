@@ -8,6 +8,7 @@ export enum upgradeType {
   Strength = 'playerUpgradeStrength',
   Range = 'playerUpgradeRange',
   Launch = 'playerUpgradeLaunch',
+  Throw = 'playerUpgradeThrow',
   ExtraJump = 'playerUpgradeExtraJump',
   MapPlayerCount = 'playerUpgradeMapPlayerCount',
   DeathHeadBattery = 'playerUpgradeDeathHeadBattery',
@@ -48,7 +49,7 @@ export function usePlayerUpgrades(
     newValue: number
   ) => {
     const updatedSaveData = { ...saveData }
-    if (!updatedSaveData.dictionaryOfDictionaries.value[upgradeType]) return
+    updatedSaveData.dictionaryOfDictionaries.value[upgradeType] ??= {}
     updatedSaveData.dictionaryOfDictionaries.value[upgradeType][playerId] =
       newValue
     onUpdateSaveData(updatedSaveData)

@@ -26,15 +26,46 @@ type UploadFileProps = {
   onFilesChange?: (files: FileBase64[]) => void
   errorMessage?: string | undefined
   imagePreview?: boolean
-  fileList?: FileList | null
-} & React.HTMLProps<HTMLDivElement>
+} & React.ComponentPropsWithoutRef<'button'>
+
+type FileSelection = {
+  files: File[]
+  objectUrls: string[]
+}
+
+const emptySelection: FileSelection = {
+  files: [],
+  objectUrls: []
+}
+
+function revokeObjectUrls(urls: string[]) {
+  for (const url of urls) URL.revokeObjectURL(url)
+}
+
+function readFileAsDataUrl(file: File): Promise<FileBase64> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.addEventListener('load', () => {
+      if (typeof reader.result === 'string') {
+        resolve({
+          name: file.name,
+          base64: reader.result
+        })
+        return
+      }
+
+      reject(new TypeError('Expected FileReader result to be a data URL'))
+    })
+    reader.addEventListener('error', () => reject(reader.error))
+    reader.readAsDataURL(file)
+  })
+}
 
 export function UploadFile({
   multiple,
   onFilesChange,
   errorMessage,
   imagePreview = true,
-  fileList,
   className,
   ...props
 }: UploadFileProps) {
@@ -43,78 +74,48 @@ export function UploadFile({
   const [dragStatus, setDragStatus] = useState<
     'over' | 'enter' | 'leave' | 'drop' | 'mouseEnter' | 'none'
   >('none')
-  const [files, setFiles] = useState<FileList | null>(null)
-  const [filesBase64, setFilesBase64] = useState<FileBase64[]>([])
+  const [selection, setSelection] = useState<FileSelection>(emptySelection)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const onFilesChangeRef = useRef(onFilesChange)
-  const [objectUrls, setObjectUrls] = useState<string[]>([])
 
   useEffect(() => {
     return () => {
-      for (const url of objectUrls) URL.revokeObjectURL(url)
+      revokeObjectUrls(selection.objectUrls)
     }
-  }, [objectUrls])
+  }, [selection.objectUrls])
 
-  useEffect(() => {
-    if (fileList && !files) {
-      setFiles(fileList)
-    }
-  }, [fileList, files])
+  const replaceSelection = useCallback((nextFiles: File[]) => {
+    const objectUrls = nextFiles.map((file) =>
+      file.type.startsWith('image/') ? URL.createObjectURL(file) : ''
+    )
 
-  useEffect(() => {
-    onFilesChangeRef.current = onFilesChange
-  }, [onFilesChange])
-
-  useEffect(() => {
-    if (!files) {
-      setFilesBase64([])
-      return
-    }
-
-    const newUrls: string[] = []
-    const fileList = [...files]
-
-    setFilesBase64([])
-
-    for (const file of fileList) {
-      if (file.type.startsWith('image/')) {
-        const url = URL.createObjectURL(file)
-        newUrls.push(url)
-      }
-
-      const reader = new FileReader()
-      reader.addEventListener('load', (event) => {
-        const base64 = event.target?.result
-        if (typeof base64 === 'string') {
-          setFilesBase64((prev) => [
-            ...prev,
-            {
-              name: file.name,
-              base64
-            }
-          ])
-        }
-      })
-      reader.readAsDataURL(file)
-    }
-
-    setObjectUrls((prevUrls) => {
-      for (const url of prevUrls) URL.revokeObjectURL(url)
-      return newUrls
+    setSelection({
+      files: nextFiles,
+      objectUrls
     })
-  }, [files])
+  }, [])
 
-  useEffect(() => {
-    if (filesBase64.length > 0) {
-      onFilesChangeRef.current?.(filesBase64)
-    }
-  }, [filesBase64])
+  const acceptFiles = useCallback(
+    async (incomingFiles: FileList) => {
+      const nextFiles = [...incomingFiles]
+      replaceSelection(nextFiles)
+
+      if (nextFiles.length === 0) return
+
+      const filesBase64 = await Promise.all(
+        nextFiles.map((file) => readFileAsDataUrl(file))
+      )
+      onFilesChange?.(filesBase64)
+    },
+    [onFilesChange, replaceSelection]
+  )
 
   const handleDragEvent = useCallback(
-    (event: DragEvent<HTMLDivElement>, status: 'over' | 'enter' | 'leave') => {
+    (
+      event: DragEvent<HTMLButtonElement>,
+      status: 'over' | 'enter' | 'leave'
+    ) => {
       event.preventDefault()
       setDragStatus(status)
-      if (status === 'over') setFiles(null)
     },
     []
   )
@@ -129,7 +130,7 @@ export function UploadFile({
   )
 
   const onDrop = useCallback(
-    (event: DragEvent<HTMLDivElement>) => {
+    (event: DragEvent<HTMLButtonElement>) => {
       event.preventDefault()
       setDragStatus('drop')
       const droppedFiles = event.dataTransfer.files
@@ -148,17 +149,17 @@ export function UploadFile({
         return
       }
 
-      setFiles(droppedFiles)
+      void acceptFiles(droppedFiles)
     },
-    [multiple, checkFileType, t]
+    [multiple, checkFileType, t, acceptFiles]
   )
 
   const handleMouseState = useCallback(
     (isEnter: boolean) => {
-      if (files) return
+      if (selection.files.length > 0) return
       setDragStatus(isEnter ? 'mouseEnter' : 'none')
     },
-    [files]
+    [selection.files.length]
   )
 
   const handleFileSelect = useCallback(() => {
@@ -183,10 +184,10 @@ export function UploadFile({
           return
         }
 
-        setFiles(selectedFiles)
+        void acceptFiles(selectedFiles)
       }
     },
-    [checkFileType, t]
+    [checkFileType, t, acceptFiles]
   )
 
   const getStatusText = useCallback(
@@ -223,10 +224,12 @@ export function UploadFile({
         multiple={multiple}
         accept={`.${fileExtension}`}
         onChange={handleFileInputChange}
+        aria-label={t('title')}
       />
       <Heading title={t(`title`)} description={t(`description`)} />
       <div>
-        <div
+        <button
+          type="button"
           className={cn(
             `flex min-h-32 w-full cursor-pointer items-center justify-center
             rounded`,
@@ -241,30 +244,33 @@ export function UploadFile({
           onMouseEnter={() => handleMouseState(true)}
           onMouseLeave={() => handleMouseState(false)}
           onClick={handleFileSelect}
+          aria-label={t('title')}
           {...props}
         >
-          {files ? (
+          {selection.files.length > 0 ? (
             <div
               className={cn(
                 'gap-4 text-sm',
-                files.length < 5 ? 'flex justify-center' : 'grid grid-cols-5'
+                selection.files.length < 5
+                  ? 'flex justify-center'
+                  : 'grid grid-cols-5'
               )}
             >
-              {[...files].map((file, index) => (
+              {selection.files.map((file, index) => (
                 <div
                   className="flex flex-col items-center justify-center gap-1"
-                  key={index}
+                  key={`${file.name}-${file.lastModified}-${file.size}`}
                 >
                   {file.type.startsWith('image/') && imagePreview ? (
                     <Image
-                      src={objectUrls[index] || ''}
+                      src={selection.objectUrls[index] || ''}
                       alt={file.name}
                       width={300}
                       height={300}
                       className="aspect-square object-contain"
                     />
                   ) : (
-                    <File className="text-primary h-12 w-12" />
+                    <File className="text-primary size-12" />
                   )}
                   <p className="max-w-32 truncate text-xs">{file.name}</p>
                 </div>
@@ -279,7 +285,7 @@ export function UploadFile({
               <p>{getStatusText(dragStatus)}</p>
             </div>
           )}
-        </div>
+        </button>
       </div>
       {errorMessage && (
         <p className="text-destructive text-sm font-semibold">{errorMessage}</p>
@@ -292,7 +298,7 @@ export function UploadFile({
         >
           <Button
             variant="outline"
-            className="absolute top-1/2 right-2 h-6 w-6 -translate-y-1/2"
+            className="absolute top-1/2 right-2 size-6 -translate-y-1/2"
             size="icon"
             onClick={handleCopy}
           >
