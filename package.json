@@ -19,15 +19,15 @@
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-tooltip": "^1.2.8",
     "@types/lodash.throttle": "^4.1.9",
-    "@xmldom/xmldom": "^0.9.9",
+    "@xmldom/xmldom": "^0.9.10",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "js-cookie": "^3.0.5",
+    "js-cookie": "^3.0.7",
     "lodash.throttle": "^4.1.1",
     "lucide-react": "^1.7.0",
     "motion": "^12.38.0",
-    "next": "^16.2.2",
-    "next-intl": "^4.9.0",
+    "next": "^16.2.6",
+    "next-intl": "^4.12.0",
     "next-themes": "^0.4.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
@@ -42,7 +42,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.4",
-    "eslint-config-next": "^16.2.2",
+    "eslint-config-next": "^16.2.6",
     "eslint-plugin-unicorn": "^64.0.0",
     "prettier": "^3.8.1",
     "prettier-plugin-classnames": "^0.10.1",
@@ -53,5 +53,11 @@
     "typescript": "^5.9.3"
   },
   "license": "MIT",
-  "packageManager": "pnpm@10.33.0"
+  "packageManager": "pnpm@10.33.0",
+  "pnpm": {
+    "overrides": {
+      "postcss": "8.5.10",
+      "minimatch@10.2.4>brace-expansion": "5.0.6"
+    }
+  }
 }
