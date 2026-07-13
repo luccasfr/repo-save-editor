@@ -14,7 +14,7 @@ import type { SaveGame } from '@/model/save-game'
 import { SaveGameHistoryType } from '@/model/save-game-history'
 import { SteamAvatars } from '@/model/steam-avatars'
 import { useTranslations } from 'next-intl'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { toast } from 'sonner'
 
 export function SaveEditor() {
@@ -32,10 +32,6 @@ export function SaveEditor() {
 
     return JSON.stringify(saveGame) !== JSON.stringify(originalSaveData)
   }, [saveGame, originalSaveData])
-
-  const handleSaveDataUpdate = (updatedSaveData: SaveGame) => {
-    setSaveGame(updatedSaveData)
-  }
 
   const handleReset = () => {
     if (originalSaveData) {
@@ -66,6 +62,7 @@ export function SaveEditor() {
         setOriginalSaveData(structuredClone(parsed))
         setFileName(files[0].name)
         addToHistory(files[0].name, parsed)
+        window.scrollTo({ top: 0 })
 
         const avatars = await fetchAvatars(
           Object.keys(parsed.playerNames.value)
@@ -81,6 +78,7 @@ export function SaveEditor() {
     setSaveGame(structuredClone(historyItem.saveGame))
     setOriginalSaveData(structuredClone(historyItem.saveGame))
     setFileName(historyItem.fileName)
+    window.scrollTo({ top: 0 })
 
     const avatars = await fetchAvatars(
       Object.keys(historyItem.saveGame.playerNames.value)
@@ -93,7 +91,7 @@ export function SaveEditor() {
       {saveGame ? (
         <SaveData
           saveGame={saveGame}
-          onUpdateSaveData={handleSaveDataUpdate}
+          onUpdateSaveData={setSaveGame}
           onReset={handleReset}
           hasChanges={hasChanges}
           onSave={handleSave}

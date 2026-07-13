@@ -1,5 +1,6 @@
 import { Cross, Zap } from 'lucide-react'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
+import { Slider } from '@/components/ui/slider'
 import {
   Tooltip,
   TooltipContent,
@@ -19,13 +20,6 @@ export function HealthBar({
 }) {
   const maxHealth = 100 + healthUpgrade * 20
   const [isDragging, setIsDragging] = useState(false)
-
-  const handleRangeChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange?.(Number(e.currentTarget.value))
-    },
-    [onChange]
-  )
 
   return (
     <TooltipProvider>
@@ -48,17 +42,15 @@ export function HealthBar({
               <p className="font-mono">{health}</p>
             </div>
             <p className="absolute right-2 z-10 font-mono">{maxHealth}</p>
-            <input
-              type="range"
+            <Slider
               min={0}
               max={maxHealth}
-              value={health}
-              onChange={handleRangeChange}
+              value={[health]}
+              onValueChange={(value) => onChange?.(value[0] ?? 0)}
               onPointerDown={() => setIsDragging(true)}
               onPointerUp={() => setIsDragging(false)}
               onPointerCancel={() => setIsDragging(false)}
               onBlur={() => setIsDragging(false)}
-              readOnly={!onChange}
               aria-label="Health"
               className="absolute inset-0 z-30 size-full cursor-grab opacity-0
                 disabled:cursor-default"

@@ -10,9 +10,12 @@ import {
 } from '@/components/ui/card'
 import { useSaveGameHistory } from '@/hooks/use-save-game-history'
 import { downloadSaveGame } from '@/lib/download-save-game'
+import { DATE_LOCALE } from '@/consts/date-locale'
+import { LocaleType } from '@/model/locale'
 import { SaveGameHistoryType } from '@/model/save-game-history'
 import { Check, Clock, Download, Trash2, Upload, X } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
+import { useMemo } from 'react'
 import { Heading } from '@/components/heading'
 
 interface SaveGameStatsProps {
@@ -50,6 +53,21 @@ export function SaveGameHistory({ onSelectSave }: SaveGameHistoryProps) {
   const { history, clearHistory, disabled, disableHistory, enableHistory } =
     useSaveGameHistory()
   const t = useTranslations('save_history')
+  const locale = useLocale() as LocaleType
+  const dateTimeFormatter = useMemo(
+    () =>
+      new Intl.DateTimeFormat(DATE_LOCALE[locale], {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        timeZone: 'UTC',
+        timeZoneName: 'short'
+      }),
+    [locale]
+  )
 
   if (disabled) {
     return (
@@ -104,7 +122,7 @@ export function SaveGameHistory({ onSelectSave }: SaveGameHistoryProps) {
               <CardDescription className="flex items-center gap-1">
                 <Clock className="size-3" />
                 <span className="text-muted-foreground text-xs">
-                  {new Date(item.timestamp).toLocaleString()}
+                  {dateTimeFormatter.format(item.timestamp)}
                 </span>
               </CardDescription>
             </CardHeader>

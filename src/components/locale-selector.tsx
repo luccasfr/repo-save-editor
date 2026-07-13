@@ -11,7 +11,6 @@ import { cn } from '@/lib/utils'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useMemo } from 'react'
 import Cookies from 'js-cookie'
 
 type LocaleSelectorProps = React.ComponentPropsWithoutRef<typeof Button>
@@ -19,20 +18,8 @@ type LocaleSelectorProps = React.ComponentPropsWithoutRef<typeof Button>
 export function LocaleSelector({ ...props }: LocaleSelectorProps) {
   const locale = useLocale()
   const router = useRouter()
-
-  const flag = useMemo(() => {
-    switch (locale) {
-      case 'pt': {
-        return 'br'
-      }
-      case 'en': {
-        return 'us'
-      }
-      default: {
-        return 'us'
-      }
-    }
-  }, [locale])
+  const flag = locale === 'pt' ? 'br' : 'us'
+  const localeLabel = locale === 'pt' ? 'Português' : 'English'
 
   const handleLocaleChange = (newLocale: string) => {
     Cookies.set('locale', newLocale, {
@@ -50,9 +37,10 @@ export function LocaleSelector({ ...props }: LocaleSelectorProps) {
         <Button variant="outline" size="icon" {...props}>
           <Image
             src={`https://flagcdn.com/${flag}.svg`}
-            alt="flag"
+            alt={localeLabel}
             width={24}
-            height={24}
+            height={18}
+            className="h-4 w-auto"
           />
         </Button>
       </DropdownMenuTrigger>
@@ -66,9 +54,10 @@ export function LocaleSelector({ ...props }: LocaleSelectorProps) {
         >
           <Image
             src={`https://flagcdn.com/us.svg`}
-            alt="flag"
+            alt=""
             width={24}
-            height={24}
+            height={18}
+            className="h-4 w-auto"
           />
           English
         </DropdownMenuItem>
@@ -81,9 +70,10 @@ export function LocaleSelector({ ...props }: LocaleSelectorProps) {
         >
           <Image
             src={`https://flagcdn.com/br.svg`}
-            alt="flag"
+            alt=""
             width={24}
-            height={24}
+            height={18}
+            className="h-4 w-auto"
           />
           Português
         </DropdownMenuItem>

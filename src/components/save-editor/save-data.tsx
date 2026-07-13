@@ -6,7 +6,6 @@ import { RunStats } from './run-stats'
 import { Button } from '@/components/ui/button'
 import { LucideIcon, Plus, RotateCcw, Save } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useEffect } from 'react'
 import {
   Tooltip,
   TooltipContent,
@@ -70,10 +69,6 @@ export function SaveData({
   steamAvatars
 }: SaveDataProps) {
   const t = useTranslations('save_data')
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
 
   return (
     <div className="space-y-4">

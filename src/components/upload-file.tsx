@@ -1,10 +1,12 @@
 'use client'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { useObjectUrlCleanup } from '@/hooks/use-object-url-cleanup'
 import { cn } from '@/lib/utils'
 import { Copy, File, Grab, PackageOpen, Pointer } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { DragEvent, JSX, useCallback, useEffect, useRef, useState } from 'react'
+import { DragEvent, JSX, useCallback, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { Heading } from './heading'
 
@@ -36,10 +38,6 @@ type FileSelection = {
 const emptySelection: FileSelection = {
   files: [],
   objectUrls: []
-}
-
-function revokeObjectUrls(urls: string[]) {
-  for (const url of urls) URL.revokeObjectURL(url)
 }
 
 function readFileAsDataUrl(file: File): Promise<FileBase64> {
@@ -77,11 +75,7 @@ export function UploadFile({
   const [selection, setSelection] = useState<FileSelection>(emptySelection)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    return () => {
-      revokeObjectUrls(selection.objectUrls)
-    }
-  }, [selection.objectUrls])
+  useObjectUrlCleanup(selection.objectUrls)
 
   const replaceSelection = useCallback((nextFiles: File[]) => {
     const objectUrls = nextFiles.map((file) =>
@@ -109,16 +103,20 @@ export function UploadFile({
     [onFilesChange, replaceSelection]
   )
 
-  const handleDragEvent = useCallback(
-    (
-      event: DragEvent<HTMLButtonElement>,
-      status: 'over' | 'enter' | 'leave'
-    ) => {
-      event.preventDefault()
-      setDragStatus(status)
-    },
-    []
-  )
+  const handleDragOver = (event: DragEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    setDragStatus('over')
+  }
+
+  const handleDragEnter = (event: DragEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    setDragStatus('enter')
+  }
+
+  const handleDragLeave = (event: DragEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    setDragStatus('leave')
+  }
 
   const checkFileType = useCallback(
     (file: File) => {
@@ -217,7 +215,7 @@ export function UploadFile({
 
   return (
     <div className="space-y-2">
-      <input
+      <Input
         type="file"
         className="hidden"
         ref={fileInputRef}
@@ -228,18 +226,19 @@ export function UploadFile({
       />
       <Heading title={t(`title`)} description={t(`description`)} />
       <div>
-        <button
+        <Button
           type="button"
+          variant="outline"
           className={cn(
-            `flex min-h-32 w-full cursor-pointer items-center justify-center
-            rounded`,
+            `flex h-auto min-h-32 w-full cursor-pointer items-center
+            justify-center rounded`,
             'border-[1px] py-2 lg:min-h-48',
             errorMessage ? 'border-destructive' : 'border-border',
             className
           )}
-          onDragOver={(e) => handleDragEvent(e, 'over')}
-          onDragEnter={(e) => handleDragEvent(e, 'enter')}
-          onDragLeave={(e) => handleDragEvent(e, 'leave')}
+          onDragOver={handleDragOver}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
           onDrop={onDrop}
           onMouseEnter={() => handleMouseState(true)}
           onMouseLeave={() => handleMouseState(false)}
@@ -285,7 +284,7 @@ export function UploadFile({
               <p>{getStatusText(dragStatus)}</p>
             </div>
           )}
-        </button>
+        </Button>
       </div>
       {errorMessage && (
         <p className="text-destructive text-sm font-semibold">{errorMessage}</p>

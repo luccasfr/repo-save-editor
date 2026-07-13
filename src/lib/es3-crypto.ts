@@ -25,23 +25,6 @@ async function encryptBuffer(
 }
 
 /**
- * Encrypts a buffer using AES-128-CBC encryption with optional GZIP compression
- *
- * @param data - The buffer containing data to be encrypted
- * @param password - The password used for encryption key derivation
- * @param shouldGzip - Whether to compress the data using GZIP before encryption (default: false)
- * @returns A buffer containing the IV followed by the encrypted data
- */
-export async function encryptEs3FromBuffer(
-  data: Buffer,
-  password: string,
-  shouldGzip: boolean = false
-): Promise<Buffer> {
-  await assertServerActionAuthorized()
-  return encryptBuffer(data, password, shouldGzip)
-}
-
-/**
  * Encrypts a string using AES-128-CBC encryption with optional GZIP compression
  *
  * @param data - The string to be encrypted
@@ -92,7 +75,7 @@ export async function decryptEs3(
     decipher.final()
   ])
 
-  if (decryptedData.subarray(0, 2).equals(Buffer.from([0x1F, 0x8B]))) {
+  if (decryptedData.subarray(0, 2).equals(Buffer.from([31, 139]))) {
     const unzippedData = await gunzip(decryptedData)
     return unzippedData.toString(encoding)
   }

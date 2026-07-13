@@ -7,6 +7,8 @@ export interface SaveGame {
   timePlayed: TimePlayed
   dateAndTime: DateAndTime
   teamName: DateAndTime
+  teamNameChanged: TeamNameChanged
+  saveVersion: SaveVersion
 }
 
 /**
@@ -15,6 +17,22 @@ export interface SaveGame {
 export interface DateAndTime {
   __type: string
   value: string
+}
+
+/**
+ * Tracks whether the team name was changed by the player
+ */
+export interface TeamNameChanged {
+  __type: 'bool'
+  value: boolean
+}
+
+/**
+ * Identifies the save format version used by the game
+ */
+export interface SaveVersion {
+  __type: 'int'
+  value: number
 }
 
 /**

@@ -8,8 +8,18 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { useRunStats } from '@/hooks/use-run-stats'
 import type { SaveGame } from '@/model/save-game'
-import { DollarSign, Gauge, Zap } from 'lucide-react'
+import {
+  BatteryCharging,
+  DollarSign,
+  Gauge,
+  HeartPulse,
+  Save,
+  Zap
+} from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { NumericDictionaries } from './numeric-dictionaries'
 import { PurchasedItems } from './purchased-items'
+import { SaveMetadata } from './save-metadata'
 import { StatsItem } from './stats-item'
 import { TimePlayedEditor } from './time-played-editor'
 import { useSaveGame } from '@/hooks/use-save-game'
@@ -20,6 +30,7 @@ type RunStatsProps = {
 }
 
 export function RunStats({ saveGame, onUpdateSaveData }: RunStatsProps) {
+  const t = useTranslations('run_stats')
   const { getRunStatValue, handleStatChange } = useRunStats(
     saveGame,
     onUpdateSaveData
@@ -35,14 +46,15 @@ export function RunStats({ saveGame, onUpdateSaveData }: RunStatsProps) {
 
   return (
     <Card>
-      <CardHeader>
-        <CardTitle>{saveGame.teamName.value}</CardTitle>
+      <CardHeader className="space-y-3">
+        <CardTitle>{t('title')}</CardTitle>
         <CardDescription>
           <TimePlayedEditor
             timePlayed={saveGame.timePlayed.value}
             onTimePlayedChange={handleTimePlayedChange}
           />
         </CardDescription>
+        <SaveMetadata saveGame={saveGame} onUpdateSaveData={onUpdateSaveData} />
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -78,9 +90,40 @@ export function RunStats({ saveGame, onUpdateSaveData }: RunStatsProps) {
             onDecrease={() => handleStatChange('chargingStationCharge', -1)}
             disableDecrease={getRunStatValue('chargingStationCharge') <= 0}
           />
+          <StatsItem
+            icon={HeartPulse}
+            titleKey="lives"
+            value={getRunStatValue('lives').toString()}
+            onIncrease={() => handleStatChange('lives', 1)}
+            onDecrease={() => handleStatChange('lives', -1)}
+            disableDecrease={getRunStatValue('lives') <= 0}
+          />
+          <StatsItem
+            icon={BatteryCharging}
+            titleKey="charging_station_total"
+            value={getRunStatValue('chargingStationChargeTotal').toString()}
+            onIncrease={() => handleStatChange('chargingStationChargeTotal', 1)}
+            onDecrease={() =>
+              handleStatChange('chargingStationChargeTotal', -1)
+            }
+            disableDecrease={getRunStatValue('chargingStationChargeTotal') <= 0}
+          />
+          <StatsItem
+            icon={Save}
+            titleKey="save_level"
+            value={getRunStatValue('save level').toString()}
+            onIncrease={() => handleStatChange('save level', 1)}
+            onDecrease={() => handleStatChange('save level', -1)}
+            disableDecrease={getRunStatValue('save level') <= 0}
+          />
         </div>
         <Separator />
         <PurchasedItems
+          saveGame={saveGame}
+          onUpdateSaveData={onUpdateSaveData}
+        />
+        <Separator />
+        <NumericDictionaries
           saveGame={saveGame}
           onUpdateSaveData={onUpdateSaveData}
         />

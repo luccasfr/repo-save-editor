@@ -1,5 +1,3 @@
-'use client'
-
 import gitHubLogo from '@/assets/github-mark.svg'
 import gitHubLogoWhite from '@/assets/github-mark-white.svg'
 import { Star } from '@/components/star'
@@ -12,56 +10,50 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip'
 import { fetchGitHubStars } from '@/lib/fetch-github-stars'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useLayoutEffect, useState } from 'react'
 
-export function GitHubStars() {
-  const t = useTranslations('github_stars')
-  const [gitHubStars, setGitHubStars] = useState<number>(0)
-
-  useLayoutEffect(() => {
-    const fetch = async () => {
-      const stars = await fetchGitHubStars()
-      setGitHubStars(stars)
-    }
-    fetch()
-  }, [])
+export async function GitHubStars() {
+  const [t, gitHubStars] = await Promise.all([
+    getTranslations('github_stars'),
+    fetchGitHubStars()
+  ])
 
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Link
-            href="https://github.com/luccasfr/repo-save-editor"
-            target="_blank"
-          >
-            <Button variant="outline" className="group">
+          <Button asChild variant="outline" className="group">
+            <Link
+              href="https://github.com/luccasfr/repo-save-editor"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Image
                 src={gitHubLogo}
-                alt="logo"
+                alt=""
                 width={32}
                 height={32}
                 className="block size-4 dark:hidden"
               />
               <Image
                 src={gitHubLogoWhite}
-                alt="logo"
+                alt=""
                 width={32}
                 height={32}
                 className="hidden size-4 dark:block"
               />
-              <p className="font-sans">{t('title')}</p>
-              <div className="flex items-center gap-1">
+              <span className="font-sans">{t('title')}</span>
+              <span className="flex items-center gap-1">
                 <Star
                   className="size-4 transition-colors
                     group-hover:text-amber-500"
                 />
                 <NumberTicker value={gitHubStars} />
-              </div>
-            </Button>
-          </Link>
+              </span>
+            </Link>
+          </Button>
         </TooltipTrigger>
         <TooltipContent className="block md:hidden">
           {t(`description`)}

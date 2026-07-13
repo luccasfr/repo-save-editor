@@ -6,8 +6,11 @@ import type { SaveGame } from '@/model/save-game'
 export type RunStatKey =
   | 'level'
   | 'currency'
+  | 'lives'
   | 'totalHaul'
   | 'chargingStationCharge'
+  | 'chargingStationChargeTotal'
+  | 'save level'
 
 /**
  * Hook for managing game run statistics
@@ -27,7 +30,7 @@ export function useRunStats(
    * @param newValue - The new value for the statistic
    */
   const updateRunStatValue = (statName: RunStatKey, newValue: number) => {
-    const updatedSaveData = { ...saveData }
+    const updatedSaveData = structuredClone(saveData)
     updatedSaveData.dictionaryOfDictionaries.value.runStats[statName] = newValue
     onUpdateSaveData(updatedSaveData)
   }
@@ -39,7 +42,7 @@ export function useRunStats(
    * @param newValue - The new quantity value
    */
   const updatePurchasedItemValue = (itemName: string, newValue: number) => {
-    const updatedSaveData = { ...saveData }
+    const updatedSaveData = structuredClone(saveData)
     updatedSaveData.dictionaryOfDictionaries.value.itemsPurchased[itemName] =
       newValue
     updatedSaveData.dictionaryOfDictionaries.value.itemsPurchasedTotal[
@@ -61,7 +64,7 @@ export function useRunStats(
     minValue = 0
   ) => {
     const currentValue =
-      saveData.dictionaryOfDictionaries.value.runStats[statName]
+      saveData.dictionaryOfDictionaries.value.runStats[statName] ?? 0
     const newValue = Math.max(minValue, currentValue + change)
     updateRunStatValue(statName, newValue)
   }
@@ -91,7 +94,7 @@ export function useRunStats(
    * @returns The current value of the statistic
    */
   const getRunStatValue = (statName: RunStatKey) => {
-    return saveData.dictionaryOfDictionaries.value.runStats[statName]
+    return saveData.dictionaryOfDictionaries.value.runStats[statName] ?? 0
   }
 
   /**

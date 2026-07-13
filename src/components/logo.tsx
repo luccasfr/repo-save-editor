@@ -3,22 +3,11 @@
 import Image from 'next/image'
 import logo from '@/assets/closed.png'
 import logoOpen from '@/assets/open.png'
-import { useEffect, useState } from 'react'
+import { useBlinkingLogo } from '@/hooks/use-blinking-logo'
 import { cn } from '@/lib/utils'
 
 export function Logo() {
-  const [isOpen, setIsOpen] = useState(false)
-
-  useEffect(() => {
-    const randomInterval = Math.floor(Math.random() * (1500 - 100 + 1)) + 500
-    const timeout = setTimeout(() => {
-      setIsOpen(!isOpen)
-    }, randomInterval)
-
-    return () => {
-      clearTimeout(timeout)
-    }
-  }, [isOpen])
+  const isOpen = useBlinkingLogo()
 
   return (
     <>

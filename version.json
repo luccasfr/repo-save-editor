@@ -13,14 +13,14 @@
       "date": "2025-05-20 20:32",
       "changes": {
         "pt": [
-          "Adicionada opção de alterar os itens do save",
-          "Adicionada opção de efetuar buscar avatar da steam dos players",
-          "Adicionada opção de alterar a vida atual do player"
+          "Agora é possível editar os itens do save.",
+          "Adicionada busca por avatares Steam dos jogadores.",
+          "Agora é possível ajustar a vida atual de cada jogador."
         ],
         "en": [
-          "Added option to change save items",
-          "Added option to search for players steam avatars",
-          "Added option to change player current health"
+          "You can now edit save items.",
+          "Added Steam avatar search for players.",
+          "You can now adjust each player's current health."
         ]
       }
     },
@@ -49,10 +49,10 @@
       "date": "2025-05-30 20:50",
       "changes": {
         "pt": [
-          "Alterada a maneira de lidar com upgrades internamente, para permitir mais flexibilidade e facilidade de manutenção."
+          "Melhorias na edição de upgrades para tornar o editor mais confiável e flexível."
         ],
         "en": [
-          "Changed the way to handle upgrades internally, to allow more flexibility and ease of maintenance."
+          "Improved upgrade editing to make the editor more reliable and flexible."
         ]
       }
     },
@@ -61,12 +61,54 @@
       "date": "2025-06-10 22:43",
       "changes": {
         "pt": [
-          "Adiconada opção de excluir jogadores do save-game.",
-          "Ajuste visual na exibição da descrição do histórico de versões."
+          "Adicionada a opção de remover jogadores do save.",
+          "Melhorada a leitura do histórico de versões."
         ],
         "en": [
-          "Added option to delete players from the save-game.",
-          "Visual adjustment in the display of the version history description."
+          "Added the option to remove players from the save.",
+          "Improved the readability of version history."
+        ]
+      }
+    },
+    {
+      "version": "0.7.0",
+      "date": "2026-07-11 02:09",
+      "changes": {
+        "pt": [
+          "Compatibilidade ampliada com saves recentes, incluindo metadados, estatísticas, jogadores, coroa e novas melhorias de jogador.",
+          "Nos dados avançados, agora é possível adicionar, duplicar e remover blocos, mantendo as contagens de itens coerentes.",
+          "O catálogo de 67 itens permite escolher cada item pelo nome.",
+          "A coroa agora pertence a no máximo um jogador por vez.",
+          "Adicionado suporte a preferências de movimento reduzido e outras melhorias de acessibilidade.",
+          "Melhorada a estabilidade ao abrir o editor e ao trocar tema ou idioma.",
+          "Atualizações gerais para uma experiência mais segura e confiável."
+        ],
+        "en": [
+          "Expanded compatibility with recent saves, including metadata, statistics, players, crown, and new player upgrades.",
+          "Advanced save data can now add, duplicate, and remove blocks while keeping item counts consistent.",
+          "The 67-item catalog lets you choose each item by name.",
+          "The crown can now belong to at most one player at a time.",
+          "Added reduced-motion support and other accessibility improvements.",
+          "Improved stability when opening the editor and switching theme or language.",
+          "General updates for a safer and more reliable experience."
+        ]
+      }
+    },
+    {
+      "version": "0.8.0",
+      "date": "2026-07-13 09:59",
+      "changes": {
+        "pt": [
+          "Agora é possível editar o nome da equipe e a data do save com um calendário.",
+          "Campos de item e dados avançados agora têm busca, e a lista de sugestões acompanha a largura do campo.",
+          "A área de dados avançados ficou mais direta, com informações redundantes removidas.",
+          "Refinamentos de usabilidade, acessibilidade e consistência visual."
+        ],
+        "en": [
+          "You can now edit the team name and save date with a calendar.",
+          "Item and advanced-data fields now have search, and the suggestions list matches the field width.",
+          "The advanced save-data area is now more direct, with redundant information removed.",
+          "Usability, accessibility, and visual consistency refinements."
         ]
       }
     }

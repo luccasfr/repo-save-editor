@@ -25,8 +25,10 @@ export function TimePlayedEditor({
 }: TimePlayedEditorProps) {
   const t = useTranslations('run_stats')
   const [isOpen, setIsOpen] = useState(false)
-  const [hours, setHours] = useState(Math.floor(timePlayed / 3600))
-  const [minutes, setMinutes] = useState(Math.floor((timePlayed % 3600) / 60))
+  const [hours, setHours] = useState(() => Math.floor(timePlayed / 3600))
+  const [minutes, setMinutes] = useState(() =>
+    Math.floor((timePlayed % 3600) / 60)
+  )
   const [seconds, setSeconds] = useState(timePlayed % 60)
 
   const handleOpen = () => {

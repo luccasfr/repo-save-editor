@@ -1,4 +1,5 @@
 import { Footer } from '@/components/footer'
+import { MotionProvider } from '@/components/motion-provider'
 import { Navbar } from '@/components/navbar'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
@@ -44,14 +45,16 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NextIntlClientProvider>
-            <Navbar />
-            <div className="flex-1 space-y-4 px-6 pt-18 md:px-12">
-              {children}
-            </div>
-            <Footer />
-            <Toaster />
-          </NextIntlClientProvider>
+          <MotionProvider>
+            <NextIntlClientProvider>
+              <Navbar />
+              <div className="flex-1 space-y-4 px-6 pt-18 md:px-12">
+                {children}
+              </div>
+              <Footer />
+              <Toaster />
+            </NextIntlClientProvider>
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>

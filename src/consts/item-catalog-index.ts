@@ -1,0 +1,81 @@
+/**
+ * Positional `Resources/Items` catalog from R.E.P.O. v0.4.4.3.
+ * The game stores this zero-based position as each item instance's value.
+ * Values already present in a save take precedence over this catalog.
+ */
+const ITEM_CATALOG_NAMES = [
+  'Item Cart Cannon',
+  'Item Cart Laser',
+  'Item Cart Medium',
+  'Item Cart Small',
+  'Item Drone Battery',
+  'Item Drone Feather',
+  'Item Drone Indestructible',
+  'Item Drone Torque',
+  'Item Drone Zero Gravity',
+  'Item Duck Bucket',
+  'Item Extraction Tracker',
+  'Item Grenade Duct Taped',
+  'Item Grenade Explosive',
+  'Item Grenade Human',
+  'Item Grenade Shockwave',
+  'Item Grenade Stun',
+  'Item Gun Handgun',
+  'Item Gun Laser',
+  'Item Gun Shockwave',
+  'Item Gun Shotgun',
+  'Item Gun Stun',
+  'Item Gun Tranq',
+  'Item Health Pack Large',
+  'Item Health Pack Medium',
+  'Item Health Pack Small',
+  'Item Leaf Blower',
+  'Item Melee Baseball Bat',
+  'Item Melee Frying Pan',
+  'Item Melee Inflatable Hammer',
+  'Item Melee Sledge Hammer',
+  'Item Melee Stun Baton',
+  'Item Melee Sword',
+  'Item Mine Explosive',
+  'Item Mine Shockwave',
+  'Item Mine Stun',
+  'Item Orb Zero Gravity',
+  'Item Phase Bridge',
+  'Item Power Crystal',
+  'Item ReviveItem',
+  'Item Rubber Duck',
+  'Item Staff Torque',
+  'Item Staff Void',
+  'Item Staff Zero Gravity',
+  'Item Upgrade Death Head Battery',
+  'Item Upgrade Map Player Count',
+  'Item Upgrade Player Crouch Rest',
+  'Item Upgrade Player Energy',
+  'Item Upgrade Player Extra Jump',
+  'Item Upgrade Player Grab Range',
+  'Item Upgrade Player Grab Strength',
+  'Item Upgrade Player Health',
+  'Item Upgrade Player Sprint Speed',
+  'Item Upgrade Player Tumble Climb',
+  'Item Upgrade Player Tumble Launch',
+  'Item Upgrade Player Tumble Wings',
+  'Item Valuable Tracker',
+  'Item Vehicle Semiscooter Small',
+  'Item Vehicle Semiscooter',
+  'Item WalkieTalkieBox',
+  'Item Drone Heal',
+  'Item Orb Battery',
+  'Item Orb Feather',
+  'Item Orb Heal',
+  'Item Orb Indestructible',
+  'Item Orb Magnet',
+  'Item Orb Torque',
+  'Item WalkieTalkie'
+] as const
+
+export const ITEM_CATALOG_INDEX: Readonly<Record<string, number>> =
+  Object.fromEntries(
+    ITEM_CATALOG_NAMES.map((itemName, index) => [itemName, index])
+  )
+
+export const ITEM_CATALOG_KEYS = [...ITEM_CATALOG_NAMES]
