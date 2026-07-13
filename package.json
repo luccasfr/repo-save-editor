@@ -55,14 +55,5 @@
     "typescript": "^5.9.3"
   },
   "license": "MIT",
-  "packageManager": "pnpm@10.33.0",
-  "pnpm": {
-    "overrides": {
-      "postcss": "8.5.10",
-      "minimatch@10.2.4>brace-expansion": "5.0.6"
-    },
-    "patchedDependencies": {
-      "next-themes@0.4.6": "patches/next-themes@0.4.6.patch"
-    }
-  }
+  "packageManager": "pnpm@11.12.0"
 }
