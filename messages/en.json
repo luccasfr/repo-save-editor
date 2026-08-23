@@ -24,6 +24,7 @@
     "error": {
       "invalid_file_type": "Invalid file type!",
       "select_one_file": "Select only one file!",
+      "file_too_large": "The save file must be 5 MB or smaller.",
       "invalid_file": "Invalid file! Please upload a valid save game file."
     }
   },
@@ -40,7 +41,7 @@
     "players": "Players:",
     "load": "Load Save",
     "download": "Download",
-    "disclaimer": "The save game data is stored locally in your browser. It is not sent to any server and is deleted when you clear your browser cache or use incognito mode.",
+    "disclaimer": "Recent saves are stored locally in your browser and are deleted when you clear its data or use incognito mode. Save contents are sent to this app's server only while encrypting or decrypting and are not stored there.",
     "disable": "Disable history",
     "enable": "Enable history",
     "disabled": "History disabled",

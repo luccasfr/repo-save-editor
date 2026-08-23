@@ -5,7 +5,6 @@ import { SaveGameHistory } from '@/components/save-editor/save-game-history'
 import { Separator } from '@/components/ui/separator'
 import { UploadFile } from '@/components/upload-file'
 import { VersionHistory } from '@/components/version-history'
-import { ENCRYPTION_KEY } from '@/consts/encrypton-key'
 import { useSaveGameHistory } from '@/hooks/use-save-game-history'
 import { downloadSaveGame } from '@/lib/download-save-game'
 import { decryptEs3 } from '@/lib/es3-crypto'
@@ -41,7 +40,7 @@ export function SaveEditor() {
 
   const handleSave = async () => {
     if (!saveGame) return
-    downloadSaveGame(saveGame, fileName ?? 'savegame.es3')
+    await downloadSaveGame(saveGame, fileName ?? 'savegame.es3')
     setOriginalSaveData(structuredClone(saveGame))
   }
 
@@ -56,7 +55,7 @@ export function SaveEditor() {
   ) => {
     if (files.length > 0) {
       try {
-        const decrypted = await decryptEs3(files[0].base64, ENCRYPTION_KEY)
+        const decrypted = await decryptEs3(files[0].base64)
         const parsed = JSON.parse(decrypted) as SaveGame
         setSaveGame(parsed)
         setOriginalSaveData(structuredClone(parsed))

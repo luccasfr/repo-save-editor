@@ -23,7 +23,8 @@
     },
     "error": {
       "invalid_file_type": "Tipo de arquivo inválido!",
-      "select_one_file": "Selecione apenas um arquivo!"
+      "select_one_file": "Selecione apenas um arquivo!",
+      "file_too_large": "O arquivo de save deve ter no máximo 5 MB."
     }
   },
   "save_editor": {
@@ -39,7 +40,7 @@
     "players": "Jogadores:",
     "load": "Carregar Save",
     "download": "Baixar",
-    "disclaimer": "Os dados do save game são armazenados localmente no seu navegador. Eles não são enviados para nenhum servidor e são excluídos quando você limpa o cache do navegador ou usa o modo de navegação anônima.",
+    "disclaimer": "Os saves recentes ficam armazenados localmente no navegador e são excluídos quando você limpa os dados dele ou usa o modo anônimo. O conteúdo do save é enviado ao servidor deste app apenas durante a criptografia ou descriptografia e não é armazenado lá.",
     "disable": "Desabilitar histórico",
     "enable": "Habilitar histórico",
     "disabled": "Histórico desabilitado",

@@ -40,6 +40,8 @@ const emptySelection: FileSelection = {
   objectUrls: []
 }
 
+const MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024
+
 function readFileAsDataUrl(file: File): Promise<FileBase64> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -91,16 +93,20 @@ export function UploadFile({
   const acceptFiles = useCallback(
     async (incomingFiles: FileList) => {
       const nextFiles = [...incomingFiles]
-      replaceSelection(nextFiles)
-
       if (nextFiles.length === 0) return
+      if (nextFiles.some((file) => file.size > MAX_FILE_SIZE_BYTES)) {
+        toast.error(t('error.file_too_large'))
+        return
+      }
+
+      replaceSelection(nextFiles)
 
       const filesBase64 = await Promise.all(
         nextFiles.map((file) => readFileAsDataUrl(file))
       )
       onFilesChange?.(filesBase64)
     },
-    [onFilesChange, replaceSelection]
+    [onFilesChange, replaceSelection, t]
   )
 
   const handleDragOver = (event: DragEvent<HTMLButtonElement>) => {

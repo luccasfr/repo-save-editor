@@ -1,4 +1,3 @@
-import { ENCRYPTION_KEY } from '@/consts/encrypton-key'
 import { SaveGame } from '@/model/save-game'
 import { encryptEs3 } from './es3-crypto'
 
@@ -20,10 +19,7 @@ export async function downloadSaveGame(
     throw new TypeError('This function can only be used in the browser')
   }
 
-  const binaryData = await encryptEs3(
-    JSON.stringify(saveGame, null, 4),
-    ENCRYPTION_KEY
-  )
+  const binaryData = await encryptEs3(JSON.stringify(saveGame, null, 4))
   const blob = new Blob([binaryData as Uint8Array<ArrayBuffer>])
 
   const url = URL.createObjectURL(blob)
