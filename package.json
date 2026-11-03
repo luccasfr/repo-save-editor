@@ -1,6 +1,6 @@
 {
   "name": "repo-save-editor",
-  "version": "0.8.0",
+  "version": "0.10.0",
   "private": false,
   "scripts": {
     "dev": "next dev --turbopack",
@@ -55,5 +55,5 @@
     "typescript": "^5.9.3"
   },
   "license": "MIT",
-  "packageManager": "pnpm@11.12.0"
+  "packageManager": "pnpm@11.28.10"
 }
