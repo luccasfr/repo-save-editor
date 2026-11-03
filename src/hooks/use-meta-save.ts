@@ -1,6 +1,7 @@
 import type { MetaSave } from '@/model/meta-save'
 import {
   buildTokenStack,
+  buildUnlockAllCosmetics,
   isNumberList,
   isNumberListList,
   removeInvalidTokens,
@@ -77,6 +78,10 @@ export function useMetaSave({ metaSave, onUpdateMetaSave }: UseMetaSaveProps) {
   const dropInvalidTokens = (key: string) =>
     updateNumberList(key, (list) => removeInvalidTokens(list))
 
+  /** Replaces a cosmetic index list with every currently known cosmetic. */
+  const unlockAllCosmetics = (key: string) =>
+    updateNumberList(key, (list) => buildUnlockAllCosmetics(list))
+
   /** Appends an empty preset row to a list of presets. */
   const appendPreset = (key: string) =>
     updatePresetList(key, (list) => [...list, []])
@@ -114,6 +119,7 @@ export function useMetaSave({ metaSave, onUpdateMetaSave }: UseMetaSaveProps) {
     clear,
     setTokenCounts,
     dropInvalidTokens,
+    unlockAllCosmetics,
     appendPreset,
     removePreset,
     presetAppendNumbers,

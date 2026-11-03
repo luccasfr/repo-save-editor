@@ -12,8 +12,9 @@ O R.E.P.O Save Editor é uma aplicação web que permite modificar arquivos de s
 - Estatísticas de corrida e moedas
 - Itens comprados e melhorias
 - Configurações e ajustes de equipe
-- Cosméticos desbloqueados, predefinições e fichas de imposto (do arquivo de
-  perfil separado `MetaSave.es3`)
+- Cosméticos desbloqueados (incluindo desbloquear todos com um clique),
+  predefinições e fichas de imposto (do arquivo de perfil separado
+  `MetaSave.es3`)
 
 **Experimente agora: [https://repo-save-editor.vercel.app](https://repo-save-editor.vercel.app)**
 

@@ -147,6 +147,20 @@
           "Exported files now use compact JSON like the game instead of indented JSON, so the file no longer grows several times just from formatting."
         ]
       }
+    },
+    {
+      "version": "0.10.0",
+      "date": "2026-11-03 09:58",
+      "changes": {
+        "pt": [
+          "Adicionada uma ação de um clique para desbloquear todos os cosméticos no editor de meta save: ela adiciona todos os 557 cosméticos da versão atual do jogo à lista de desbloqueados.",
+          "A ação mantém índices existentes ou futuros e ignora entradas inválidas."
+        ],
+        "en": [
+          "Added a one-click \"Unlock all cosmetics\" action to the meta save editor: it adds all 557 cosmetics from the current game build to the unlock list.",
+          "The action keeps any existing or future unlock indices and skips invalid entries."
+        ]
+      }
     }
   ]
 }

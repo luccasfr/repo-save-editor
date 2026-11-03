@@ -137,6 +137,44 @@ export function removeInvalidTokens(tokens: readonly number[]): number[] {
 }
 
 /**
+ * Number of entries in `MetaManager.cosmeticAssets` in the current game build.
+ *
+ * Extracted from the serialized `MetaManager` component in `level0`
+ * (path_id 2873): a `List<CosmeticAsset>` with 557 PPtrs, all resolving to
+ * `"Cosmetic - ..."` objects in `sharedassets0.assets`. The game's
+ * `CosmeticUnlockAll()` adds every index `0..Count-1` to `cosmeticUnlocks`.
+ *
+ * Bump this when a game update adds cosmetics. Indices beyond the current
+ * list are harmless (every consumer does `cosmeticUnlocks.Contains(index)`),
+ * so existing extra entries are preserved when unlocking all.
+ */
+export const COSMETIC_ASSET_COUNT = 557
+
+/**
+ * Builds the full `cosmeticUnlocks` list: every current cosmetic index plus
+ * any valid index already present (so future/game-update indices survive).
+ * Negative and non-integer entries are dropped and the result is sorted.
+ *
+ * @param existing - The current `cosmeticUnlocks` values
+ * @returns Every index `0..COSMETIC_ASSET_COUNT-1`, merged with `existing`
+ */
+export function buildUnlockAllCosmetics(existing: readonly number[]): number[] {
+  const indices = new Set<number>()
+
+  for (const index of existing) {
+    if (Number.isInteger(index) && index >= 0) {
+      indices.add(index)
+    }
+  }
+
+  for (let index = 0; index < COSMETIC_ASSET_COUNT; index += 1) {
+    indices.add(index)
+  }
+
+  return [...indices].toSorted((a, b) => a - b)
+}
+
+/**
  * True when `value` is an array of number arrays, the shape of the game's
  * `List<List<int>>` fields (cosmetic and color presets).
  */

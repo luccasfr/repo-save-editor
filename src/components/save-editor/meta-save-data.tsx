@@ -5,6 +5,7 @@ import { NumberChipList } from '@/components/save-editor/number-chip-list'
 import { PresetRows } from '@/components/save-editor/preset-rows'
 import { SaveDataActionButton } from '@/components/save-editor/save-data'
 import { TokenCounts } from '@/components/save-editor/token-counts'
+import { UnlockAllCosmetics } from '@/components/save-editor/unlock-all-cosmetics'
 import { useMetaSave, type MetaActions } from '@/hooks/use-meta-save'
 import {
   META_SAVE_KEYS,
@@ -180,13 +181,21 @@ function MetaSection({
         ))}
       {kind === 'chips' &&
         (isNumberList(value) ? (
-          <NumberChipList
-            values={value}
-            inputId={`${section.key}-add`}
-            onAdd={(newValues) => meta.appendNumbers(section.key, newValues)}
-            onRemove={(removed) => meta.removeValue(section.key, removed)}
-            onClear={() => meta.clear(section.key)}
-          />
+          <div className="space-y-3">
+            {section.key === 'cosmeticUnlocks' ? (
+              <UnlockAllCosmetics
+                values={value}
+                onUnlockAll={() => meta.unlockAllCosmetics(section.key)}
+              />
+            ) : null}
+            <NumberChipList
+              values={value}
+              inputId={`${section.key}-add`}
+              onAdd={(newValues) => meta.appendNumbers(section.key, newValues)}
+              onRemove={(removed) => meta.removeValue(section.key, removed)}
+              onClear={() => meta.clear(section.key)}
+            />
+          </div>
         ) : (
           <RawValue value={value} />
         ))}
