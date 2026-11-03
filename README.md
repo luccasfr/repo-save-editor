@@ -14,6 +14,8 @@ R.E.P.O Save Editor is a web application that allows you to modify R.E.P.O game 
 - Run stats and currencies
 - Purchased items and upgrades
 - Team settings and configurations
+- Cosmetic unlocks, presets, and tax tokens (from the separate `MetaSave.es3`
+  profile file)
 
 **Try it now: [https://repo-save-editor.vercel.app](https://repo-save-editor.vercel.app)**
 
@@ -54,6 +56,10 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to access th
 3. Make your desired changes
 4. Download the modified save file
 5. Replace your original save file with the modified one
+
+> Cosmetics and tax tokens are stored separately in
+> `%USERPROFILE%\AppData\LocalLow\semiwork\Repo\MetaSave.es3`. Upload that file
+> the same way to edit them.
 
 ## Building for Production
 
