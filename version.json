@@ -111,6 +111,56 @@
           "Usability, accessibility, and visual consistency refinements."
         ]
       }
+    },
+    {
+      "version": "0.9.0",
+      "date": "2026-11-02 16:02",
+      "changes": {
+        "pt": [
+          "Novo editor de meta save: agora o app detecta automaticamente o arquivo MetaSave.es3 e abre cosméticos e fichas de imposto em uma tela própria.",
+          "É possível editar fichas de imposto, cosméticos desbloqueados, equipados, histórico, predefinições de cosméticos e de cor.",
+          "Fichas de imposto agora são rotuladas por raridade: Comum, Incomum, Rara e Ultra-Rara.",
+          "Chaves não reconhecidas e formatos inesperados são mostrados somente leitura e preservados sem alterações ao salvar.",
+          "A tela de upload agora indica o local do arquivo de meta save."
+        ],
+        "en": [
+          "New meta save editor: the app now auto-detects the MetaSave.es3 file and opens cosmetics and tax tokens in a dedicated view.",
+          "You can edit tax tokens, unlocked cosmetics, equipped cosmetics, history, cosmetic and color presets.",
+          "Tax tokens are now labeled by rarity: Common, Uncommon, Rare, and Ultra-Rare.",
+          "Unrecognized keys and unexpected formats are shown read-only and preserved unchanged when saving.",
+          "The upload screen now shows where the meta save file lives."
+        ]
+      }
+    },
+    {
+      "version": "0.9.1",
+      "date": "2026-11-03 09:40",
+      "changes": {
+        "pt": [
+          "Corrigido o formato das fichas de imposto: o jogo armazena uma ficha por entrada (com a raridade dela), não uma contagem por raridade. Valores inválidos apareciam como uma ficha cinza e travavam a máquina de loja.",
+          "O editor de fichas agora usa contagens por raridade (Comum, Incomum, Rara e Ultra-Rara), com opção de definir todas de uma vez e de remover fichas inválidas.",
+          "Arquivos exportados agora usam JSON compacto, como o jogo, em vez de indentado — o arquivo deixa de crescer várias vezes só pela formatação."
+        ],
+        "en": [
+          "Fixed the tax token format: the game stores one entry per token (holding that token's rarity), not a per-rarity count. Invalid values showed up as a gray token and made the shop machine hang.",
+          "The token editor now uses per-rarity counts (Common, Uncommon, Rare, and Ultra-Rare), with a set-all option and a one-click way to remove invalid tokens.",
+          "Exported files now use compact JSON like the game instead of indented JSON, so the file no longer grows several times just from formatting."
+        ]
+      }
+    },
+    {
+      "version": "0.10.0",
+      "date": "2026-11-03 09:58",
+      "changes": {
+        "pt": [
+          "Adicionada uma ação de um clique para desbloquear todos os cosméticos no editor de meta save: ela adiciona todos os 557 cosméticos da versão atual do jogo à lista de desbloqueados.",
+          "A ação mantém índices existentes ou futuros e ignora entradas inválidas."
+        ],
+        "en": [
+          "Added a one-click \"Unlock all cosmetics\" action to the meta save editor: it adds all 557 cosmetics from the current game build to the unlock list.",
+          "The action keeps any existing or future unlock indices and skips invalid entries."
+        ]
+      }
     }
   ]
 }

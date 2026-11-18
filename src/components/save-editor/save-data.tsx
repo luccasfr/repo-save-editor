@@ -21,7 +21,7 @@ type SaveDataActionButtonProps = {
   disabled?: boolean
 }
 
-function SaveDataActionButton({
+export function SaveDataActionButton({
   icon: Icon,
   label,
   onClick,

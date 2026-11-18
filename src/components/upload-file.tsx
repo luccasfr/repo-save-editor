@@ -219,6 +219,13 @@ export function UploadFile({
     toast.success(t('success.copy'))
   }, [t])
 
+  const handleCopyMeta = useCallback(() => {
+    navigator.clipboard.writeText(
+      String.raw`%USERPROFILE%\AppData\LocalLow\semiwork\Repo\MetaSave.es3`
+    )
+    toast.success(t('success.copy'))
+  }, [t])
+
   return (
     <div className="space-y-2">
       <Input
@@ -310,6 +317,21 @@ export function UploadFile({
             <Copy className="size-3" />
           </Button>
           <p>%USERPROFILE%\AppData\LocalLow\semiwork\Repo\saves</p>
+        </div>
+        <p>{t(`meta_save.info`)}</p>
+        <div
+          className="border-input relative rounded border-[1px] py-2 pr-8 pl-3
+            font-mono break-all"
+        >
+          <Button
+            variant="outline"
+            className="absolute top-1/2 right-2 size-6 -translate-y-1/2"
+            size="icon"
+            onClick={handleCopyMeta}
+          >
+            <Copy className="size-3" />
+          </Button>
+          <p>%USERPROFILE%\AppData\LocalLow\semiwork\Repo\MetaSave.es3</p>
         </div>
       </div>
     </div>
